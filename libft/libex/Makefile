@@ -1,0 +1,34 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -Ofast -I./includes
+NAME = libex.a
+header = libex.h
+
+src =./is_ranges.c ./is_n_char.c ./ft_free_return.c ./ft_isprintable.c ./free_ss.c ./ft_strrncmp.c ./ft_get_next_line.c ./ft_xmalloc.c ./ft_fatal.c ./ft_split_charset.c ./ft_strndup.c ./ft_isspace.c ./is_n_split.c ./ft_strcmp.c
+
+all: $(NAME)
+
+obj = $(src:%.c=%.o)
+
+$(NAME): $(obj)
+	$(AR) -rc $(NAME) $(obj)
+	ranlib $(NAME)
+
+clean:
+	$(RM) $(obj)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re srcs header
+
+srcs:
+	sed -i -e "1,/src =/ s|src =.*|src =`find . -type f -name "*.c" | tr '\n' ' '`|" Makefile
+
+proto = $(shell cat *.c | grep -e '^\(int\|void\|size_t\|t_.*\|char\|float\|double\|struct\|unsigned\|short\|const\|long\|bool\|signed\)\t' | sed -e 's/$$/;\\n/')
+
+header:
+	sed -i -e '/^\(int\|void\|size_t\|t_.*\|char\|float\|double\|struct\|unsigned\|short\|const\|long\|bool\|signed\)\t/d' $(header)
+	sed -i -e "/Prototypes$$/a$(proto)" $(header)
+	sed -i -e 's/^ //' $(header)
