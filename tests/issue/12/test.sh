@@ -40,7 +40,10 @@ echo " pwd echo" | minishell >> output
 echo "pwd is not implemented yet" >> expect
 
 echo "aaa echo" | minishell >> output
-echo "aaa" >> expect
+echo -e "aaa\necho" >> expect
+
+echo "" | minishell
+echo "    " | minishell
 
 diff output expect
 
