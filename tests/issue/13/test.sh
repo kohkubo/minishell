@@ -25,26 +25,14 @@ echo "echo -n test test tset" | bash >> expect
 echo "echo a" | minishell >> output
 echo "echo a" | bash >> expect
 
-echo "echo \n \n" | minishell >> output
-echo "echo \n \n" | bash >> expect
-
-echo "echo test\\ntest" | minishell >> output
-echo "echo test\\ntest" | bash >> expect
-
-echo "echo test\\cttest" | minishell >> output
-echo "echo test\\cttest" | bash >> expect
-
-echo "echo test\\vttest" | minishell >> output
-echo "echo test\\vttest" | bash >> expect
-
-echo "echo test\\vttest" | minishell >> output
-echo "echo test\\vttest" | bash >> expect
-
 echo "echo test*ttest" | minishell >> output
 echo "echo test*ttest" | bash >> expect
 
+echo "echo あいう" | minishell >> output
+echo "echo あいう" | bash >> expect
+
 diff output expect
-export RES=$?
+RES=$?
 rm expect output minishell
 cd "$PWD" || exit
 exit $RES
