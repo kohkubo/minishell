@@ -5,5 +5,5 @@
 # include <stdio.h>
 # include <stdarg.h>
 // Prototypes
-int	ft_echo(int, ...);
+int	ft_echo(int n, ...);
 #endif
