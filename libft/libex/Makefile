@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Ofast -I./includes
+CFLAGS = -Wall -Wextra -Werror -Ofast
 NAME = libex.a
 header = libex.h
 
