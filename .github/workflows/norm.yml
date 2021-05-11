@@ -34,7 +34,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run Norminette.
-        run: norminette .
+        run: norminette ./srcs && norminette ./includes && norminette ./libft
 
       - name: Run Test.
         run: bash ./all-test.sh
