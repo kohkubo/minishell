@@ -16,6 +16,9 @@ $(NAME): $(obj)
 
 clean:
 	# $(MAKE) clean -C ./libft
+	@find ./tests -type f -name output -exec rm {} \;
+	@find ./tests -type f -name minishell -exec rm {} \;
+	@find ./tests -type f -name expect -exec rm {} \;
 	$(RM) $(obj)
 
 fclean: clean

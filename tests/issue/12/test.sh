@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 echo "=============test12================"
 cp minishell "$(dirname "$0")"
 cd "$(dirname "$0")" || exit
@@ -46,7 +48,7 @@ echo "" | minishell
 echo "    " | minishell
 
 diff output expect
-
+RES=$?
 rm expect output minishell
-
 cd "$PWD" || exit
+exit $RES
