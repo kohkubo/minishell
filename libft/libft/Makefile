@@ -1,9 +1,9 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Ofast -I./includes
+CFLAGS = -Wall -Wextra -Werror -Ofast
 NAME = libft.a
 header = libft.h
 
-src =
+src =./ft_strncmp.c
 
 all: $(NAME)
 

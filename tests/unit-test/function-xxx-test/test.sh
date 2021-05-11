@@ -1,2 +1,2 @@
-echo $1
-echo "test1"
+# echo $1
+# echo "test1"
