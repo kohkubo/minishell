@@ -3,7 +3,11 @@ CFLAGS = -Wall -Wextra -Werror -Ofast -I./includes
 NAME = libex.a
 header = libex.h
 
-src =
+src = \
+ft_xmalloc.c\
+free_set.c\
+ft_strndup.c\
+get_next_line.c\
 
 all: $(NAME)
 
