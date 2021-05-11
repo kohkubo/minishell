@@ -1,5 +1,8 @@
-set -e
+#!/bin/bash
 
-for path in `find ./tests -type f -name test.sh`;
-do echo $path; bash $path; 
+set -e
+make
+
+for path in $(find ./tests -type f -name test.sh);
+	do echo "$path"; bash "$path";
 done

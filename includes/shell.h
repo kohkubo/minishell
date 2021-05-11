@@ -2,6 +2,6 @@
 # define SHELL_H
 # include "../libft/libft/libft.h"
 # include "../libft/libex/libex.h"
+# include <stdio.h>
 // Prototypes
-int	main(void);
 #endif

@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror -Ofast -I./includes
 NAME = libex.a
 header = libex.h
 
-src =./is_ranges.c ./is_n_char.c ./ft_free_return.c ./ft_isprintable.c ./free_ss.c ./ft_strrncmp.c ./ft_get_next_line.c ./ft_xmalloc.c ./ft_fatal.c ./ft_split_charset.c ./ft_strndup.c ./ft_isspace.c ./is_n_split.c ./ft_strcmp.c
+src =
 
 all: $(NAME)
 
