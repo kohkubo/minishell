@@ -19,4 +19,9 @@ gcc test.c $(find $REPO_ROOT/srcs -type f -name echo.c) $REPO_ROOT/libft/libft/l
 
 ./a.out
 diff expect output
+RES=$?
+
 rm expect output a.out
+
+cd "$PWD" || exit
+exit $RES
