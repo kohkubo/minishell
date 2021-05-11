@@ -39,3 +39,9 @@ header:
 	sed -i -e '/^\(int\|void\|size_t\|t_.*\|char\|float\|double\|struct\|unsigned\|short\|const\|long\|bool\|signed\)\t/d' $(header)
 	sed -i -e "/Prototypes$$/a $(proto)" $(header)
 	sed -i -e 's/^ //' $(header)
+
+test_unit:
+	bash ./tests/unit-test/test-unit.sh
+
+test_issue:
+	bash ./tests/issue/test-issue.sh
