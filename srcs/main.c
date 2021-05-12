@@ -9,7 +9,6 @@ int	main(void)
 	status = 1;
 	while (status)
 	{
-		ft_putstr_fd("> ", 1);
 		if (get_next_line(0, &input) <= 0)
 			break ;
 		ft_putendl_fd(input, 1);
