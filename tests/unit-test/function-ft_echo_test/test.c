@@ -1,5 +1,8 @@
 #include <stdio.h>
-#include <libc.h>
+#include <stdint.h>
+#include <unistd.h>
+#include <fcntl.h>
+
 #include "./../../../includes/shell.h"
 
 int	main(void)
