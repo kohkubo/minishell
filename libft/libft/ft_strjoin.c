@@ -6,7 +6,7 @@
 /*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 07:48:12 by ywake             #+#    #+#             */
-/*   Updated: 2020/09/20 01:44:32 by ywake            ###   ########.fr       */
+/*   Updated: 2021/05/12 13:47:39 by ywake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	len2;
 
 	bufsize = ft_strlen(s1) + ft_strlen(s2) + 1;
-	if ((buf = (char *)malloc(bufsize * sizeof(char))) == NULL)
+	buf = (char *)malloc(bufsize * sizeof(char));
+	if (buf == NULL)
 		return (NULL);
 	len1 = 0;
 	while (s1 != NULL && *s1)
