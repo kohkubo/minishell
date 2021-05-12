@@ -4,4 +4,5 @@
 # include "../libft/libex/libex.h"
 # include <stdio.h>
 // Prototypes
+void	parse(char *input);
 #endif
