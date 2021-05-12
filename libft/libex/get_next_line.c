@@ -6,7 +6,7 @@
 /*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 01:18:32 by ywake             #+#    #+#             */
-/*   Updated: 2021/05/11 19:04:37 by ywake            ###   ########.fr       */
+/*   Updated: 2021/05/12 13:48:04 by ywake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #define BUFFER_SIZE (1000)
 
-int		myabort(char *rdbuf, char **line, char **remain)
+int	myabort(char *rdbuf, char **line, char **remain)
 {
 	free_set((void **)&rdbuf, NULL);
 	free_set((void **)line, NULL);
@@ -22,7 +22,7 @@ int		myabort(char *rdbuf, char **line, char **remain)
 	return (-1);
 }
 
-int		ret(ssize_t rdrtn, char *rdbuf, char **line, char **remain)
+int	ret(ssize_t rdrtn, char *rdbuf, char **line, char **remain)
 {
 	free_set((void **)&rdbuf, NULL);
 	if (rdrtn > 0)
@@ -32,7 +32,7 @@ int		ret(ssize_t rdrtn, char *rdbuf, char **line, char **remain)
 	return (rdrtn);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	char		*rdbuf;
 	static char	*remain[1];

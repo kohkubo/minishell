@@ -11,6 +11,7 @@ int	main(void)
 	{
 		ft_putstr_fd("> ", 1);
 		if (get_next_line(0, &input) <= 0)
+			break ;
 		ft_putendl_fd(input, 1);
 		free(input);
 	}

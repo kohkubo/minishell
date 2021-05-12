@@ -8,6 +8,7 @@ ft_xmalloc.c\
 free_set.c\
 ft_strndup.c\
 get_next_line.c\
+min.c\
 
 all: $(NAME)
 
