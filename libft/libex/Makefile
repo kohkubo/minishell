@@ -1,11 +1,16 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Ofast
+CFLAGS = -Wall -Wextra -Werror -O3 -includes
 NAME = libex.a
 header = libex.h
 
 src =
 
 all: $(NAME)
+
+uname := $(shell uname)
+ifeq ($(uname),Linux)
+    CC += -I$(mlx_dir)
+endif
 
 obj = $(src:%.c=%.o)
 

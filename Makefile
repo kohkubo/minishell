@@ -1,10 +1,15 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Ofast -I./includes
+CFLAGS = -Wall -Wextra -Werror -O3 -I./includes
 NAME = minishell
 header = ./includes/shell.h
 libft = ./libft/libft/libft.a #./libft/libex/libex.a
 
 src =./srcs/main.c ./srcs/echo.c
+
+uname := $(shell uname)
+ifeq ($(uname),Linux)
+    CC += -I$(mlx_dir)
+endif
 
 all: $(NAME)
 

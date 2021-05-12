@@ -1,9 +1,14 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Ofast
+CFLAGS = -Wall -Wextra -Werror -O3
 NAME = libft.a
 header = libft.h
 
 src =./ft_strncmp.c
+
+uname := $(shell uname)
+ifeq ($(uname),Linux)
+    CC += -I$(mlx_dir)
+endif
 
 all: $(NAME)
 
