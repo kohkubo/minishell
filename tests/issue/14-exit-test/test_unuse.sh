@@ -54,7 +54,7 @@ echo $? >> expect
 
 echo "exit aaaa" | ./minishell 2>> output
 echo $? >> output
-echo "minishell: line 1: exit: a: numeric argument required" >> expect
+echo "minishell: line 1: exit: aaaa: numeric argument required" >> expect
 echo "exit aaaa" | bash
 echo $? >> expect
 
