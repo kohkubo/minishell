@@ -2,7 +2,7 @@
 
 #define BUFFER_SIZE (1000)
 
-int	myabort(char *rdbuf, char **line, char **remain)
+static int	myabort(char *rdbuf, char **line, char **remain)
 {
 	free_set((void **)&rdbuf, NULL);
 	free_set((void **)line, NULL);
@@ -10,7 +10,7 @@ int	myabort(char *rdbuf, char **line, char **remain)
 	return (-1);
 }
 
-int	ret(ssize_t rdrtn, char *rdbuf, char **line, char **remain)
+static int	ret(ssize_t rdrtn, char *rdbuf, char **line, char **remain)
 {
 	free_set((void **)&rdbuf, NULL);
 	if (rdrtn > 0)

@@ -1,18 +1,15 @@
 #include "../includes/shell.h"
-#include <stdio.h>
 
 int	main(void)
 {
-	int		status;
 	char	*input;
 
-	status = 1;
-	while (status)
+	while (1)
 	{
 		if (get_next_line(0, &input) <= 0)
 			break ;
 		parse(input);
-		free(input);
+		free_set((void **)&input, NULL);
 	}
 	return (0);
 }

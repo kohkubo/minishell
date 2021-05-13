@@ -15,7 +15,7 @@ static char	**free_all(char **buf)
 	return (NULL);
 }
 
-char	**cut_word(char const *s, char c, char **buf)
+static char	**cut_word(char const *s, char c, char **buf)
 {
 	const char	*ptr;
 	size_t		len;
