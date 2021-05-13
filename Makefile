@@ -27,7 +27,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re srcs header
+.PHONY: all clean fclean re srcs header test test_issue test_unit
 
 srcs:
 	sed -i '' -e "1,/src =/ s|src =.*|src =`find ./srcs -type f -name "*.c" | tr '\n' ' '`|" Makefile
@@ -38,3 +38,12 @@ header:
 	sed -i -e '/^\(int\|void\|size_t\|t_.*\|char\|float\|double\|struct\|unsigned\|short\|const\|long\|bool\|signed\)\t/d' $(header)
 	sed -i -e "/Prototypes$$/a $(proto)" $(header)
 	sed -i -e 's/^ //' $(header)
+
+test:
+	bash ./all-test.sh
+
+test_unit:
+	bash ./tests/unit-test/test-unit.sh
+
+test_issue:
+	bash ./tests/issue/test-issue.sh
