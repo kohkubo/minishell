@@ -2,27 +2,27 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Ofast -I./includes
 NAME = minishell
 header = ./includes/shell.h
-libft = #./libft/libft/libft.a ./libft/libex/libex.a
+libft = ./libft/libft/libft.a ./libft/libex/libex.a
 
-src =./srcs/main.c
+src =./srcs/main.c ./srcs/parse.c
 
 all: $(NAME)
 
 obj = $(src:%.c=%.o)
 
 $(NAME): $(obj)
-	# $(MAKE) -C ./libft
+	$(MAKE) -C ./libft
 	$(CC) $(CFLAGS) $(obj) $(libft) -o $(NAME)
 
 clean:
-	# $(MAKE) clean -C ./libft
+	$(MAKE) clean -C ./libft
 	@find ./tests -type f -name output -exec rm {} \;
 	@find ./tests -type f -name minishell -exec rm {} \;
 	@find ./tests -type f -name expect -exec rm {} \;
 	$(RM) $(obj)
 
 fclean: clean
-	# $(MAKE) fclean -C ./libft
+	$(MAKE) fclean -C ./libft
 	$(RM) $(NAME)
 
 re: fclean all
