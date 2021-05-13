@@ -4,6 +4,7 @@ set -e
 
 make
 
-for path in $(find ./tests -type f -name test.sh);
-	do echo "$path"; bash "$path";
-done
+export REPO_ROOT=$PWD
+
+bash ./tests/unit-test/test-units.sh
+bash ./tests/issue/test-issues.sh
