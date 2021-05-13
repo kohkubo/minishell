@@ -5,4 +5,5 @@
 # include <stdio.h>
 // Prototypes
 void	parse(char *input);
+int		ft_exit(char **arg);
 #endif
