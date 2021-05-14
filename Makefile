@@ -43,7 +43,7 @@ test:
 	bash ./all-test.sh
 
 test_unit:
-	bash ./tests/unit-test/test-unit.sh
+	bash ./tests/unit-test/test-units.sh
 
 test_issue:
-	bash ./tests/issue/test-issue.sh
+	bash ./tests/issue/test-issues.sh
