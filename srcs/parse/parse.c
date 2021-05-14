@@ -32,4 +32,5 @@ void	parse(char *input)
 		ft_putendl_fd(buf[i], 1);
 		i++;
 	}
+	buf = free_string_array(buf);
 }

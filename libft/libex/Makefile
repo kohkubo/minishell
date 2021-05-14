@@ -10,6 +10,7 @@ ft_strndup.c\
 get_next_line.c\
 min.c\
 is_contain.c\
+free_string_array.c\
 
 all: $(NAME)
 

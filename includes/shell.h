@@ -3,7 +3,6 @@
 # include "../libft/libft/libft.h"
 # include "../libft/libex/libex.h"
 # include <stdio.h>
-char	**get_reserved(char *reserved[8]);
-void	parse(char *input);
 int		ft_exit(char **arg);
+void	parse(char *input);
 #endif

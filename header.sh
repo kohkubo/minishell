@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/zsh
 
 CUR_DIR=$(dirname "$0")
 NAME_H=${CUR_DIR}/includes/shell.h
 
-prot=$(cat ${CUR_DIR}/srcs/*.c | sed -e '/^[a-zA-Z].*)$/!d' -e '/^static/d' -e "s/)$/);/g")
+prot=$(cat ${CUR_DIR}/srcs/**/*.c | sed -e '/^[a-zA-Z].*)$/!d' -e '/^static/d' -e "s/)$/);/g")
 TABS=$(echo "${prot}" | sed 's/\t.*//g' | awk '{print length($0)}' | sort -nr | head -n 1 | xargs -I{} expr {} / 4 + 1)
 
 header="$(sed -e "/^[a-zA-Z][a-zA-Z_0-9]*.*);$/d" -e '/#endif/d' -e '/^$/d' ${NAME_H})
