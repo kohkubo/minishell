@@ -18,7 +18,7 @@ void	parse(char *input)
 	if (buf[0] != NULL && i != -1)
 	{
 		if (g_reserved_funcs[i] != NULL)
-			g_reserved_funcs[i](buf);
+			g_reserved_funcs[i](&buf[1]);
 		else
 		{
 			ft_putstr_fd(buf[0], 1);
