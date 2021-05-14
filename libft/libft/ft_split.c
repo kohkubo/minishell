@@ -1,20 +1,5 @@
 #include "libft.h"
 
-static char	**free_all(char **buf)
-{
-	size_t	i;
-
-	i = 0;
-	while (buf[i])
-	{
-		free(buf[i]);
-		buf[i] = NULL;
-		i++;
-	}
-	free(buf);
-	return (NULL);
-}
-
 static char	**cut_word(char const *s, char c, char **buf)
 {
 	const char	*ptr;
@@ -32,7 +17,7 @@ static char	**cut_word(char const *s, char c, char **buf)
 		{
 			buf[i] = ft_substr(s, 0, len);
 			if (buf[i++] == NULL)
-				buf = free_all(buf);
+				buf = free_string_array(buf);
 		}
 		s += len + (s[len] != '\0');
 	}

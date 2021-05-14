@@ -4,7 +4,9 @@ NAME = minishell
 header = ./includes/shell.h
 libft = ./libft/libft/libft.a ./libft/libex/libex.a
 
-src =./srcs/main.c ./srcs/parse.c
+src =./srcs/main.c\
+./srcs/parse/parse.c\
+./srcs/built-in/ft_exit.c\
 
 all: $(NAME)
 
