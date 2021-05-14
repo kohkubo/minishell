@@ -32,12 +32,10 @@ re: fclean all
 srcs:
 	sed -i '' -e "1,/src =/ s|src =.*|src =`find ./srcs -type f -name "*.c" | tr '\n' ' '`|" Makefile
 
-proto = $(shell cat ./srcs/*.c | grep -e '^\(int\|void\|size_t\|t_.*\|char\|float\|double\|struct\|unsigned\|short\|const\|long\|bool\|signed\)\t' | sed -e 's/$$/;\\n/')
-
 header:
-	sed -i -e '/^\(int\|void\|size_t\|t_.*\|char\|float\|double\|struct\|unsigned\|short\|const\|long\|bool\|signed\)\t/d' $(header)
-	sed -i -e "/Prototypes$$/a $(proto)" $(header)
-	sed -i -e 's/^ //' $(header)
+	bash header.sh
+	bash libft/libft/header.sh
+	bash libft/libex/header.sh
 
 test:
 	bash ./all-test.sh

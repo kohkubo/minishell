@@ -3,6 +3,6 @@
 # include "../libft/libft/libft.h"
 # include "../libft/libex/libex.h"
 # include <stdio.h>
-// Prototypes
+char	**get_reserved(char *reserved[8]);
 void	parse(char *input);
 #endif
