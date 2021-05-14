@@ -3,6 +3,6 @@
 int	ft_exit(char **arg)
 {
 	(void)arg;
-	ft_putendl_fd("this is exit!", 1);
+	ft_putendl_fd("exit is not implemented yet", 1);
 	return (0);
 }
