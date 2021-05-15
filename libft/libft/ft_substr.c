@@ -2,7 +2,9 @@
 
 static size_t	ft_min(size_t a, size_t b)
 {
-	return ((a < b) ? (a) : (b));
+	if (a < b)
+		return (a);
+	return (b);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
