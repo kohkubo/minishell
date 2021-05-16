@@ -7,6 +7,7 @@ libft = ./libft/libft/libft.a ./libft/libex/libex.a
 src =./srcs/main.c\
 ./srcs/parse/parse.c\
 ./srcs/built-in/ft_exit.c\
+./srcs/built-in/echo.c\
 
 all: $(NAME)
 
