@@ -36,12 +36,16 @@ test_echo "a - a sdfsd"
 # ダブルクオテーションで括って渡すと、-の解釈のされ方が変わるため、このテストケースをエスケープ
 test_echo "-n a ljkjkl lkfjhioagjhio radggjriprehn  l;sjgkkl;sdgjladjrt hipj afdslghkeatl; "
 test_echo "a ljkjkl lkfjhioagjhio radggjrip -nrehn   -n l;sjgkkl;sdgjladjrt hipj afdslghkeatl; "
+test_echo "あいうえお"
+test_echo "-n あいうえお"
+test_echo "あいうえお -n かきくけこ"
 test_echo "455555555555555555555555555555555555555555"
 test_echo "-n               sdg                            f gdf                  f"
 test_echo "'"
 test_echo "'"
 test_echo "'aaaaaaa    '  aaaaaaaaaaaaa' "
 test_echo '    s  ffffffff f dg '
+test_echo "'-n test'     test"
 
 echo "========= test1 ========="
 diff expect output
