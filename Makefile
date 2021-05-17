@@ -4,9 +4,10 @@ NAME = minishell
 header = ./includes/shell.h
 libft = ./libft/libft/libft.a ./libft/libex/libex.a
 
-src =./srcs/main.c\
-./srcs/parse/parse.c\
-./srcs/built-in/ft_exit.c\
+src =\
+	./srcs/parse/parse.c \
+	./srcs/built-in/ft_exit.c \
+	./srcs/main.c \
 
 all: $(NAME)
 
@@ -29,15 +30,11 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re srcs header test test_issue test_unit
+.PHONY: all clean fclean re init test test_issue test_unit header
 
-srcs:
-	sed -i '' -e "1,/src =/ s|src =.*|src =`find ./srcs -type f -name "*.c" | tr '\n' ' '`|" Makefile
-
-header:
-	bash header.sh
-	bash libft/libft/header.sh
-	bash libft/libex/header.sh
+init:
+	$(MAKE) init -C ./libft
+	zsh header.sh
 
 test:
 	bash ./all-test.sh

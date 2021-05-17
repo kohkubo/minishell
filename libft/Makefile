@@ -15,9 +15,9 @@ fclean: clean
 	$(MAKE) fclean -C ./libex
 	$(RM) $(NAME)
 
-srcs: fclean
-	$(MAKE) srcs -C ./libft
-	$(MAKE) srcs -C ./libex
+init:
+	$(MAKE) init -C ./libft
+	$(MAKE) init -C ./libex
 
 re: fclean all
 
