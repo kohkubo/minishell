@@ -64,4 +64,4 @@ sani-debug: fclean
 norm:
 	norminette ./srcs ./includes ./libft
 
-prepush: norm test 
+prepush: norm test

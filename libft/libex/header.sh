@@ -16,5 +16,5 @@ sed -i '' -e '/^\t\./d' Makefile
 sed -i '' -e 's/src =\\/src =/g' Makefile
 srcs=$(find . -type f -name '*.c' | sed -e 's/^/\t/g' -e 's/$/\\/g')
 sed -i '' -E "s|^src =|src =\\n\"${srcs}\"|" Makefile
-sed -i '' -e 's/src =/src =\\/' -e 's/"//' Makefile
+sed -i '' -e 's/src =/src =\\/' -e 's/c"$/c/' -e 's/^"//' Makefile
 sed -i '' -e 's/\.c$/\.c \\/' Makefile
