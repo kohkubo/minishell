@@ -11,6 +11,7 @@ get_next_line.c\
 min.c\
 contain.c\
 free_string_array.c\
+ft_isspace.c\
 
 all: $(NAME)
 
