@@ -1,7 +1,6 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Ofast -I./includes
+CFLAGS = -Wall -Wextra -Werror -O3
 NAME = libex.a
-header = libex.h
 
 src =\
 	./free_string_array.c \
@@ -12,6 +11,8 @@ src =\
 	./ft_strndup.c \
 	./contain.c \
 	./ft_isspace.c \
+
+.PHONY: all clean fclean re init header debug sani-debug
 
 all: $(NAME)
 
@@ -29,7 +30,13 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re init header
-
 init:
 	bash header.sh
+
+debug: fclean
+	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g"
+	$(MAKE) clean
+
+sani-debug: fclean
+	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g -fsanitize=address"
+	$(MAKE) clean

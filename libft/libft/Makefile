@@ -1,7 +1,6 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Ofast -I./includes
+CFLAGS = -Wall -Wextra -Werror -O3
 NAME = libft.a
-header = libft.h
 
 src =\
 	./ft_strnstr.c \
@@ -48,6 +47,8 @@ src =\
 	./ft_itoa.c \
 	./ft_tolower.c \
 
+.PHONY: all clean fclean re init header
+
 all: $(NAME)
 
 obj = $(src:%.c=%.o)
@@ -63,8 +64,6 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
-
-.PHONY: all clean fclean re init header
 
 init:
 	bash header.sh
