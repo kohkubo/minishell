@@ -50,7 +50,7 @@ gcc test2.c $(find $REPO_ROOT/srcs -type f -name echo.c) $REPO_ROOT/libft/libft/
 diff expect2 output2
 RES=$?
 
-rm expect output a.out
+rm expect output output2 a.out
 
 cd "$PWD" || exit
 exit $RES
