@@ -2,8 +2,6 @@
 
 set -e
 
-echo "=============test13================"
-
 cp ./minishell "$(dirname "$0")"
 cd "$(dirname "$0")" || exit
 

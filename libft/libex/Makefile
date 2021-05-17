@@ -1,17 +1,18 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Ofast -I./includes
+CFLAGS = -Wall -Wextra -Werror -O3
 NAME = libex.a
-header = libex.h
 
-src = \
-ft_xmalloc.c\
-free_set.c\
-ft_strndup.c\
-get_next_line.c\
-min.c\
-contain.c\
-free_string_array.c\
-ft_isspace.c\
+src =\
+	./free_string_array.c \
+	./get_next_line.c \
+	./min.c \
+	./free_set.c \
+	./ft_xmalloc.c \
+	./ft_strndup.c \
+	./contain.c \
+	./ft_isspace.c \
+
+.PHONY: all clean fclean re init header debug sani-debug
 
 all: $(NAME)
 
@@ -29,14 +30,13 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re srcs header
+init:
+	bash header.sh
 
-srcs:
-	sed -i -e "1,/src =/ s|src =.*|src =`find . -type f -name "*.c" | tr '\n' ' '`|" Makefile
+debug: fclean
+	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g"
+	$(MAKE) clean
 
-proto = $(shell cat *.c | grep -e '^\(int\|void\|size_t\|t_.*\|char\|float\|double\|struct\|unsigned\|short\|const\|long\|bool\|signed\)\t' | sed -e 's/$$/;\\n/')
-
-header:
-	sed -i -e '/^\(int\|void\|size_t\|t_.*\|char\|float\|double\|struct\|unsigned\|short\|const\|long\|bool\|signed\)\t/d' $(header)
-	sed -i -e "/Prototypes$$/a$(proto)" $(header)
-	sed -i -e 's/^ //' $(header)
+sani-debug: fclean
+	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g -fsanitize=address"
+	$(MAKE) clean

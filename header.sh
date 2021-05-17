@@ -13,3 +13,10 @@ $(echo "${prot}" | awk -v tabs=${TABS} '{s=$0; sub("\t.*", ""); l=tabs - int(len
 echo "${header}" > ${NAME_H}
 
 sed -i '' -e '/\main(void);/d' ${NAME_H}
+
+sed -i '' -e '/^\t\./d' Makefile
+sed -i '' -e 's/src =\\/src =/g' Makefile
+srcs=$(find ./srcs -type f -name '*.c' | sed -e 's/^/\t/g' -e 's/$/\\/g')
+sed -i '' -E "s|^src =|src =\\n\"${srcs}\"|" Makefile
+sed -i '' -e 's/src =/src =\\/' -e 's/c"$/c/' -e 's/^"//' Makefile
+sed -i '' -e 's/\.c$/\.c \\/' Makefile
