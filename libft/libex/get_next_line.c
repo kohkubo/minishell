@@ -20,6 +20,33 @@ static int	ret(ssize_t rdrtn, char *rdbuf, char **line, char **remain)
 	return (rdrtn);
 }
 
+static char	*safe_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+	char	*head;
+	size_t	len1;
+	size_t	len2;
+
+	if (s1)
+		len1 = ft_strlen(s1);
+	else
+		len1 = 0;
+	if (s2)
+		len2 = ft_strlen(s2);
+	else
+		len2 = 0;
+	str = malloc(len1 + len2 + 1);
+	if (!str)
+		return (NULL);
+	head = str;
+	while (s1 != NULL && *s1)
+		*str++ = *s1++;
+	while (s2 != NULL && *s2)
+		*str++ = *s2++;
+	*str = '\0';
+	return (head);
+}
+
 int	get_next_line(int fd, char **line)
 {
 	char		*rdbuf;
@@ -34,12 +61,12 @@ int	get_next_line(int fd, char **line)
 	while (rtn >= 0)
 	{
 		rdbuf[rtn] = '\0';
-		free_set((void **)line, (void **)ft_strjoin(*line, (char *)rdbuf));
+		free_set((void **)line, safe_strjoin(*line, (char *)rdbuf));
 		ptr = ft_strchr(*line, '\n');
 		if (ptr != NULL && *line != NULL)
 		{
 			*remain = ft_strndup(ptr + 1, -1);
-			free_set((void **)line, (void **)ft_strndup(*line, ptr - *line));
+			free_set((void **)line, ft_strndup(*line, ptr - *line));
 			return (ret(1, rdbuf, line, remain));
 		}
 		if (rtn == 0 || *line == NULL)

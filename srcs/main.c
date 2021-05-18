@@ -4,6 +4,7 @@ int	main(void)
 {
 	char	*input;
 
+	input = NULL;
 	while (1)
 	{
 		if (get_next_line(0, &input) <= 0)
