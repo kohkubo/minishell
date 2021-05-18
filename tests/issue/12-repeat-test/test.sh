@@ -13,8 +13,8 @@ echo "test" > expect
 echo "aaa bbb ccc" | ./minishell >> output
 echo -e 'aaa\nbbb\nccc' >> expect
 
-echo "echo" | ./minishell >> output
-echo "echo is not implemented yet" >> expect
+# echo "echo" | ./minishell >> output
+# echo "echo is not implemented yet" >> expect
 
 echo "cd" | ./minishell >> output
 echo "cd is not implemented yet" >> expect

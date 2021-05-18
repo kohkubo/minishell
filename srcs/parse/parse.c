@@ -5,7 +5,7 @@ char				*g_reserved_words[] = {
 	"echo", "cd", "pwd", "export", "unset", "env", "exit", NULL
 };
 t_reserved_func		g_reserved_funcs[] = {
-	NULL, NULL, NULL, NULL, NULL, NULL, ft_exit, NULL
+	ft_echo, NULL, NULL, NULL, NULL, NULL, ft_exit, NULL
 };
 
 static void	not_implemented(char *word)

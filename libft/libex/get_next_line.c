@@ -24,24 +24,18 @@ static char	*safe_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
 	char	*head;
-	size_t	len1;
-	size_t	len2;
 
-	if (s1)
-		len1 = ft_strlen(s1);
-	else
-		len1 = 0;
-	if (s2)
-		len2 = ft_strlen(s2);
-	else
-		len2 = 0;
-	str = malloc(len1 + len2 + 1);
+	if (!s1)
+		s1 = "";
+	if (!s2)
+		s2 = "";
+	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!str)
 		return (NULL);
 	head = str;
-	while (s1 != NULL && *s1)
+	while (*s1)
 		*str++ = *s1++;
-	while (s2 != NULL && *s2)
+	while (*s2)
 		*str++ = *s2++;
 	*str = '\0';
 	return (head);

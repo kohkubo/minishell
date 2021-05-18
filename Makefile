@@ -7,6 +7,7 @@ libft = ./libft/libft/libft.a ./libft/libex/libex.a
 src =\
 	./srcs/parse/parse.c \
 	./srcs/built-in/ft_exit.c \
+	./srcs/built-in/echo.c \
 	./srcs/main.c \
 
 .PHONY: all clean fclean re init test test_issue test_unit header debug sani-debug prepush
