@@ -21,6 +21,7 @@ int main()
 	char *ss11[100] = {"-n", "", NULL};
 	char *ss12[100] = {"-n", " ", NULL};
 	char *ss13[100] = {"  d", NULL};
+	// echo "" "" "" "" > echo_test 区切りスペースのみが出力される
 	char *ss14[100] = {"", "", "", "", NULL};
 	char *ss15[100] = {NULL, NULL};
 

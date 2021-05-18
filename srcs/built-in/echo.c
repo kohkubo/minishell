@@ -1,20 +1,27 @@
 #include "../../includes/shell.h"
 
-int	ft_echo(char **args)
+static void	ft_echo_exit_check(char **args)
 {
-	int		op_flg;
-
-	op_flg = 0;
-	if (!args)
-		return (1);
-	if (!*args)
+	if (*args == NULL)
 	{
 		printf("\n");
 		exit(0);
 	}
-	if (!ft_strncmp(*args, "-n", SIZE_MAX))
+}
+
+int	ft_echo(char **args)
+{
+	bool	op_flg;
+
+	op_flg = false;
+	if (args == NULL)
+		return (1);
+	ft_echo_exit_check(args);
+	if (!ft_strncmp(*args, "-", SIZE_MAX))
+		ft_echo_exit_check(++args);
+	else if (!ft_strncmp(*args, "-n", SIZE_MAX))
 	{
-		op_flg++;
+		op_flg = true;
 		if (*++args == NULL)
 			return (0);
 	}
@@ -24,7 +31,7 @@ int	ft_echo(char **args)
 		printf(" %s", *args);
 		args++;
 	}
-	if (!op_flg)
+	if (op_flg == false)
 		printf("\n");
 	return (0);
 }
