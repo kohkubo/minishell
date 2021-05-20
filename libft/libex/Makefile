@@ -9,6 +9,7 @@ src =\
 	./free_set.c \
 	./errlst.c \
 	./ft_xmalloc.c \
+	./ft_fatal.c \
 	./ft_strerror.c \
 	./ft_strndup.c \
 	./contain.c \
