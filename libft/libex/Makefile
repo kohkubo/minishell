@@ -14,6 +14,7 @@ src =\
 	./ft_strndup.c \
 	./contain.c \
 	./ft_isspace.c \
+	./ft_strcmp.c \
 
 .PHONY: all clean fclean re init header debug sani-debug
 
