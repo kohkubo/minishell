@@ -46,7 +46,7 @@ int				hash_getint(t_hash_table *h, char *key);
 char			**hash_getkeys(t_hash_table *h);
 char			*hash_getstr(t_hash_table *h, char *key);
 bool			hash_remove(t_hash_table *h, char *key);
-t_list			*hash_search(t_hash_table *h, char *key);
+t_dict_item		*hash_search(t_hash_table *h, char *key);
 bool			hash_setint(t_hash_table *h, char *key, int integer);
 bool			hash_setstr(t_hash_table *h, char *key, char *value);
 unsigned int	hasher(const char *str, int capacity);

@@ -1,6 +1,6 @@
 #include "libex.h"
 
-t_list	*hash_search(t_hash_table *h, char *key)
+t_dict_item	*hash_search(t_hash_table *h, char *key)
 {
 	t_list	*lst;
 
@@ -10,7 +10,7 @@ t_list	*hash_search(t_hash_table *h, char *key)
 	while (lst)
 	{
 		if (!ft_strcmp(((t_dict_item *)lst->content)->key, key))
-			return (lst);
+			return (lst->content);
 		lst = lst->next;
 	}
 	return (NULL);

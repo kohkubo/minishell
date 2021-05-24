@@ -21,7 +21,7 @@ int	main()
 {
 	srand((unsigned) time(NULL));
 	t_hash_table	*table;
-	t_list			*lst;
+	t_dict_item			*item;
 
 	table = hash_create_table(TABLE_SIZE);
 	for (int i = 0; i < TABLE_SIZE; i++)
@@ -39,8 +39,8 @@ int	main()
 		sprintf(key, "test%d", i);
 		sprintf(value, "aiueo%d", i);
 
-		lst = hash_search(table, key);
-		if (strcmp(value, ((t_dict_item *)lst->content)->value))
+		item = hash_search(table, key);
+		if (strcmp(value, item->value))
 			exit(1);
 	}
 
@@ -56,8 +56,8 @@ int	main()
 	hash_setstr(table, "", "");
 	hash_setstr(table, "", "dd");
 
-	lst = hash_search(table, "");
-	if (strcmp("dd", ((t_dict_item *)lst->content)->value))
+	item = hash_search(table, "");
+	if (strcmp("dd", item->value))
 		exit(1);
 	if (table->count != TABLE_SIZE + 6)
 		exit(1);

@@ -18,8 +18,8 @@ int	main()
 	hash_setstr(table, " ", "space");
 	hash_setstr(table, "  ", "space2");
 
-	t_list *lst = hash_search(table, "ENV");
-	if (strcmp(((t_dict_item *)lst->content)->value, "aaaaaaaa"))
+	t_dict_item *item = hash_search(table, "ENV");
+	if (strcmp(item->value, "aaaaaaaa"))
 		exit(1);
 
 	if (!hash_search(table, ""))
