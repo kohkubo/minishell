@@ -4,7 +4,10 @@
 
 make
 
-export REPO_ROOT=$PWD
+# gcc -shared -fPIC $(dirname $0)/sharedlib.c -o $(dirname $0)/libdestructor.so
+# gcc -dynamiclib $(dirname $0)/sharedlib.c -o $(dirname $0)/libdestructor.dylib
+# export SHARED_LIB="-L $PWD/tests/unit-test libdestructor.dylib"
+export SHARED_LIB="$PWD/tests/unit-test/sharedlib.c"
 
 for path in $(find ./tests/unit-test -type f -name test.sh);
 do

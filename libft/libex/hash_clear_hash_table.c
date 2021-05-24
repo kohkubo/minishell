@@ -13,8 +13,8 @@ bool	hash_clear_table(t_hash_table **h)
 	j = 0;
 	while (i < (*h)->tsize)
 	{
-		while (j++ < (*h)->hash_bucket[i]->bcount)
-			ft_lstclear(&((*h)->hash_bucket[i]->lst), hash_clear_dict_item);
+		ft_lstclear(&((*h)->hash_bucket[i]->lst), hash_clear_dict_item);
+		free_set((void **)&(*h)->hash_bucket[i], NULL);
 		i++;
 	}
 	free(*h);

@@ -15,7 +15,7 @@ test_res_print() {
 
 cd "$(dirname "$0")" || exit
 
-gcc test.c $(find $REPO_ROOT/srcs -type f -name echo.c) $REPO_ROOT/libft/libft/libft.a $REPO_ROOT/libft/libex/libex.a
+gcc test.c $(find $REPO_ROOT/srcs -type f -name echo.c) $REPO_ROOT/libft/libft/libft.a $REPO_ROOT/libft/libex/libex.a $SHARED_LIB
 
 touch expect output
 test_echo "test"
@@ -52,10 +52,10 @@ diff expect output
 RES1=$?
 test_res_print $RES1
 
-gcc test2.c $(find $REPO_ROOT/srcs -type f -name echo.c) $REPO_ROOT/libft/libft/libft.a $REPO_ROOT/libft/libex/libex.a
-./a.out > output2
+gcc test2.c $(find $REPO_ROOT/srcs -type f -name echo.c) $REPO_ROOT/libft/libft/libft.a $REPO_ROOT/libft/libex/libex.a $SHARED_LIB
 
 echo "========= test2 ========="
+./a.out > output2
 diff expect2 output2
 RES2=$?
 test_res_print $RES2

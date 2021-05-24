@@ -37,20 +37,26 @@ int	main()
 	table = hash_create_table(1);
 	if (table->tsize != 1)
 		exit(1);
+	hash_clear_table(&table);
 	table = hash_create_table(214);
 	if (table->tsize != 214)
 		exit(1);
+	hash_clear_table(&table);
 	table = hash_create_table(2147);
 	if (table->tsize != 2147)
 		exit(1);
+	hash_clear_table(&table);
 
 	// ランダムテスト
 	srand((unsigned) time(NULL));
 	int i = rand() % 10000 + 1;
 	printf("rand(): %d\n", i);
 	table = hash_create_table(i);
+	hash_clear_table(&table);
+
 	table = hash_create_table(10);
 	hash_setstr(table, "test", "aiueo");
 	// hash_display_table(table);
+	hash_clear_table(&table);
 	return 0;
 }
