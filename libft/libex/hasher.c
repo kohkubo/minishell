@@ -1,19 +1,17 @@
 #include "libex.h"
 
+/*
+** FNV-1 hash
+*/
 unsigned int	hasher(const char *str, int capacity)
 {
 	unsigned int	hashval;
-	char			*tmp;
-	char			*head;
 
-	tmp = ft_strdup(str);
-	head = tmp;
 	hashval = 2166136261UL;
-	while (*tmp)
+	while (*str)
 	{
 		hashval *= 16777619UL;
-		hashval ^= *((unsigned char *)tmp++);
+		hashval ^= *((unsigned char *)str++);
 	}
-	free(head);
 	return (hashval % capacity);
 }

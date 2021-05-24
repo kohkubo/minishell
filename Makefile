@@ -58,7 +58,7 @@ debug: fclean
 
 sani-debug: fclean
 	$(MAKE) re -C ./libft/libft
-	$(MAKE) debug -C ./libft/libex
+	$(MAKE) sani-debug -C ./libft/libex
 	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g -fsanitize=address"
 	$(MAKE) clean
 

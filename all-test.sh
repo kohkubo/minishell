@@ -2,7 +2,7 @@
 
 set -e
 
-make
+make sani-debug
 
 export REPO_ROOT=$PWD
 
