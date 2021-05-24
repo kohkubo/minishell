@@ -102,12 +102,12 @@ int main()
 		exit(1);
 
 	// ソートのチェック
-	char **aa = hash_getall(table);
-	char **bb = str_array_dup(aa, table->count);
-	qsort(bb, arraylen(bb), sizeof(char *), compare);
-	qsort(ans, arraylen(ans), sizeof(char *), compare);
-	char **cc = hash_getkeys(table);
-	array_cmp(cc, ans);
+	// char **aa = hash_getall(table);
+	// char **bb = str_array_dup(aa, table->count);
+	// qsort(bb, arraylen(bb), sizeof(char *), compare);
+	// qsort(ans, arraylen(ans), sizeof(char *), compare);
+	// char **cc = hash_getkeys(table);
+	// array_cmp(cc, ans);
 
 	return 0;
 }

@@ -23,6 +23,10 @@ static bool	hash_remove_lst_first(t_hash_table *h, t_hash_bucket *b, char *key)
 	return (false);
 }
 
+/*
+** @brief Remove [key] of hash table [h].
+** @return return true if removed, false otherwise.
+*/
 bool	hash_remove(t_hash_table *h, char *key)
 {
 	t_hash_bucket	*b;

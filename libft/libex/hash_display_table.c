@@ -11,6 +11,9 @@ static void	display_dict_item(void *content)
 	printf("+++++++\n");
 }
 
+/*
+** @brief for debug.
+*/
 void	hash_display_table(t_hash_table *h)
 {
 	int	i;

@@ -35,6 +35,5 @@ char	**hash_getall(t_hash_table *h)
 		i++;
 	}
 	*all = NULL;
-	strsort(head, h->count);
 	return (head);
 }

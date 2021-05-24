@@ -11,6 +11,10 @@ static void	*dict_info(int hash_key, char *key, char *value)
 	return ((void *)dict);
 }
 
+/*
+** @brief Store [value] in [key] of hash table [h].
+** @return When a new "t_dict_item" is created, true is returned, otherwise false is returned.
+*/
 bool	hash_setstr(t_hash_table *h, char *key, char *value)
 {
 	int			index;
