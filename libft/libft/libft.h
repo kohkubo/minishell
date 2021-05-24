@@ -5,11 +5,14 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <errno.h>
+# ifndef T_LIST
+#  define T_LIST
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
-}		t_list;
+}	t_list;
+# endif
 int		ft_atoi(const char *s);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
