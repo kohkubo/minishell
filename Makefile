@@ -34,10 +34,36 @@ src =\
 
 # ***********************************
 
+lib_dir		= libft
+lib			= $(libft) \
+			$(libex) \
+			$(libhash) \
+
+# ****************
+
+libft_dir	= $(lib_dir)/libft
+libft		= $(libft_dir)/libft.a
+
+# ****************
+
+libex_dir	= $(lib_dir)/libex
+libex		= $(libex_dir)/libex.a
+
+# ****************
+
+libhash_dir	= $(lib_dir)/libhash
+libhash		= $(libhash_dir)/libhash.a
+
+# ****************
+
+libdebug_dir	= $(lib_dir)/libdebug
+libdebug		= $(libdebug_dir)/libdebug.a
+
+# ***********************************
+
 all			: $(NAME)
 
-$(NAME)		: $(obj)
-	$(MAKE) lib_make
+$(NAME)		: $(obj) $(lib)
 	$(CC) $(CFLAGS) $(obj) $(lib) -o $(NAME)
 
 clean		: lib_clean
@@ -67,9 +93,8 @@ test_unit	:
 test_issue	:
 	bash ./all-test.sh ./tests/issue
 
-leak		: fclean $(obj) lib_debug
+leak		: $(obj) $(lib) $(libdebug)
 	$(CC) $(CFLAGS) $(obj) $(lib) $(libdebug) ./tests/sharedlib.c -o $(NAME)
-	$(MAKE) clean
 
 debug		: fclean lib_debug
 	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g"
@@ -89,37 +114,19 @@ prepush		: norm test
 
 # ***********************************
 
-lib_dir		= libft
-lib			= $(libft) \
-			$(libex) \
-			$(libhash) \
+$(libft): $(libft_dir)/*.c
+	$(MAKE) -C $(libft_dir)
 
-# ****************
+$(libex): $(libex_dir)/*.c
+	$(MAKE) -C $(libex_dir)
 
-libft_dir	= $(lib_dir)/libft
-libft		= $(libft_dir)/libft.a
+$(libhash): $(libhash_dir)/*.c
+	$(MAKE) -C $(libhash_dir)
 
-# ****************
+$(libdebug): $(libdebug_dir)/*.c
+	$(MAKE) -C $(libdebug_dir)
 
-libex_dir	= $(lib_dir)/libex
-libex		= $(libex_dir)/libex.a
-
-# ****************
-
-libhash_dir	= $(lib_dir)/libhash
-libhash		= $(libhash_dir)/libhash.a
-
-# ****************
-
-libdebug_dir	= $(lib_dir)/libdebug
-libdebug		= $(libdebug_dir)/libdebug.a
-
-# ****************
-
-lib_make	:
-	@$(MAKE) -C $(libft_dir)
-	@$(MAKE) -C $(libex_dir)
-	@$(MAKE) -C $(libhash_dir)
+lib_make	:$(libft) $(libex) $(libhash)
 
 lib_clean	:
 	$(MAKE) clean -C $(libft_dir)
@@ -133,7 +140,7 @@ lib_fclean	:
 	$(MAKE) fclean -C $(libhash_dir)
 	$(MAKE) fclean -C $(libdebug_dir)
 
-lib_debug	: fclean
+lib_debug	:
 	$(MAKE) re -C $(libft_dir)
 	$(MAKE) debug -C $(libex_dir)
 	$(MAKE) debug -C $(libhash_dir)
