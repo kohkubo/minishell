@@ -1,68 +1,146 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -O3 -I$(includes)
-NAME = minishell
-includes = ./includes
-libft = ./libft/libft/libft.a ./libft/libex/libex.a
+# ***********************************
+
+.PHONY		: all clean fclean re \
+			init \
+			norm \
+			prepush \
+			test \
+			test_issue \
+			test_unit \
+			leak \
+			debug \
+			sani-debug \
+
+# ***********************************
+
+NAME		= minishell
+includes	= includes
+src_dir		= srcs
+obj_dir		= objs
+obj			= $(src:%.c=$(src_dir)/%.o)
+
+# ***********************************
+
+CC 			= gcc
+CFLAGS		= -Wall -Wextra -Werror -O3 -I$(includes)
+
+# ***********************************
 
 src =\
-	./srcs/parse/parse.c \
-	./srcs/built-in/ft_exit.c \
-	./srcs/built-in/echo.c \
-	./srcs/main.c \
+	./parse/parse.c \
+	./built-in/ft_exit.c \
+	./built-in/echo.c \
+	./main.c \
 
-.PHONY: all clean fclean re init test test_issue test_unit header debug sani-debug prepush
+# ***********************************
 
-all: $(NAME)
+all			: $(NAME)
 
-obj = $(src:%.c=%.o)
+$(NAME)		: $(obj)
+	$(MAKE) lib_make
+	$(CC) $(CFLAGS) $(obj) $(lib) -o $(NAME)
 
-$(NAME): $(obj)
-	$(MAKE) -C ./libft/libft
-	$(MAKE) -C ./libft/libex
-	$(CC) $(CFLAGS) $(obj) $(libft) -o $(NAME)
-
-clean:
-	$(MAKE) clean -C ./libft/libft
-	$(MAKE) clean -C ./libft/libex
-	@find ./tests -type f -name output -exec rm {} \;
-	@find ./tests -type f -name minishell -exec rm {} \;
-	@find ./tests -type f -name expect -exec rm {} \;
+clean		: lib_clean
 	$(RM) $(obj)
 
-fclean: clean
-	$(MAKE) fclean -C ./libft/libft
-	$(MAKE) fclean -C ./libft/libex
+fclean		: lib_fclean
+	$(RM) $(obj)
 	$(RM) $(NAME)
 
-re: fclean all
+re			: fclean all
 
-init:
-	$(MAKE) init -C ./libft/libft
-	$(MAKE) init -C ./libft/libex
-	zsh header.sh
+# ***********************************
 
-test:
-	bash ./all-test.sh
+init		:
+	zsh header.sh $(src_dir) $(includes)/shell.h Makefile $(src_dir)
+	zsh header.sh $(libft_dir) $(libft_dir)/libft.h $(libft_dir)/Makefile
+	zsh header.sh $(libex_dir) $(libex_dir)/libex.h $(libex_dir)/Makefile
+	zsh header.sh $(libhash_dir) $(libhash_dir)/libhash.h $(libhash_dir)/Makefile
+	zsh header.sh $(libdebug_dir) $(libdebug_dir)/libdebug.h $(libdebug_dir)/Makefile
 
-test_unit:
-	bash ./tests/unit-test/test-units.sh
+test		:
+	bash ./all-test.sh tests
 
-test_issue:
-	bash ./tests/issue/test-issues.sh
+test_unit	:
+	bash ./all-test.sh ./tests/unit-test
 
-debug: fclean
-	$(MAKE) re -C ./libft/libft
-	$(MAKE) debug -C ./libft/libex
+test_issue	:
+	bash ./all-test.sh ./tests/issue
+
+leak		: fclean $(obj) lib_debug
+	$(CC) $(CFLAGS) $(obj) $(lib) $(libdebug) ./tests/sharedlib.c -o $(NAME)
+	$(MAKE) clean
+
+debug		: fclean lib_debug
 	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g"
 	$(MAKE) clean
 
-sani-debug: fclean
-	$(MAKE) re -C ./libft/libft
-	$(MAKE) sani-debug -C ./libft/libex
+sani-debug	: fclean lib_sani-debug
 	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g -fsanitize=address"
 	$(MAKE) clean
 
-norm:
-	norminette ./srcs ./includes ./libft
+norm		:
+	norminette $(src_dir) $(includes) \
+		$(libft_dir) \
+		$(libex_dir) \
+		$(libhash_dir) \
 
-prepush: norm test
+prepush		: norm test
+
+# ***********************************
+
+lib_dir		= libft
+lib			= $(libft) \
+			$(libex) \
+			$(libhash) \
+
+# ****************
+
+libft_dir	= $(lib_dir)/libft
+libft		= $(libft_dir)/libft.a
+
+# ****************
+
+libex_dir	= $(lib_dir)/libex
+libex		= $(libex_dir)/libex.a
+
+# ****************
+
+libhash_dir	= $(lib_dir)/libhash
+libhash		= $(libhash_dir)/libhash.a
+
+# ****************
+
+libdebug_dir	= $(lib_dir)/libdebug
+libdebug		= $(libdebug_dir)/libdebug.a
+
+# ****************
+
+lib_make	:
+	@$(MAKE) -C $(libft_dir)
+	@$(MAKE) -C $(libex_dir)
+	@$(MAKE) -C $(libhash_dir)
+
+lib_clean	:
+	$(MAKE) clean -C $(libft_dir)
+	$(MAKE) clean -C $(libex_dir)
+	$(MAKE) clean -C $(libhash_dir)
+	$(MAKE) clean -C $(libdebug_dir)
+
+lib_fclean	:
+	$(MAKE) fclean -C $(libft_dir)
+	$(MAKE) fclean -C $(libex_dir)
+	$(MAKE) fclean -C $(libhash_dir)
+	$(MAKE) fclean -C $(libdebug_dir)
+
+lib_debug	: fclean
+	$(MAKE) re -C $(libft_dir)
+	$(MAKE) debug -C $(libex_dir)
+	$(MAKE) debug -C $(libhash_dir)
+	$(MAKE) debug -C $(libdebug_dir)
+
+lib_sani-debug	: fclean
+	$(MAKE) re -C $(libft_dir)
+	$(MAKE) sani-debug -C $(libex_dir)
+	$(MAKE) sani-debug -C $(libhash_dir)
+	$(MAKE) sani-debug -C $(libdebug_dir)

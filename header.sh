@@ -1,22 +1,44 @@
-#!/bin/zsh
+#!/bin/zsh -x
 
-CUR_DIR=$(dirname "$0")
-NAME_H=${CUR_DIR}/includes/shell.h
+DIR=$1
+NAME_H=$2
+MAKE_PATH=$3
 
-prot=$(cat ${CUR_DIR}/srcs/**/*.c | sed -e '/^[a-zA-Z].*)$/!d' -e '/^static/d' -e "s/)$/);/g")
-TABS=$(echo "${prot}" | sed 's/\t.*//g' | awk '{print length($0)}' | sort -nr | head -n 1 | xargs -I{} expr {} / 4 + 1)
+CURDIR=$PWD
 
+prot=$(find "${DIR}" -type f -name '*.c' | xargs cat | sed -e '/^[a-zA-Z].*)$/!d' -e '/^static/d' -e "s/)$/);/g")
+TABS=$(echo "${prot}" | awk '{sub("[\t ][\t ]*\\**[a-zA-Z_0-9][a-zA-Z_0-9]*\\(.*", "");print length($0)}' |
+		sort -nr | head -n 1 | xargs -I{} expr {} / 4 + 1)
 header="$(sed -e "/^[a-zA-Z][a-zA-Z_0-9]*.*);$/d" -e '/#endif/d' -e '/^$/d' ${NAME_H})
-$(echo "${prot}" | awk -v tabs=${TABS} '{s=$0; sub("\t.*", ""); l=tabs - int(length($0) / 4); t="";for(i=0;i<l;i++){t=t "\t"};sub("\t\t*", t, s); print s}')
+
+$(echo "${prot}" |
+	awk -v tabs=${TABS} '
+	{
+		s = $0;
+		sub("[\t ][\t ]*\\**[a-zA-Z_0-9][a-zA-Z_0-9]*\\(.*", "");
+		t = "";
+		l = tabs - int(length($0) / 4);
+		for (i = 0; i < l; i++)
+			t=t"\t";
+		str = substr(s, length($0) + 1, index(s, ";"))
+		sub("[\t ][\t ]*", t, str);
+		print $0 str
+	}')
 #endif"
 
 echo "${header}" > ${NAME_H}
 
 sed -i '' -e '/\main(void);/d' ${NAME_H}
 
-sed -i '' -e '/^\t\./d' Makefile
-sed -i '' -e 's/src =\\/src =/g' Makefile
-srcs=$(find ./srcs -type f -name '*.c' | sed -e 's/^/\t/g' -e 's/$/\\/g')
-sed -i '' -E "s|^src =|src =\\n\"${srcs}\"|" Makefile
-sed -i '' -e 's/src =/src =\\/' -e 's/c"$/c/' -e 's/^"//' Makefile
-sed -i '' -e 's/\.c$/\.c \\/' Makefile
+sed -i '' -e '/^\t\./d' "${MAKE_PATH}"
+sed -i '' -e 's/src =\\/src =/g' "${MAKE_PATH}"
+
+cd "${DIR}" || exit
+
+srcs=$(find . -type f -name '*.c' | sed -e 's/^/\t/g' -e 's/$/\\/g')
+
+cd ${CURDIR}
+
+sed -i '' -E "s|^src =|src =\\n\"${srcs}\"|" "${MAKE_PATH}"
+sed -i '' -e 's/src =/src =\\/' -e 's/c"$/c/' -e 's/^"//' "${MAKE_PATH}"
+sed -i '' -e 's/\.c$/\.c \\/' "${MAKE_PATH}"
