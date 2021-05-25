@@ -1,10 +1,19 @@
 #!/bin/bash
 
-set -e
+DIR=$1
 
-make # sani-debug
+make leak
 
-export REPO_ROOT=$PWD
+export REPO_ROOT="$PWD"
+export SHARED_LIB="$PWD/tests/sharedlib.c"
 
-bash ./tests/unit-test/test-units.sh
-bash ./tests/issue/test-issues.sh
+for path in $(find $DIR -type f -name test.sh);
+do
+	echo "===== $path ====="
+	bash "$path"
+	if [ $? -eq 0 ]; then
+		printf "\e[32m%s\n\e[m" "OK!"
+	else
+		printf "\e[31m%s\n\e[m" "KO!"
+	fi
+done
