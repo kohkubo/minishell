@@ -1,4 +1,4 @@
-#include "libex.h"
+#include "libhash.h"
 
 t_hash_table	*hash_create_table(int size)
 {

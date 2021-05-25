@@ -1,4 +1,4 @@
-#include "libex.h"
+#include "libhash.h"
 
 /*
 ** FNV-1 hash

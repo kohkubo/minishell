@@ -1,4 +1,4 @@
-#include "libex.h"
+#include "libhash.h"
 
 int	hash_getint(t_hash_table *h, char *key)
 {

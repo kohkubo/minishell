@@ -1,4 +1,4 @@
-#include "libex.h"
+#include "libhash.h"
 
 void	hash_clear_dict_item(void *item)
 {
@@ -12,4 +12,5 @@ void	hash_clear_dict_item(void *item)
 	dict->key = NULL;
 	free(dict->value);
 	dict->value = NULL;
+	free(item);
 }

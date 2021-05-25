@@ -1,4 +1,4 @@
-#include "libex.h"
+#include "libhash.h"
 
 t_dict_item	*hash_search(t_hash_table *h, char *key)
 {

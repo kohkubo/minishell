@@ -1,4 +1,4 @@
-#include "libex.h"
+#include "libhash.h"
 
 static void	hash_table_count_decrement(t_hash_table *h, t_hash_bucket *b)
 {
