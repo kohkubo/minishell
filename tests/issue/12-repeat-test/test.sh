@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 cp ./minishell "$(dirname "$0")"
 cd "$(dirname "$0")" || exit
 

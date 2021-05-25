@@ -1,6 +1,6 @@
 # ***********************************
 
-NAME	= libex.a
+NAME	= libdebug.a
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -O3
 obj		= $(src:%.c=%.o)
@@ -10,19 +10,9 @@ obj		= $(src:%.c=%.o)
 # ***********************************
 
 src =\
-	./strsort.c \
-	./free_string_array.c \
-	./get_next_line.c \
-	./min.c \
-	./free_set.c \
-	./errlst.c \
-	./ft_xmalloc.c \
-	./ft_fatal.c \
-	./ft_strerror.c \
-	./ft_strndup.c \
-	./contain.c \
-	./ft_isspace.c \
-	./ft_strcmp.c \
+	./debug_array.c \
+	./debug_array_sort.c \
+	./debug_hash_display_table.c \
 
 # ***********************************
 
