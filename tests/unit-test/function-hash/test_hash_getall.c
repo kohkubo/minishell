@@ -1,0 +1,51 @@
+#include "./../../../libft/libft/libft.h"
+#include "./../../../libft/libex/libex.h"
+#include "./../../../libft/libhash/libhash.h"
+#include "./../../../libft/libdebug/libdebug.h"
+
+#include <libc.h>
+
+int main()
+{
+	t_hash_table *table;
+	srand((unsigned)time(NULL));
+
+	table = hash_create_table(10);
+	char **ans = calloc(sizeof(char *), 21);
+	int j = 0;
+	for (int i = 0; i < 10; i++)
+	{
+		char *key1 = debug_rand_text();
+		char *key2 = debug_rand_text();
+		char *value = debug_rand_text();
+		ans[j++] = strdup(key1);
+		hash_setstr(table, key1, value);
+		ans[j++] = strdup(key2);
+		hash_setint(table, key2, i);
+		if (hash_getint(table, key2) != i)
+			exit(1);
+		if (strcmp(hash_getstr(table, key1), value))
+			exit(1);
+		free(key1);
+		free(key2);
+		free(value);
+	}
+	ans[j] = NULL;
+	if (hash_getint(table, "ENV"))
+		exit(1);
+	if (hash_getint(table, "aaaaaaaaaaaaaaaaaaaaaaaa"))
+		exit(1);
+
+	hash_clear_table(&table);
+
+	// ソートのチェック
+	// char **aa = hash_getall(table);
+	// char **bb = str_array_dup(aa);
+	// qsort(bb, arraylen(bb), sizeof(char *), compare);
+	// qsort(ans, arraylen(ans), sizeof(char *), compare);
+	// char **cc = hash_getkeys(table);
+	// array_cmp(cc, ans);
+
+	free_string_array(ans);
+	return 0;
+}

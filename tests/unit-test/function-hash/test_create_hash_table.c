@@ -1,8 +1,11 @@
+#include "./../../../libft/libft/libft.h"
 #include "./../../../libft/libex/libex.h"
+#include "./../../../libft/libhash/libhash.h"
+#include "./../../../libft/libdebug/libdebug.h"
 
 #include <libc.h>
 
-#define PP(str) printf("    %d : %s\n", __LINE__, #str); str;
+# define PP(str) printf("    %d : %s\n", __LINE__, #str); str;
 
 static void	test_table_null(int size)
 {
@@ -11,29 +14,16 @@ static void	test_table_null(int size)
 		exit(1);
 }
 
-char *rand_text()
-{
-	char char_set[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	char *text = calloc(100, 1);
-
-	for (int i = 0; i < 6; i++)
-	{
-		text[i] = char_set[rand() % (sizeof(char_set))];
-	}
-	return (text);
-}
-
 int	main()
 {
 	t_hash_table *table;
-	// エラーケース
-	test_table_null(0);
 
+	test_table_null(0);
 	test_table_null(-1);
 	test_table_null(-2147483648);
 
 	// 時間がかかるためコメントアウト
-	// PP(table = hash_create_table(2147483647);)
+	// table = hash_create_table(2147483647);
 	table = hash_create_table(1);
 	if (table->tsize != 1)
 		exit(1);
@@ -54,9 +44,5 @@ int	main()
 	table = hash_create_table(i);
 	hash_clear_table(&table);
 
-	table = hash_create_table(10);
-	hash_setstr(table, "test", "aiueo");
-	// hash_display_table(table);
-	hash_clear_table(&table);
 	return 0;
 }

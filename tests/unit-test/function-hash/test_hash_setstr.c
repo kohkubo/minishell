@@ -1,19 +1,8 @@
+#include "./../../../libft/libft/libft.h"
 #include "./../../../libft/libex/libex.h"
+#include "./../../../libft/libhash/libhash.h"
+#include "./../../../libft/libdebug/libdebug.h"
 #include <libc.h>
-
-#define PP(str) printf("%d : %s\n", __LINE__, #str); str;
-
-char *rand_text()
-{
-	char char_set[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	char *text = calloc(100, 1);
-
-	for (int i = 0; i < 6; i++)
-	{
-		text[i] = char_set[rand() % (sizeof(char_set))];
-	}
-	return (text);
-}
 
 #define TABLE_SIZE 10000
 
@@ -31,6 +20,8 @@ int	main()
 		sprintf(key, "test%d", i);
 		sprintf(value, "aiueo%d", i);
 		hash_setstr(table, key, value);
+		free(key);
+		free(value);
 	}
 	for (int i = 0; i < TABLE_SIZE; i++)
 	{
@@ -42,6 +33,8 @@ int	main()
 		item = hash_search(table, key);
 		if (strcmp(value, item->value))
 			exit(1);
+		free(key);
+		free(value);
 	}
 
 	// 同じkeyでinsertして更新されるかテスト
@@ -70,15 +63,18 @@ int	main()
 	table = hash_create_table(TABLE_SIZE);
 	for (int i = 0; i < TABLE_SIZE; i++)
 	{
-		char *key = rand_text();
-		char *value = rand_text();
+		char *key = debug_rand_text();
+		char *value = debug_rand_text();
 		if (hash_setstr(table, key, value))
 			count++;
 		if (strcmp(value, hash_getstr(table, key)))
 			exit(1);
+		free(key);
+		free(value);
 	}
 	printf("table->count : %d\n", table->count);
 	if (table->count != count)
 		exit(1);
+	hash_clear_table(&table);
 	return 0;
 }

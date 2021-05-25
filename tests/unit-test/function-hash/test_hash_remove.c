@@ -1,19 +1,10 @@
+#include "./../../../libft/libft/libft.h"
 #include "./../../../libft/libex/libex.h"
+#include "./../../../libft/libhash/libhash.h"
+#include "./../../../libft/libdebug/libdebug.h"
+
 #include <libc.h>
 
-#define PP(str) printf("%d : %s\n", __LINE__, #str); str;
-
-char *rand_text()
-{
-	char char_set[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	char *text = calloc(100, 1);
-
-	for (int i = 0; i < 6; i++)
-	{
-		text[i] = char_set[rand() % (sizeof(char_set))];
-	}
-	return (text);
-}
 int main()
 {
 	t_hash_table	*table;
@@ -84,21 +75,25 @@ int main()
 	int count = 0;
 	for (int i = 0; i < 100; i++)
 	{
-		char *key = rand_text();
-		char *value = rand_text();
+		char *key = debug_rand_text();
+		char *value = debug_rand_text();
 		if (hash_setstr(table, key, value))
 			count++;
+		free(key);
+		free(value);
 	}
 	int delcount = 0;
 	for (int i = 0; i < 100; i++)
 	{
-		char *key = rand_text();
+		char *key = debug_rand_text();
 		if (hash_remove(table, key))
 			delcount++;
+		free(key);
 	}
 	printf("delcount : %d\n", delcount);
 	printf("   count : %d\n", count);
 	if (table->count != count - delcount)
 		exit(1);
+	hash_clear_table(&table);
 	return (0);
 }

@@ -1,7 +1,8 @@
+#include "./../../../libft/libft/libft.h"
 #include "./../../../libft/libex/libex.h"
+#include "./../../../libft/libhash/libhash.h"
+#include "./../../../libft/libdebug/libdebug.h"
 #include <libc.h>
-
-#define PP(str) printf("%d : %s\n", __LINE__, #str); str;
 
 int	main()
 {
