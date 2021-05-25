@@ -20,14 +20,13 @@ int	main()
 	hash_setstr(table, "  ", "space2");
 
 	t_dict_item *item = hash_search(table, "ENV");
-	if (strcmp(item->value, "aaaaaaaa"))
+	if (!item && strcmp(item->value, "aaaaaaaa"))
 		exit(1);
 
-	if (!hash_search(table, ""))
+	item = hash_search(table, "");
+	if (!item && strcmp(item->value, "kara"))
 		exit(1);
-
-	if (!hash_remove(table, ""))
-		exit(1);
+	hash_remove(table, "");
 
 	if (hash_contains_key(table, ""))
 		exit(1);

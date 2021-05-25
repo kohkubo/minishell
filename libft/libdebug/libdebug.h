@@ -6,9 +6,9 @@
 
 int		arraylen(char **array);
 void	display_array(char **array);
-void	array_cmp(char **aa, char **bb);
+int		array_cmp(char **aa, char **bb);
 char	**str_array_dup(char **array);
 void	qsort_strarray(char **array);
 void	debug_hash_display_table(t_hash_table *h);
-char	*debug_rand_text(void);
+char	*debug_rand_text(size_t size);
 #endif

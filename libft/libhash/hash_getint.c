@@ -1,6 +1,10 @@
 #include "libhash.h"
 
-int	hash_getint(t_hash_table *h, char *key)
+/*
+** @brief Get the integer value stored in [key], and contain to [ret].
+** @return Returns ture if successful, false otherwise.
+*/
+bool	hash_getint(t_hash_table *h, char *key, int *ret)
 {
 	char	*str;
 
@@ -8,6 +12,7 @@ int	hash_getint(t_hash_table *h, char *key)
 		ft_fatal("hash_getint : Invalid argument");
 	str = hash_getstr(h, key);
 	if (str == NULL)
-		return (0);
-	return (ft_atoi(str));
+		return (false);
+	*ret = ft_atoi(str);
+	return (true);
 }

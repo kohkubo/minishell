@@ -109,6 +109,9 @@ norm		:
 		$(libft_dir) \
 		$(libex_dir) \
 		$(libhash_dir) \
+	|| (printf "\e[31m%s\n\e[m" "Norm KO!"; exit 1)
+	@printf "\e[32m%s\n\e[m" "Norm OK!"
+
 
 prepush		: norm test
 

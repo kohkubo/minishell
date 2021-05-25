@@ -16,7 +16,10 @@ void	display_array(char **array)
 		printf("%s\n", *array++);
 }
 
-void	array_cmp(char **aa, char **bb)
+/*
+** @brief Compares two string arrays and returns -1 if there is no difference, and returns the index if there is a difference.
+*/
+int	array_cmp(char **aa, char **bb)
 {
 	int	i;
 
@@ -26,10 +29,11 @@ void	array_cmp(char **aa, char **bb)
 		if (ft_strcmp(aa[i], bb[i]))
 		{
 			printf("%s : %s\n", aa[i], bb[i]);
-			exit(1);
+			return (i);
 		}
 		i++;
 	}
+	return (-1);
 }
 
 char	**str_array_dup(char **array)

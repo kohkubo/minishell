@@ -41,4 +41,4 @@ cd ${CURDIR}
 
 sed -i '' -E "s|^src =|src =\\n\"${srcs}\"|" "${MAKE_PATH}"
 sed -i '' -e 's/src =/src =\\/' -e 's/c"$/c/' -e 's/^"//' "${MAKE_PATH}"
-sed -i '' -e 's/\.c$/\.c \\/' "${MAKE_PATH}"
+sed -i '' -E 's/^(\t.*)\.c$/\1\.c \\/' "${MAKE_PATH}"

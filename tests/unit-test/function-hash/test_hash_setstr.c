@@ -37,18 +37,30 @@ int	main()
 		free(value);
 	}
 
+	if (!hash_setstr(table, "CD", "aa"))
+		exit (1);
+	if (!hash_setstr(table, "ENB", "bb"))
+		exit (1);
+	if (!hash_setstr(table, "ASA", "c"))
+		exit (1);
+	if (!hash_setstr(table, "aあ", "いいいい"))
+		exit (1);
 	// 同じkeyでinsertして更新されるかテスト
-	hash_setstr(table, "CD", "aa");
-	hash_setstr(table, "ENB", "bb");
-	hash_setstr(table, "ASA", "c");
-	hash_setstr(table, "aあ", "いいいい");
-	hash_setstr(table, "ええ", "b");
-	hash_setstr(table, "ええ", "c");
-	hash_setstr(table, "", "d");
-	hash_setstr(table, "", "");
-	hash_setstr(table, "", "");
-	hash_setstr(table, "", "dd");
+	if (!hash_setstr(table, "ええ", "b"))
+		exit (1);
+	if (hash_setstr(table, "ええ", "c"))
+		exit (1);
+	if (!hash_setstr(table, "", "d"))
+		exit (1);
+	if (hash_setstr(table, "", ""))
+		exit (1);
+	if (hash_setstr(table, "", ""))
+		exit (1);
+	if (hash_setstr(table, "", "dd"))
+		exit (1);
 
+	if (strcmp(hash_getstr(table, "ええ"), "c"))
+		exit(1);
 	item = hash_search(table, "");
 	if (strcmp("dd", item->value))
 		exit(1);
@@ -63,8 +75,8 @@ int	main()
 	table = hash_create_table(TABLE_SIZE);
 	for (int i = 0; i < TABLE_SIZE; i++)
 	{
-		char *key = debug_rand_text();
-		char *value = debug_rand_text();
+		char *key = debug_rand_text(rand() % 100);
+		char *value = debug_rand_text(rand() % 100);
 		if (hash_setstr(table, key, value))
 			count++;
 		if (strcmp(value, hash_getstr(table, key)))

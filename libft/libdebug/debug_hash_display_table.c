@@ -37,14 +37,14 @@ void	debug_hash_display_table(t_hash_table *h)
 	}
 }
 
-char	*debug_rand_text(void)
+char	*debug_rand_text(size_t size)
 {
 	char	*char_set;
 	char	*text;
 
 	char_set = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	text = calloc(7, 1);
-	for (int i = 0; i < 6; i++)
+	text = calloc(size + 1, sizeof(char));
+	for (size_t i = 0; i < size; i++)
 	{
 		text[i] = char_set[rand() % 62];
 	}

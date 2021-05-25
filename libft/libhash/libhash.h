@@ -39,6 +39,6 @@ void			hash_clear_dict_item(void *item);
 char			**hash_getall(t_hash_table *h);
 bool			hash_setint(t_hash_table *h, char *key, int integer);
 bool			hash_clear_table(t_hash_table **h);
-int				hash_getint(t_hash_table *h, char *key);
+bool			hash_getint(t_hash_table *h, char *key, int *ret);
 t_hash_table	*hash_create_table(int size);
 #endif
