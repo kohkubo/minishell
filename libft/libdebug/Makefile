@@ -5,7 +5,7 @@ CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -O3
 obj		= $(src:%.c=%.o)
 
-.PHONY: all clean fclean re header debug sani-debug
+.PHONY: all clean fclean re debug sani-debug
 
 # ***********************************
 

@@ -47,7 +47,7 @@ src =\
 	./ft_itoa.c \
 	./ft_tolower.c \
 
-.PHONY: all clean fclean re init header
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
@@ -64,6 +64,3 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
-
-init:
-	bash header.sh
