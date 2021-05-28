@@ -61,15 +61,14 @@ int main()
 	hash_setstr(table, "aiueo4", "15");
 	if (success != true || table->count != 4)
 		exit(1);
-	if (hash_contains_key(table, "aiueo2"));
+	if (hash_contains_key(table, "aiueo2"))
 		exit(1);
 	char **all = hash_getall(table);
-	char ex1[][15] = {
-		"aiueo0=19", "aiueo1=18", "aiueo3=16", "aiueo4=15",NULL,
-	};
-	if (array_cmp(all, ex1) != -1 || !hash_clear_table(&table))
+	char **ex = ft_split("aiueo4=15 aiueo3=16 aiueo1=18 aiueo0=19", ' ');
+	if (array_cmp(all, ex) != -1 || !hash_clear_table(&table))
 		exit (1);
 	all = free_string_array(all);
+	ex = free_string_array(ex);
 
 
 	// printf("リストの最初の要素を消去\n");
@@ -83,12 +82,11 @@ int main()
 	if (success != true || table->count != 4 || hash_contains_key(table, "aiueo0"))
 		exit(1);
 	all = hash_getall(table);
-	char ex2[][15] = {
-		"aiueo1=18", "aiueo2=17", "aiueo3=16", "aiueo4=15",NULL,
-	};
-	if (array_cmp(all, ex2) != -1 || !hash_clear_table(&table))
+	ex = ft_split("aiueo1=18 aiueo2=17 aiueo3=16 aiueo4=15", ' ');
+	if (array_cmp(all, ex) != -1 || !hash_clear_table(&table))
 		exit(1);
 	all = free_string_array(all);
+	ex = free_string_array(ex);
 
 	// printf("リストの最後の要素を消去\n");
 	table = hash_create_table(1);
@@ -101,12 +99,11 @@ int main()
 	if (success != true || table->count != 4 || hash_contains_key(table, "aiueo3"))
 		exit(1);
 	all = hash_getall(table);
-	char ex3[][15] = {
-		"aiueo0=19", "aiueo1=18","aiueo2=17", "aiueo4=15", NULL,
-	};
-	if (array_cmp(all, ex3) != -1 || !hash_clear_table(&table))
+	ex = ft_split("aiueo0=19 aiueo1=18 aiueo2=17 aiueo4=15", ' ');
+	if (array_cmp(all, ex) != -1 || !hash_clear_table(&table))
 		exit(1);
 	all = free_string_array(all);
+	ex = free_string_array(ex);
 
 	// printf("ランダムテスト\n");
 	table = hash_create_table(1);

@@ -17,18 +17,23 @@ void	display_array(char **array)
 }
 
 /*
-** @brief Compares two string arrays and returns -1 if there is no difference, and returns the index if there is a difference.
+** @brief Compares two string arrays.
+** @return If there is no difference returns -1, find difference returns the index.
 */
 int	array_cmp(char **aa, char **bb)
 {
 	int	i;
 
 	i = 0;
-	while (aa[i] && bb[i])
+	while (aa[i] || bb[i])
 	{
+		if (!(aa[i] && bb[i])) {
+			printf("[index: %d] %s : %s\n", i, aa[i], bb[i]);
+			return (i);
+		}
 		if (ft_strcmp(aa[i], bb[i]))
 		{
-			printf("%s : %s\n", aa[i], bb[i]);
+			printf("[index: %d] %s : %s\n", i, aa[i], bb[i]);
 			return (i);
 		}
 		i++;
