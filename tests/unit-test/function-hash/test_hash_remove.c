@@ -2,8 +2,9 @@
 #include "./../../../libft/libex/libex.h"
 #include "./../../../libft/libhash/libhash.h"
 #include "./../../../libft/libdebug/libdebug.h"
-
 #include <libc.h>
+
+# define PP(str) printf("    %d : %s\n", __LINE__, #str); str;
 
 int main()
 {
@@ -66,10 +67,13 @@ int main()
 	char **all = hash_getall(table);
 	char **ex = ft_split("aiueo4=15 aiueo3=16 aiueo1=18 aiueo0=19", ' ');
 	if (array_cmp(all, ex) != -1 || !hash_clear_table(&table))
-		exit (1);
+	{
+		all = free_string_array(all);
+		ex = free_string_array(ex);
+		PP(exit(1);)
+	}
 	all = free_string_array(all);
 	ex = free_string_array(ex);
-
 
 	// printf("リストの最初の要素を消去\n");
 	table = hash_create_table(1);
@@ -82,9 +86,13 @@ int main()
 	if (success != true || table->count != 4 || hash_contains_key(table, "aiueo0"))
 		exit(1);
 	all = hash_getall(table);
-	ex = ft_split("aiueo1=18 aiueo2=17 aiueo3=16 aiueo4=15", ' ');
+	ex = ft_split("aiueo4=15 aiueo3=16 aiueo2=17 aiueo1=18", ' ');
 	if (array_cmp(all, ex) != -1 || !hash_clear_table(&table))
-		exit(1);
+	{
+		all = free_string_array(all);
+		ex = free_string_array(ex);
+		PP(exit (1);)
+	}
 	all = free_string_array(all);
 	ex = free_string_array(ex);
 
@@ -99,9 +107,13 @@ int main()
 	if (success != true || table->count != 4 || hash_contains_key(table, "aiueo3"))
 		exit(1);
 	all = hash_getall(table);
-	ex = ft_split("aiueo0=19 aiueo1=18 aiueo2=17 aiueo4=15", ' ');
+	ex = ft_split("aiueo4=15 aiueo2=17 aiueo1=18 aiueo0=19", ' ');
 	if (array_cmp(all, ex) != -1 || !hash_clear_table(&table))
-		exit(1);
+	{
+		all = free_string_array(all);
+		ex = free_string_array(ex);
+		PP(exit (1);)
+	}
 	all = free_string_array(all);
 	ex = free_string_array(ex);
 
