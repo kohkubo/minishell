@@ -57,4 +57,5 @@ int		ft_isalnum(int c);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 char	*ft_itoa(int n);
 int		ft_tolower(int c);
+
 #endif

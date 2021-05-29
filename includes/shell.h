@@ -5,7 +5,6 @@
 # include "../libft/libhash/libhash.h"
 # include <stdio.h>
 # include <stdbool.h>
-
 typedef enum e_token_type
 {
 	CHAR_GENERAL = -1,
@@ -42,4 +41,5 @@ typedef struct s_lexer
 void	parse(char *input);
 int		ft_exit(char **arg);
 int		ft_echo(char **args);
+
 #endif
