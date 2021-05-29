@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 test_res_print() {
 	if [ $1 -ne 0 ]; then
 		printf "    \e[31m%s\n\e[m" "unit test KO!"
@@ -63,5 +61,6 @@ rm -rf ./b.out.dSYM
 
 cd $REPO_ROOT || exit
 make fclean
+make leak
 
 exit $EXIT_CODE

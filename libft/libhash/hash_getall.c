@@ -4,7 +4,8 @@ static char	*dict_fmt(char *key, char *value)
 {
 	char	*s;
 
-	s = ft_substr(key, 0, ft_strlen(key) + ft_strlen(value) + 1);
+	s = ft_xmalloc(ft_strlen(key) + ft_strlen(value) + 2);
+	ft_strlcpy(s, key, SIZE_MAX);
 	ft_strlcat(s, "=", SIZE_MAX);
 	ft_strlcat(s, value, SIZE_MAX);
 	return (s);
