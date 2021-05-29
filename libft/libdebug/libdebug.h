@@ -11,4 +11,5 @@ char	**str_array_dup(char **array);
 void	qsort_strarray(char **array);
 void	debug_hash_display_table(t_hash_table *h);
 char	*debug_rand_text(size_t size);
+
 #endif

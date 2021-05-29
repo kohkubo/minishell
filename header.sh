@@ -6,11 +6,16 @@ MAKE_PATH=$3
 
 CURDIR=$PWD
 
+# header make
+
+sed -i '' -E "/^(int|void|size_t|t_.*|char|float|double|struct|unsigned|short|const|long|bool|signed).*;$/d" ${NAME_H}
+sed -i '' -e '/#endif/d'  ${NAME_H}
+sed -i '' -E '/^$/d'  ${NAME_H}
+
 prot=$(find "${DIR}" -type f -name '*.c' | xargs cat | sed -e '/^[a-zA-Z].*)$/!d' -e '/^static/d' -e "s/)$/);/g")
 TABS=$(echo "${prot}" | awk '{sub("[\t ][\t ]*\\**[a-zA-Z_0-9][a-zA-Z_0-9]*\\(.*", "");print length($0)}' |
 		sort -nr | head -n 1 | xargs -I{} expr {} / 4 + 1)
-header="$(sed -e "/^[a-zA-Z][a-zA-Z_0-9]*.*);$/d" -e '/#endif/d' -e '/^$/d' ${NAME_H})
-
+header="
 $(echo "${prot}" |
 	awk -v tabs=${TABS} '
 	{
@@ -24,11 +29,14 @@ $(echo "${prot}" |
 		sub("[\t ][\t ]*", t, str);
 		print $0 str
 	}')
-#endif"
+"
 
-echo "${header}" > ${NAME_H}
-
+echo "${header}" >> ${NAME_H}
 sed -i '' -e '/\main(void);/d' ${NAME_H}
+
+echo '#endif' >> ${NAME_H}
+
+# Makefile
 
 sed -i '' -e '/^\t\./d' "${MAKE_PATH}"
 sed -i '' -e 's/src =\\/src =/g' "${MAKE_PATH}"

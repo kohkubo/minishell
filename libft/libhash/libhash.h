@@ -41,4 +41,5 @@ bool			hash_setint(t_hash_table *h, char *key, int integer);
 bool			hash_clear_table(t_hash_table **h);
 bool			hash_getint(t_hash_table *h, char *key, int *ret);
 t_hash_table	*hash_create_table(int size);
+
 #endif
