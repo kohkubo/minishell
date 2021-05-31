@@ -12,5 +12,6 @@ int	main(void)
 		parse(input);
 		free_set((void **)&input, NULL);
 	}
+	free_set((void **)&input, NULL);
 	return (0);
 }
