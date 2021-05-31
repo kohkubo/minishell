@@ -30,13 +30,12 @@ void	parse(char *input)
 			g_reserved_funcs[i](&buf[1]);
 		else
 			not_implemented(buf[0]);
-		return ;
 	}
-	i = 0;
-	while (buf[i])
+	else
 	{
-		ft_putendl_fd(buf[i], 1);
-		i++;
+		i = 0;
+		while (buf[i])
+			ft_putendl_fd(buf[i++], 1);
 	}
 	buf = free_string_array(buf);
 }
