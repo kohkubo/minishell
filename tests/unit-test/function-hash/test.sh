@@ -33,7 +33,7 @@ do
 done
 
 cd $REPO_ROOT || exit
-@make sani-debug
+make sani-debug > /dev/null
 cd "$(dirname "$0")" || exit
 
 for path in $(find . -type f -name "*.c");
@@ -60,7 +60,7 @@ rm -rf ./minishell.dSYM
 rm -rf ./b.out.dSYM
 
 cd $REPO_ROOT || exit
-@make fclean
-@make leak
+make fclean > /dev/null
+make leak > /dev/null
 
 exit $EXIT_CODE
