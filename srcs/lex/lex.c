@@ -40,10 +40,10 @@ void	cut_off_token(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
 	}
 	else if (**s == 0)
 		token_end(lexer, tok, *i);
-	else if (ft_cmp(**s, "<>"))
+	else if (ft_strchr("<>", **s))
 	{
 		token_end_and_create(lexer, tok, *s, i);
-		if (ft_cmp(*(*s + 1), "<>"))
+		if (ft_strchr("<>", *(*s + 1)))
 		{
 			(*tok)->data[0] = *(*s)++;
 			(*tok)->data[1] = **s;

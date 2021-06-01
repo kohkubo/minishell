@@ -34,17 +34,3 @@ void	token_store_and_create(t_lexer *l, t_tok **t, char *s, t_token_type typ)
 	tmp->type = typ;
 	token_end_and_create(l, t, s, NULL);
 }
-
-int	ft_cmp(char a, char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (a == str[i])
-			return (1);
-		i++;
-	}
-	return (0);
-}
