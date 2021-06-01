@@ -1,6 +1,6 @@
 #include "../../includes/lex.h"
 
-bool	minishell_lexer3(t_tok **tok, t_state *state, char **s, size_t *i)
+bool	minishell_lexer3(t_tok **tok, t_state_type *state, char **s, size_t *i)
 {
 	if (**s == '\'')
 	{
@@ -29,7 +29,7 @@ bool	minishell_lexer3(t_tok **tok, t_state *state, char **s, size_t *i)
 	return (true);
 }
 
-void	minishell_lexer4(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
+void	cut_off_token(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
 {
 	if (ft_isspace(**s))
 		token_end_and_create(lexer, tok, *s, i);
@@ -40,14 +40,14 @@ void	minishell_lexer4(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
 	}
 	else if (**s == 0)
 		token_end(lexer, tok, *i);
-	else if (ft_cmp(**s, "<>"))
+	else if (ft_strchr("<>", **s))
 	{
 		token_end_and_create(lexer, tok, *s, i);
-		if (ft_cmp(*(*s + 1), "<>"))
+		if (ft_strchr("<>", *(*s + 1)))
 		{
 			(*tok)->data[0] = *(*s)++;
 			(*tok)->data[1] = **s;
-			(*tok)->type = **s + ANK;
+			(*tok)->type = **s + PAD;
 			token_end_and_create(lexer, tok, *s, NULL);
 		}
 		else
@@ -55,7 +55,7 @@ void	minishell_lexer4(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
 	}
 }
 
-void	minishell_lexer5(t_tok *tok, t_state *state, char *s, size_t *i)
+void	break_quote_state(t_tok *tok, t_state_type *state, char *s, size_t *i)
 {
 	if (*state == STATE_IN_DQUOTE)
 	{
@@ -73,7 +73,7 @@ void	minishell_lexer5(t_tok *tok, t_state *state, char *s, size_t *i)
 
 void	minishell_lexer2(t_lexer *lexer, t_tok *tok, char *s)
 {
-	t_state			state;
+	t_state_type	state;
 	size_t			i;
 
 	i = 0;
@@ -83,11 +83,11 @@ void	minishell_lexer2(t_lexer *lexer, t_tok *tok, char *s)
 		if (state == STATE_GENERAL)
 		{
 			if (!minishell_lexer3(&tok, &state, &s, &i))
-				minishell_lexer4(lexer, &tok, &s, &i);
+				cut_off_token(lexer, &tok, &s, &i);
 		}
 		else
 		{
-			minishell_lexer5(tok, &state, s, &i);
+			break_quote_state(tok, &state, s, &i);
 		}
 		if (*s == 0)
 			break ;
@@ -99,11 +99,27 @@ t_lexer	*minishell_lexer(char *s)
 {
 	t_lexer			*lexer;
 	t_tok			*tok;
+	t_state_type	state;
+	size_t			i;
 
 	if (s == NULL)
 		ft_fatal("minishell_lexer : Invalid argument");
 	lexer = lexer_init();
 	tok = tok_init(s);
-	minishell_lexer2(lexer, tok, s);
+	i = 0;
+	state = STATE_GENERAL;
+	while (1)
+	{
+		if (state == STATE_GENERAL)
+		{
+			if (!minishell_lexer3(&tok, &state, &s, &i))
+				cut_off_token(lexer, &tok, &s, &i);
+		}
+		else
+			break_quote_state(tok, &state, s, &i);
+		if (*s == 0)
+			break ;
+		s++;
+	}
 	return (lexer);
 }

@@ -56,4 +56,5 @@ int main(void)
 	// test("'echo test << test'\"sssssssssssss\"");
 	// test("\"echo ssssss\"");
 	// test("echo test ;\n\taaaaa");
+	// test("echo test ;;");
 }
