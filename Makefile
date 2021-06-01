@@ -27,6 +27,9 @@ CFLAGS		= -Wall -Wextra -Werror -O3 -I$(includes)
 # ***********************************
 
 src =\
+	./lex/lex.c \
+	./lex/token.c \
+	./lex/utils.c \
 	./parse/parse.c \
 	./built-in/ft_exit.c \
 	./built-in/echo.c \
