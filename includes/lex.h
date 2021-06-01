@@ -4,11 +4,11 @@
 # include "shell.h"
 
 bool			\
-minishell_lexer3(t_tok **tok, t_state *state, char **s, size_t *i);
+minishell_lexer3(t_tok **tok, t_state_type *state, char **s, size_t *i);
 void			\
-minishell_lexer4(t_lexer *lexer, t_tok **tok, char **s, size_t *i);
+cut_off_token(t_lexer *lexer, t_tok **tok, char **s, size_t *i);
 void			\
-minishell_lexer5(t_tok *tok, t_state *state, char *s, size_t *i);
+break_quote_state(t_tok *tok, t_state_type *state, char *s, size_t *i);
 void			minishell_lexer2(t_lexer *lexer, t_tok *tok, char *s);
 t_lexer			*minishell_lexer(char *s);
 void			token_end(t_lexer *lexer, t_tok **tok, size_t n);
