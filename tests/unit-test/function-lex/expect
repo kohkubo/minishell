@@ -19,10 +19,55 @@ echo : -1
 test : -1
 aiueo : -1
  === test === 
+s : echo test;aiueo
+echo : -1
+test : -1
+; : 59
+aiueo : -1
+ === test === 
+s : echo test; aiueo
+echo : -1
+test : -1
+; : 59
+aiueo : -1
+ === test === 
 s : echo test ;aiueo
 echo : -1
 test : -1
 ; : 59
+aiueo : -1
+ === test === 
+s : echo test ; aiueo
+echo : -1
+test : -1
+; : 59
+aiueo : -1
+ === test === 
+s : echo test;
+echo : -1
+test : -1
+; : 59
+ === test === 
+s : echo test ;
+echo : -1
+test : -1
+; : 59
+ === test === 
+s : echo test; 
+echo : -1
+test : -1
+; : 59
+ === test === 
+s : echo test|aiueo
+echo : -1
+test : -1
+| : 124
+aiueo : -1
+ === test === 
+s : echo test| aiueo
+echo : -1
+test : -1
+| : 124
 aiueo : -1
  === test === 
 s : echo test |aiueo
@@ -31,10 +76,82 @@ test : -1
 | : 124
 aiueo : -1
  === test === 
+s : echo test | aiueo
+echo : -1
+test : -1
+| : 124
+aiueo : -1
+ === test === 
+s : echo test|
+echo : -1
+test : -1
+| : 124
+ === test === 
+s : echo test |
+echo : -1
+test : -1
+| : 124
+ === test === 
+s : echo test| 
+echo : -1
+test : -1
+| : 124
+ === test === 
+s : echo test>aiueo
+echo : -1
+test : -1
+> : 62
+aiueo : -1
+ === test === 
+s : echo test> aiueo
+echo : -1
+test : -1
+> : 62
+aiueo : -1
+ === test === 
 s : echo test >aiueo
 echo : -1
 test : -1
 > : 62
+aiueo : -1
+ === test === 
+s : echo test > aiueo
+echo : -1
+test : -1
+> : 62
+aiueo : -1
+ === test === 
+s : echo test>
+echo : -1
+test : -1
+> : 62
+ === test === 
+s : echo test >
+echo : -1
+test : -1
+> : 62
+ === test === 
+s : echo test> 
+echo : -1
+test : -1
+> : 62
+ === test === 
+s : echo test<aiueo
+echo : -1
+test : -1
+< : 60
+aiueo : -1
+ === test === 
+s : echo test< aiueo
+echo : -1
+test : -1
+< : 60
+aiueo : -1
+ === test === 
+s : echo test <aiueo
+echo : -1
+test : -1
+< : 60
 aiueo : -1
  === test === 
 s : echo test < aiueo
@@ -43,10 +160,76 @@ test : -1
 < : 60
 aiueo : -1
  === test === 
+s : echo test<
+echo : -1
+test : -1
+< : 60
+ === test === 
+s : echo test <
+echo : -1
+test : -1
+< : 60
+ === test === 
+s : echo test< 
+echo : -1
+test : -1
+< : 60
+ === test === 
+s : echo test>>aiueo
+echo : -1
+test : -1
+>> : 318
+aiueo : -1
+ === test === 
+s : echo test>> aiueo
+echo : -1
+test : -1
+>> : 318
+aiueo : -1
+ === test === 
+s : echo test >>aiueo
+echo : -1
+test : -1
+>> : 318
+aiueo : -1
+ === test === 
 s : echo test >> aiueo
 echo : -1
 test : -1
 >> : 318
+aiueo : -1
+ === test === 
+s : echo test>>
+echo : -1
+test : -1
+>> : 318
+ === test === 
+s : echo test >>
+echo : -1
+test : -1
+>> : 318
+ === test === 
+s : echo test>> 
+echo : -1
+test : -1
+>> : 318
+ === test === 
+s : echo test<<aiueo
+echo : -1
+test : -1
+<< : 316
+aiueo : -1
+ === test === 
+s : echo test<< aiueo
+echo : -1
+test : -1
+<< : 316
+aiueo : -1
+ === test === 
+s : echo test <<aiueo
+echo : -1
+test : -1
+<< : 316
 aiueo : -1
  === test === 
 s : echo test << aiueo
@@ -54,6 +237,21 @@ echo : -1
 test : -1
 << : 316
 aiueo : -1
+ === test === 
+s : echo test<<
+echo : -1
+test : -1
+<< : 316
+ === test === 
+s : echo test <<
+echo : -1
+test : -1
+<< : 316
+ === test === 
+s : echo test<< 
+echo : -1
+test : -1
+<< : 316
  === test === 
 s : 'echo test << aiueo'
 'echo test << aiueo' : -1
@@ -74,11 +272,35 @@ eeee : -1
 s : 'echo test << test''sssssssssssss'
 'echo test << test''sssssssssssss' : -1
  === test === 
+s : 'echo "test"'
+'echo "test"' : -1
+ === test === 
+s : 'echo \' test
+'echo \' : -1
+test : -1
+ === test === 
+s : '\n'
+'\n' : -1
+ === test === 
+s : 'test''
+'test' : -1
+' : 39
+ === test === 
 s : 'echo test << test'"sssssssssssss"
 'echo test << test'"sssssssssssss" : -1
  === test === 
 s : "echo ssssss"
 "echo ssssss" : -1
+ === test === 
+s : "echo 'ssssss'"
+"echo 'ssssss'" : -1
+ === test === 
+s : "echo \"test\""
+"echo \"test\"" : -1
+ === test === 
+s : "test""
+"test" : -1
+" : 34
  === test === 
 s : echo test ;
 	aaaaa
@@ -100,3 +322,12 @@ s : ;;
 s :  
  === test === 
 s :            
+ === test === 
+s : echo -n
+echo : -1
+-n : -1
+ === test === 
+s : echo -n test
+echo : -1
+-n : -1
+test : -1

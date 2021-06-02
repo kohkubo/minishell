@@ -33,22 +33,77 @@ int main(void)
 	test("      echo     test      aiueo    ");
 	test("   echo test aiueo");
 	test("echo test aiueo  ");
+	// ;
+	test("echo test;aiueo");
+	test("echo test; aiueo");
 	test("echo test ;aiueo");
+	test("echo test ; aiueo");
+	test("echo test;");
+	test("echo test ;");
+	test("echo test; ");
+	// |
+	test("echo test|aiueo");
+	test("echo test| aiueo");
 	test("echo test |aiueo");
+	test("echo test | aiueo");
+	test("echo test|");
+	test("echo test |");
+	test("echo test| ");
+	// >
+	test("echo test>aiueo");
+	test("echo test> aiueo");
 	test("echo test >aiueo");
+	test("echo test > aiueo");
+	test("echo test>");
+	test("echo test >");
+	test("echo test> ");
+	// <
+	test("echo test<aiueo");
+	test("echo test< aiueo");
+	test("echo test <aiueo");
 	test("echo test < aiueo");
+	test("echo test<");
+	test("echo test <");
+	test("echo test< ");
+	// >>
+	test("echo test>>aiueo");
+	test("echo test>> aiueo");
+	test("echo test >>aiueo");
 	test("echo test >> aiueo");
+	test("echo test>>");
+	test("echo test >>");
+	test("echo test>> ");
+	// <<
+	test("echo test<<aiueo");
+	test("echo test<< aiueo");
+	test("echo test <<aiueo");
 	test("echo test << aiueo");
+	test("echo test<<");
+	test("echo test <<");
+	test("echo test<< ");
+	// '
 	test("'echo test << aiueo'");
 	test("echo 'echo test << aiueo'");
 	test("'echo test << test' eeee");
 	test("aa 'echo test << test' eeee");
 	test("'echo test << test''sssssssssssss'");
+	test("'echo \"test\"'");
+	test("'echo \\' test");
+	test("'\\n'");
+	test("'test''");
+	// '"
 	test("'echo test << test'\"sssssssssssss\"");
+	// "
 	test("\"echo ssssss\"");
+	test("\"echo 'ssssss'\"");
+	test("\"echo \\\"test\\\"\"");
+	test("\"test\"\"");
+	// 
 	test("echo test ;\n\taaaaa");
 	test("echo test ;;");
 	test(";;");
 	test(" ");
 	test("           ");
+	test("echo -n");
+	test("echo -n test");
 }
