@@ -1,24 +1,55 @@
 #ifndef LEX_H
 # define LEX_H
 
-# include "shell.h"
+# include "../libft/libft/libft.h"
+# define PAD 256
 
-bool			\
-minishell_lexer3(t_tok **tok, t_state_type *state, char **s, size_t *i);
-void			\
-cut_off_token(t_lexer *lexer, t_tok **tok, char **s, size_t *i);
-void			\
-break_quote_state(t_tok *tok, t_state_type *state, char *s, size_t *i);
-void			minishell_lexer2(t_lexer *lexer, t_tok *tok, char *s);
-t_lexer			*minishell_lexer(char *s);
-void			token_end(t_lexer *lexer, t_tok **tok, size_t n);
-void			\
-token_end_and_create(t_lexer *lexer, t_tok **tok, char *s, size_t *n);
-void			\
-token_store_and_create(t_lexer *l, t_tok **t, char *s, t_token_type typ);
-int				ft_cmp(char a, char *str);
-t_token_type	token_type(char c);
-t_tok			*tok_init(char *s);
-t_lexer			*lexer_init(void);
+typedef enum e_token_type
+{
+	CHAR_GENERAL = -1,
+	CHAR_PIPE = '|',
+	CHAR_AMPERSAND = '&',
+	CHAR_QOUTE = '\'',
+	CHAR_DQUOTE = '\"',
+	CHAR_SEMICOLON = ';',
+	CHAR_WHITESPACE = ' ',
+	CHAR_ESCAPESEQUENCE = '\\',
+	CHAR_TAB = '\t',
+	CHAR_NEWLINE = '\n',
+	CHAR_GREATER = '>',
+	CHAR_GREATER2 = '>' + PAD,
+	CHAR_LESSER = '<',
+	CHAR_LESSER2 = '<' + PAD,
+	CHAR_NULL = 0,
+	TOKEN	= -1,
+}	t_token_type;
+
+typedef enum e_state_type{
+	STATE_IN_DQUOTE = '"',
+	STATE_IN_QUOTE = '\'',
+	STATE_GENERAL = -1,
+}	t_state_type;
+
+/*
+** Put in contents of t_list.
+*/
+typedef struct s_tok {
+	char			*data;
+	t_token_type	type;
+}	t_tok;
+
+/*
+** Deliverables of lexer.
+*/
+typedef struct s_lexer
+{
+	int		len;
+	t_list	*listtok;
+}	t_lexer;
+
+void	lexer_free(t_lexer **lexer);
+void	tok_free(void *content);
+t_tok	*tok_init(char *s);
+t_lexer	*lexer_init(void);
 
 #endif

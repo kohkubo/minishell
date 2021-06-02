@@ -1,0 +1,102 @@
+ === test === 
+s : echo test aiueo
+echo : -1
+test : -1
+aiueo : -1
+ === test === 
+s :       echo     test      aiueo    
+echo : -1
+test : -1
+aiueo : -1
+ === test === 
+s :    echo test aiueo
+echo : -1
+test : -1
+aiueo : -1
+ === test === 
+s : echo test aiueo  
+echo : -1
+test : -1
+aiueo : -1
+ === test === 
+s : echo test ;aiueo
+echo : -1
+test : -1
+; : 59
+aiueo : -1
+ === test === 
+s : echo test |aiueo
+echo : -1
+test : -1
+| : 124
+aiueo : -1
+ === test === 
+s : echo test >aiueo
+echo : -1
+test : -1
+> : 62
+aiueo : -1
+ === test === 
+s : echo test < aiueo
+echo : -1
+test : -1
+< : 60
+aiueo : -1
+ === test === 
+s : echo test >> aiueo
+echo : -1
+test : -1
+>> : 318
+aiueo : -1
+ === test === 
+s : echo test << aiueo
+echo : -1
+test : -1
+<< : 316
+aiueo : -1
+ === test === 
+s : 'echo test << aiueo'
+'echo test << aiueo' : -1
+ === test === 
+s : echo 'echo test << aiueo'
+echo : -1
+'echo test << aiueo' : -1
+ === test === 
+s : 'echo test << test' eeee
+'echo test << test' : -1
+eeee : -1
+ === test === 
+s : aa 'echo test << test' eeee
+aa : -1
+'echo test << test' : -1
+eeee : -1
+ === test === 
+s : 'echo test << test''sssssssssssss'
+'echo test << test''sssssssssssss' : -1
+ === test === 
+s : 'echo test << test'"sssssssssssss"
+'echo test << test'"sssssssssssss" : -1
+ === test === 
+s : "echo ssssss"
+"echo ssssss" : -1
+ === test === 
+s : echo test ;
+	aaaaa
+echo : -1
+test : -1
+; : 59
+aaaaa : -1
+ === test === 
+s : echo test ;;
+echo : -1
+test : -1
+; : 59
+; : 59
+ === test === 
+s : ;;
+; : 59
+; : 59
+ === test === 
+s :  
+ === test === 
+s :            
