@@ -39,6 +39,6 @@ echo "echo あいう" | bash >> expect
 
 diff output expect
 RES=$?
-rm expect output ./minishell
+rm leaksout expect output ./minishell
 cd "$PWD" || exit
 exit $(($RES | $LEAKS))
