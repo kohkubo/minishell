@@ -1,4 +1,4 @@
-#include "../../includes/lex.h"
+#include "../../includes/lex_analyze.h"
 
 void	token_end(t_lexer *lexer, t_tok **tok, size_t n)
 {
@@ -6,6 +6,11 @@ void	token_end(t_lexer *lexer, t_tok **tok, size_t n)
 	{
 		ft_lstadd_back(&lexer->listtok, ft_lstnew(*tok));
 		lexer->len++;
+	}
+	if (n == 0)
+	{
+		if ((*tok)->data[0] == 0)
+			tok_free(*tok);
 	}
 }
 

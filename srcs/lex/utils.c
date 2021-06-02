@@ -1,4 +1,4 @@
-#include "../../includes/lex.h"
+#include "../../includes/lex_analyze.h"
 
 t_token_type	token_type(char c)
 {
@@ -47,4 +47,21 @@ t_lexer	*lexer_init(void)
 	lexer->len = 0;
 	lexer->listtok = NULL;
 	return (lexer);
+}
+
+void	tok_free(void *content)
+{
+	t_tok	*tok;
+
+	tok = (t_tok *)content;
+	free(tok->data);
+	tok->data = NULL;
+	free(tok);
+}
+
+void	lexer_free(t_lexer **lexer)
+{
+	ft_lstclear(&(*lexer)->listtok, tok_free);
+	free(*lexer);
+	*lexer = NULL;
 }
