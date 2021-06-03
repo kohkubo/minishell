@@ -1,31 +1,5 @@
 #include "../../includes/lex_analyze.h"
 
-t_token_type	token_type(char c)
-{
-	if (c == '|')
-		return (c);
-	if (c == '\'')
-		return (c);
-	if (c == '"')
-		return (c);
-	if (c == ';')
-		return (c);
-	if (c == '\\')
-		return (c);
-	if (c == '>')
-		return (c);
-	if (c == '<')
-		return (c);
-	if (c == '<')
-		return (c);
-	if (ft_isspace(c))
-		return (' ');
-	if (c == 0)
-		return (c);
-	else
-		return (CHAR_GENERAL);
-}
-
 t_tok	*tok_init(char *s)
 {
 	size_t	len;

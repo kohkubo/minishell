@@ -1,5 +1,31 @@
 #include "../../includes/lex_analyze.h"
 
+t_token_type	token_type(char c)
+{
+	if (c == '|')
+		return (c);
+	if (c == '\'')
+		return (c);
+	if (c == '"')
+		return (c);
+	if (c == ';')
+		return (c);
+	if (c == '\\')
+		return (c);
+	if (c == '>')
+		return (c);
+	if (c == '<')
+		return (c);
+	if (c == '<')
+		return (c);
+	if (ft_isspace(c))
+		return (' ');
+	if (c == 0)
+		return (c);
+	else
+		return (CHAR_GENERAL);
+}
+
 void	token_end(t_lexer *lexer, t_tok **tok, size_t n)
 {
 	if (n > 0)
@@ -38,4 +64,15 @@ void	token_store_and_create(t_lexer *l, t_tok **t, char *s, t_token_type typ)
 	tmp->data[1] = 0;
 	tmp->type = typ;
 	token_end_and_create(l, t, s, NULL);
+}
+
+void	token_store2_and_create(t_lexer *l, t_tok **t, char **s)
+{
+	t_tok	*tmp;
+
+	tmp = *t;
+	tmp->data[0] = *(*s)++;
+	tmp->data[1] = **s;
+	tmp->type = **s + PAD;
+	token_end_and_create(l, t, *s, NULL);
 }
