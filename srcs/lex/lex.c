@@ -1,19 +1,22 @@
 #include "../../includes/lex_analyze.h"
 
-static void	break_quote_state(t_tok *tok, t_state_type *st, char *s, size_t *i)
+static t_state_type	break_quote_state(t_tok *tok, t_state_type st, char *s, size_t *i)
 {
-	if (*st == STATE_IN_DQUOTE)
+	if (*s == 0)
+		return (STATE_ERROR);
+	else if (st == STATE_IN_DQUOTE)
 	{
 		tok->data[(*i)++] = *s;
 		if (*s == CHAR_DQUOTE)
-			*st = STATE_GENERAL;
+			return (STATE_GENERAL);
 	}
-	else if (*st == STATE_IN_QUOTE)
+	else if (st == STATE_IN_QUOTE)
 	{
 		tok->data[(*i)++] = *s;
 		if (*s == CHAR_QOUTE)
-			*st = STATE_GENERAL;
+			return (STATE_GENERAL);
 	}
+	return (st);
 }
 
 static void	cut_off_token(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
