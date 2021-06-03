@@ -34,7 +34,8 @@ int main(void)
 	test("      echo     test      aiueo    ");
 	test("   echo test aiueo");
 	test("echo test aiueo  ");
-	// ;
+
+	printf("\n; ; ;\n");
 	test("echo test;aiueo");
 	test("echo test; aiueo");
 	test("echo test ;aiueo");
@@ -42,7 +43,8 @@ int main(void)
 	test("echo test;");
 	test("echo test ;");
 	test("echo test; ");
-	// |
+
+	printf("\n| | |\n");
 	test("echo test|aiueo");
 	test("echo test| aiueo");
 	test("echo test |aiueo");
@@ -50,7 +52,8 @@ int main(void)
 	test("echo test|");
 	test("echo test |");
 	test("echo test| ");
-	// >
+
+	printf("\n> > >\n");
 	test("echo test>aiueo");
 	test("echo test> aiueo");
 	test("echo test >aiueo");
@@ -58,7 +61,8 @@ int main(void)
 	test("echo test>");
 	test("echo test >");
 	test("echo test> ");
-	// <
+
+	printf("\n< < <\n");
 	test("echo test<aiueo");
 	test("echo test< aiueo");
 	test("echo test <aiueo");
@@ -66,7 +70,8 @@ int main(void)
 	test("echo test<");
 	test("echo test <");
 	test("echo test< ");
-	// >>
+
+	printf("\n>> >> >>\n");
 	test("echo test>>aiueo");
 	test("echo test>> aiueo");
 	test("echo test >>aiueo");
@@ -74,7 +79,8 @@ int main(void)
 	test("echo test>>");
 	test("echo test >>");
 	test("echo test>> ");
-	// <<
+
+	printf("\n<< << <<\n");
 	test("echo test<<aiueo");
 	test("echo test<< aiueo");
 	test("echo test <<aiueo");
@@ -82,7 +88,8 @@ int main(void)
 	test("echo test<<");
 	test("echo test <<");
 	test("echo test<< ");
-	// '
+	
+	printf("\n' ' '\n");
 	test("'echo test << aiueo'");
 	test("echo 'echo test << aiueo'");
 	test("'echo test << test' eeee");
@@ -92,14 +99,17 @@ int main(void)
 	test("'echo \\' test");
 	test("'\\n'");
 	test("'test''");
-	// '"
+
+	printf("\n'\" '\" '\"\n");
 	test("'echo test << test'\"sssssssssssss\"");
-	// "
+
+	printf("\n\" \" \"\n");
 	test("\"echo ssssss\"");
 	test("\"echo 'ssssss'\"");
 	test("\"echo \\\"test\\\"\"");
 	test("\"test\"\"");
-	//
+
+	printf("\n\\ \\ \\\n");
 	test("echo test ;\n\taaaaa");
 	test("echo test ;;");
 	test(";;");

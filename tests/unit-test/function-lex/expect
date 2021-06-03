@@ -22,6 +22,8 @@ lexer->len : 3
 echo : -1
 test : -1
 aiueo : -1
+
+; ; ;
  === test ===
 s : echo test;aiueo
 lexer->len : 4
@@ -68,6 +70,8 @@ lexer->len : 3
 echo : -1
 test : -1
 ; : 59
+
+| | |
  === test ===
 s : echo test|aiueo
 lexer->len : 4
@@ -114,6 +118,8 @@ lexer->len : 3
 echo : -1
 test : -1
 | : 124
+
+> > >
  === test ===
 s : echo test>aiueo
 lexer->len : 4
@@ -160,6 +166,8 @@ lexer->len : 3
 echo : -1
 test : -1
 > : 62
+
+< < <
  === test ===
 s : echo test<aiueo
 lexer->len : 4
@@ -206,6 +214,8 @@ lexer->len : 3
 echo : -1
 test : -1
 < : 60
+
+>> >> >>
  === test ===
 s : echo test>>aiueo
 lexer->len : 4
@@ -252,6 +262,8 @@ lexer->len : 3
 echo : -1
 test : -1
 >> : 318
+
+<< << <<
  === test ===
 s : echo test<<aiueo
 lexer->len : 4
@@ -298,6 +310,8 @@ lexer->len : 3
 echo : -1
 test : -1
 << : 316
+
+' ' '
  === test ===
 s : 'echo test << aiueo'
 lexer->len : 1
@@ -340,10 +354,14 @@ s : 'test''
 lexer->len : 2
 'test' : -1
 ' : 39
+
+'" '" '"
  === test ===
 s : 'echo test << test'"sssssssssssss"
 lexer->len : 1
 'echo test << test'"sssssssssssss" : -1
+
+" " "
  === test ===
 s : "echo ssssss"
 lexer->len : 1
@@ -361,6 +379,8 @@ s : "test""
 lexer->len : 2
 "test" : -1
 " : 34
+
+\ \ \
  === test ===
 s : echo test ;
 	aaaaa
