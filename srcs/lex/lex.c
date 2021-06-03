@@ -96,7 +96,13 @@ t_lexer	*minishell_lexer(char *s)
 		if (state == STATE_GENERAL)
 			state = generate_token(lexer, &tok, &s, &i);
 		else
-			break_quote_state(tok, &state, s, &i);
+			state = break_quote_state(tok, state, s, &i);
+		if (state == STATE_ERROR)
+		{
+			tok_free(tok);
+			lexer_free(&lexer);
+			return (NULL);
+		}
 		if (*s == 0)
 			break ;
 		s++;
