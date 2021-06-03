@@ -22,7 +22,10 @@ void test(char *s)
 	printf("s : %s\n", s);
 	lexer = minishell_lexer(s);
 	if (lexer == NULL)
+	{
+		printf("NULL!\n");
 		return ;
+	}
 	printf("lexer->len : %d\n", lexer->len);
 	ft_lstiter(lexer->listtok, display_lexer);
 	lexer_free(&lexer);
@@ -98,7 +101,6 @@ int main(void)
 	test("'echo \"test\"'");
 	test("'echo \\' test");
 	test("'\\n'");
-	test("'test''");
 
 	printf("\n'\" '\" '\"\n");
 	test("'echo test << test'\"sssssssssssss\"");
@@ -106,15 +108,48 @@ int main(void)
 	printf("\n\" \" \"\n");
 	test("\"echo ssssss\"");
 	test("\"echo 'ssssss'\"");
-	test("\"echo \\\"test\\\"\"");
-	test("\"test\"\"");
+
+	printf("\n;; ;; ;;\n");
+	test("echo test ;;");
+	test(";;");
 
 	printf("\n\\ \\ \\\n");
 	test("echo test ;\n\taaaaa");
-	test("echo test ;;");
-	test(";;");
+	test("\\\\");
+	test("echo \\\\");
+	test("echo test\\\\");
+	test("aiueo\\ ssssssssss");
+	test("aiueo \\ssssssssss");
+	test("aiueo \\ ssssssssss");
+	test("aiueo\\ssssssssss");
+	test("aiueo\\\\ssssssssss");
+	
+	printf("\nその他\n");
 	test(" ");
 	test("           ");
 	test("echo -n");
 	test("echo -n test");
+
+	printf("\nNULL test\n");
+	test("'test''");
+	test("\"test\"\"");
+	test("\"echo \\\"test\\\"\"");
+	test("'''");
+	test("''' ");
+	test("'' '");
+	test("'' ' ");
+	test("\"\"\"");
+	test("\"\" \"");
+	test("\"\"\" ");
+	test("\"\" \" ");
+	test("\"\" \" >");
+	test("\"\" \" aaa");
+	test("\"\" \" >>");
+	test("\"\" \" >>>");
+	test("\"\" \">>>");
+	test("'");
+	test("\"");
+	test("\\");
+	test("\\\\\\");
+	test("aiueo\\");
 }
