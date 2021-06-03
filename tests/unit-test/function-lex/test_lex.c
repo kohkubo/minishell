@@ -18,11 +18,12 @@ void test(char *s)
 {
 	t_lexer	*lexer;
 
-	printf(" === test === \n");
+	printf(" === test ===\n");
 	printf("s : %s\n", s);
 	lexer = minishell_lexer(s);
 	if (lexer == NULL)
 		return ;
+	printf("lexer->len : %d\n", lexer->len);
 	ft_lstiter(lexer->listtok, display_lexer);
 	lexer_free(&lexer);
 }
@@ -98,7 +99,7 @@ int main(void)
 	test("\"echo 'ssssss'\"");
 	test("\"echo \\\"test\\\"\"");
 	test("\"test\"\"");
-	// 
+	//
 	test("echo test ;\n\taaaaa");
 	test("echo test ;;");
 	test(";;");
