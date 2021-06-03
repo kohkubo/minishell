@@ -28,7 +28,15 @@ static void	cut_off_token(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
 	else if (**s == CHAR_PIPE || **s == CHAR_SEMICOLON)
 	{
 		token_end_and_create(lexer, tok, *s, i);
-		token_store_and_create(lexer, tok, *s, **s);
+		if (*(*s + 1) == ';')
+		{
+			(*tok)->data[0] = *(*s)++;
+			(*tok)->data[1] = **s;
+			(*tok)->type = **s + PAD;
+			token_end_and_create(lexer, tok, *s, NULL);
+		}
+		else
+			token_store_and_create(lexer, tok, *s, **s);
 	}
 	else if (**s == 0)
 		token_end(lexer, tok, *i);

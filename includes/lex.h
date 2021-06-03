@@ -12,6 +12,7 @@ typedef enum e_token_type
 	CHAR_QOUTE = '\'',
 	CHAR_DQUOTE = '\"',
 	CHAR_SEMICOLON = ';',
+	CHAR_SEMICOLON2 = ';' + PAD,
 	CHAR_WHITESPACE = ' ',
 	CHAR_ESCAPESEQUENCE = '\\',
 	CHAR_TAB = '\t',
