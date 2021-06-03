@@ -59,6 +59,8 @@ static t_state_type	generate_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
 	}
 	else if (**s == '\\')
 	{
+		if (*(*s + 1) == 0)
+			state = STATE_ERROR;
 		(*tok)->data[(*i)++] = *(++*s);
 		(*tok)->type = TOKEN;
 	}
