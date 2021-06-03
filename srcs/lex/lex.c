@@ -1,6 +1,7 @@
 #include "../../includes/lex_analyze.h"
 
-static t_state_type	break_quote_state(t_tok *tok, t_state_type st, char *s, size_t *i)
+static t_state_type	break_quote_state(\
+t_tok *tok, t_state_type st, char *s, size_t *i)
 {
 	if (*s == 0)
 		return (STATE_ERROR);
@@ -29,12 +30,7 @@ static void	cut_off_token(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
 	{
 		token_end_and_create(lexer, tok, *s, i);
 		if (*(*s + 1) == ';')
-		{
-			(*tok)->data[0] = *(*s)++;
-			(*tok)->data[1] = **s;
-			(*tok)->type = **s + PAD;
-			token_end_and_create(lexer, tok, *s, NULL);
-		}
+			token_store2_and_create(lexer, tok, s);
 		else
 			token_store_and_create(lexer, tok, *s, **s);
 	}
@@ -44,12 +40,7 @@ static void	cut_off_token(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
 	{
 		token_end_and_create(lexer, tok, *s, i);
 		if (*(*s + 1) == '<' || *(*s + 1) == '>')
-		{
-			(*tok)->data[0] = *(*s)++;
-			(*tok)->data[1] = **s;
-			(*tok)->type = **s + PAD;
-			token_end_and_create(lexer, tok, *s, NULL);
-		}
+			token_store2_and_create(lexer, tok, s);
 		else
 			token_store_and_create(lexer, tok, *s, **s);
 	}
@@ -81,22 +72,11 @@ static t_state_type	generate_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
 	return (state);
 }
 
-/*
-** @brief Returns t_lexer
-** @return If only spaces are passed,
-it returns a t_lexer with t_tok in an empty string.
-*/
-t_lexer	*minishell_lexer(char *s)
+static t_lexer	*minishell_lexer_do(t_lexer *lexer, t_tok *tok, char *s)
 {
-	t_lexer			*lexer;
-	t_tok			*tok;
 	t_state_type	state;
 	size_t			i;
 
-	if (s == NULL)
-		ft_fatal("minishell_lexer : Invalid argument");
-	lexer = lexer_init();
-	tok = tok_init(s);
 	i = 0;
 	state = STATE_GENERAL;
 	while (1)
@@ -116,4 +96,16 @@ t_lexer	*minishell_lexer(char *s)
 		s++;
 	}
 	return (lexer);
+}
+
+t_lexer	*minishell_lexer(char *s)
+{
+	t_lexer			*lexer;
+	t_tok			*tok;
+
+	if (s == NULL)
+		ft_fatal("minishell_lexer : Invalid argument");
+	lexer = lexer_init();
+	tok = tok_init(s);
+	return (minishell_lexer_do(lexer, tok, s));
 }
