@@ -47,14 +47,11 @@ t_astree	*cmd_redirect(t_list **toks, t_token_type t, t_node_type n)
 	simplecmd_node = simplecmd(toks);
 	if (simplecmd_node == NULL)
 		return (NULL);
-	if (!is_tokentype(t, toks))
-		return (astree_delete_node(simplecmd_node));
-	filename = ft_strdup(((t_tok *)(*toks)->content)->data);
-	if (!is_tokentype(TOKEN, toks))
-	{
-		free(filename);
+	if (!is_tokentype(t, toks, NULL)) {
 		return (astree_delete_node(simplecmd_node));
 	}
+	if (!is_tokentype(TOKEN, toks, &filename))
+		return (astree_delete_node(simplecmd_node));
 	return (astree_create_node(n | NODE_DATA, filename, NULL, simplecmd_node));
 }
 

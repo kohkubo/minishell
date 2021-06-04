@@ -1,10 +1,14 @@
 #include "shell.h"
 #include "parse.h"
 
-bool	is_tokentype(t_token_type type, t_list **current)
+bool	is_tokentype(t_token_type type, t_list **current, char **buf_ptr)
 {
+	if (*current == NULL)
+		return (false);
 	if (((t_tok *)(*current)->content)->type == type)
 	{
+		if (buf_ptr != NULL)
+			*buf_ptr = ft_strdup(((t_tok *)(*current)->content)->data);
 		*current = (*current)->next;
 		return (true);
 	}
