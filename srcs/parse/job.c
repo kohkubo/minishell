@@ -27,12 +27,11 @@ t_astree	*job1(t_list **toks)
 {
 	t_astree	*cmd_node;
 	t_astree	*job_node;
-	t_astree	*result;
 
 	cmd_node = cmd(toks);
 	if (cmd_node == NULL)
 		return (NULL);
-	if (!is_tokentype(CHAR_PIPE, toks))
+	if (!is_tokentype(CHAR_PIPE, toks, NULL))
 		return (astree_delete_node(cmd_node));
 	job_node = job(toks);
 	if (job_node == NULL)

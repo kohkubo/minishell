@@ -27,12 +27,8 @@ t_astree	*tokenlist1(t_list **toks)
 	t_astree	*tokenlist_node;
 	char		*arg;
 
-	arg = ft_strdup(((t_tok *)(*toks)->content)->data);
-	if (!is_tokentype(TOKEN, toks))
-	{
-		free(arg);
+	if (!is_tokentype(TOKEN, toks, &arg))
 		return (NULL);
-	}
 	tokenlist_node = tokenlist(toks);
 	return (astree_create_node(NODE_ARGUMENT | NODE_DATA, arg,
 			NULL, tokenlist_node));

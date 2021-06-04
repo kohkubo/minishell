@@ -18,10 +18,8 @@ t_astree	*simplecmd1(t_list **toks)
 	t_astree	*tokenlist_node;
 	char		*pathname;
 
-	pathname = ft_strdup(((t_tok *)(*toks)->content)->data);
-	if (!is_tokentype(TOKEN, toks))
+	if (!is_tokentype(TOKEN, toks, &pathname))
 	{
-		free(pathname);
 		return (NULL);
 	}
 	tokenlist_node = tokenlist(toks);
