@@ -1,6 +1,6 @@
 #ifndef ASTREE_H
 # define ASTREE_H
-# include "shell.h"
+
 typedef enum e_node_type
 {
 	NODE_PIPE 			= (1 << 0),
