@@ -1,21 +1,68 @@
-#include "../../includes/lex.h"
+#include "../../includes/lex_analyze.h"
 
-bool	minishell_lexer3(t_tok **tok, t_state_type *state, char **s, size_t *i)
+static t_state_type	break_quote_state(\
+t_tok *tok, t_state_type st, char **s, size_t *i)
 {
-	if (**s == '\'')
+	if (**s == 0)
+		return (STATE_ERROR);
+	else if (st == STATE_IN_DQUOTE)
 	{
-		*state = STATE_IN_QUOTE;
-		(*tok)->data[(*i)++] = **s;
-		(*tok)->type = TOKEN;
+		tok->data[(*i)++] = **s;
+		if (**s == '\\' && *(*s + 1) == '"')
+			tok->data[(*i)++] = *(++(*s));
+		else if (**s == CHAR_DQUOTE)
+			return (STATE_GENERAL);
 	}
-	else if (**s == '"')
+	else if (st == STATE_IN_QUOTE)
 	{
-		*state = STATE_IN_DQUOTE;
+		tok->data[(*i)++] = **s;
+		if (**s == CHAR_QOUTE)
+			return (STATE_GENERAL);
+	}
+	return (st);
+}
+
+static void	cut_off_token(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
+{
+	if (ft_isspace(**s))
+	{
+		token_end_and_create(lexer, tok, *s, i);
+	}
+	else if (**s == CHAR_PIPE || **s == CHAR_SEMICOLON)
+	{
+		token_end_and_create(lexer, tok, *s, i);
+		if (*(*s + 1) == ';')
+			token_store2_and_create(lexer, tok, s);
+		else
+			token_store_and_create(lexer, tok, *s, **s);
+	}
+	else if (**s == 0)
+		token_end(lexer, tok, *i);
+	else if (**s == '<' || **s == '>')
+	{
+		token_end_and_create(lexer, tok, *s, i);
+		if (*(*s + 1) == '<' || *(*s + 1) == '>')
+			token_store2_and_create(lexer, tok, s);
+		else
+			token_store_and_create(lexer, tok, *s, **s);
+	}
+}
+
+static t_state_type	generate_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
+{
+	t_state_type	state;
+
+	state = STATE_GENERAL;
+	if (**s == '\'' || **s == '"')
+	{
+		state = **s;
 		(*tok)->data[(*i)++] = **s;
 		(*tok)->type = TOKEN;
 	}
 	else if (**s == '\\')
 	{
+		if (*(*s + 1) == 0)
+			state = STATE_ERROR;
 		(*tok)->data[(*i)++] = *(++*s);
 		(*tok)->type = TOKEN;
 	}
@@ -25,53 +72,11 @@ bool	minishell_lexer3(t_tok **tok, t_state_type *state, char **s, size_t *i)
 		(*tok)->type = TOKEN;
 	}
 	else
-		return (false);
-	return (true);
+		cut_off_token(l, tok, s, i);
+	return (state);
 }
 
-void	cut_off_token(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
-{
-	if (ft_isspace(**s))
-		token_end_and_create(lexer, tok, *s, i);
-	else if (**s == CHAR_PIPE || **s == CHAR_SEMICOLON)
-	{
-		token_end_and_create(lexer, tok, *s, i);
-		token_store_and_create(lexer, tok, *s, **s);
-	}
-	else if (**s == 0)
-		token_end(lexer, tok, *i);
-	else if (ft_strchr("<>", **s))
-	{
-		token_end_and_create(lexer, tok, *s, i);
-		if (ft_strchr("<>", *(*s + 1)))
-		{
-			(*tok)->data[0] = *(*s)++;
-			(*tok)->data[1] = **s;
-			(*tok)->type = **s + PAD;
-			token_end_and_create(lexer, tok, *s, NULL);
-		}
-		else
-			token_store_and_create(lexer, tok, *s, **s);
-	}
-}
-
-void	break_quote_state(t_tok *tok, t_state_type *state, char *s, size_t *i)
-{
-	if (*state == STATE_IN_DQUOTE)
-	{
-		tok->data[(*i)++] = *s;
-		if (*s == CHAR_DQUOTE)
-			*state = STATE_GENERAL;
-	}
-	else if (*state == STATE_IN_QUOTE)
-	{
-		tok->data[(*i)++] = *s;
-		if (*s == CHAR_QOUTE)
-			*state = STATE_GENERAL;
-	}
-}
-
-void	minishell_lexer2(t_lexer *lexer, t_tok *tok, char *s)
+static t_lexer	*minishell_lexer_do(t_lexer *lexer, t_tok *tok, char *s)
 {
 	t_state_type	state;
 	size_t			i;
@@ -81,45 +86,30 @@ void	minishell_lexer2(t_lexer *lexer, t_tok *tok, char *s)
 	while (1)
 	{
 		if (state == STATE_GENERAL)
-		{
-			if (!minishell_lexer3(&tok, &state, &s, &i))
-				cut_off_token(lexer, &tok, &s, &i);
-		}
+			state = generate_token(lexer, &tok, &s, &i);
 		else
+			state = break_quote_state(tok, state, &s, &i);
+		if (state == STATE_ERROR)
 		{
-			break_quote_state(tok, &state, s, &i);
+			tok_free(tok);
+			lexer_free(&lexer);
+			return (NULL);
 		}
 		if (*s == 0)
 			break ;
 		s++;
 	}
+	return (lexer);
 }
 
 t_lexer	*minishell_lexer(char *s)
 {
 	t_lexer			*lexer;
 	t_tok			*tok;
-	t_state_type	state;
-	size_t			i;
 
 	if (s == NULL)
 		ft_fatal("minishell_lexer : Invalid argument");
 	lexer = lexer_init();
 	tok = tok_init(s);
-	i = 0;
-	state = STATE_GENERAL;
-	while (1)
-	{
-		if (state == STATE_GENERAL)
-		{
-			if (!minishell_lexer3(&tok, &state, &s, &i))
-				cut_off_token(lexer, &tok, &s, &i);
-		}
-		else
-			break_quote_state(tok, &state, s, &i);
-		if (*s == 0)
-			break ;
-		s++;
-	}
-	return (lexer);
+	return (minishell_lexer_do(lexer, tok, s));
 }

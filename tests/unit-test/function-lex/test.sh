@@ -22,14 +22,14 @@ do
 	$REPO_ROOT/libft/libdebug/libdebug.a \
 	$SHARED_LIB
 
-	./minishell
+	./minishell > output
 	AOUT=$?
 
 	if [ $AOUT -ne 0 ]; then
 		EXIT_CODE=1
-		printf "\e[31m%s\n\e[m" ">>  KO!"
+		printf "\e[31m%s\n\e[m" ">> leak KO!"
 	else
-		printf "\e[32m%s\n\e[m" ">>  OK!"
+		printf "\e[32m%s\n\e[m" ">> leak OK!"
 	fi
 done
 
@@ -48,17 +48,27 @@ do
 	$REPO_ROOT/libft/libhash/libhash.a \
 	$REPO_ROOT/libft/libdebug/libdebug.a
 
-	./b.out
+	./b.out > output
 	BOUT=$?
 	if [ $BOUT -ne 0 ]; then
 		EXIT_CODE=1
-		printf "\e[31m%s\n\e[m" ">>  KO!"
+		printf "\e[31m%s\n\e[m" ">> sani KO!"
 	else
-		printf "\e[32m%s\n\e[m" ">>  OK!"
+		printf "\e[32m%s\n\e[m" ">> sani OK!"
 	fi
 done
 
-rm ./minishell
+diff expect output
+
+if [ $? -ne 0 ]; then
+	EXIT_CODE=1
+	printf "\e[31m%s\n\e[m" ">> diff KO!"
+else
+	printf "\e[32m%s\n\e[m" ">> diff OK!"
+fi
+echo $DIFF
+
+rm ./minishell output
 rm ./b.out leaksout
 rm -rf ./minishell.dSYM
 rm -rf ./b.out.dSYM
