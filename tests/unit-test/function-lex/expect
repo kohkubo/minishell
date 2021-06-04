@@ -451,9 +451,6 @@ NULL!
 s : "test""
 NULL!
  === test ===
-s : "echo \"test\""
-NULL!
- === test ===
 s : '''
 NULL!
  === test ===
@@ -507,3 +504,56 @@ NULL!
  === test ===
 s : aiueo\
 NULL!
+
+\" \" \"
+ === test ===
+s : "echo \"test\""
+lexer->len : 1
+"echo \"test\"" : -1
+ === test ===
+s : "echo \"test\"" a
+lexer->len : 2
+"echo \"test\"" : -1
+a : -1
+ === test ===
+s : "echo \"test\""a 
+lexer->len : 1
+"echo \"test\""a : -1
+ === test ===
+s : "echo \"test\"" a 
+lexer->len : 2
+"echo \"test\"" : -1
+a : -1
+ === test ===
+s : "echo \"test\""a
+lexer->len : 1
+"echo \"test\""a : -1
+ === test ===
+s : tatata"  aiueo  "test
+lexer->len : 1
+tatata"  aiueo  "test : -1
+ === test ===
+s : \'
+lexer->len : 1
+' : -1
+ === test ===
+s : \" \"
+lexer->len : 2
+" : -1
+" : -1
+ === test ===
+s : \"
+lexer->len : 1
+" : -1
+ === test ===
+s : "\""
+lexer->len : 1
+"\"" : -1
+ === test ===
+s : " \" "
+lexer->len : 1
+" \" " : -1
+ === test ===
+s : " \" \" "
+lexer->len : 1
+" \" \" " : -1

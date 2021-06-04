@@ -133,7 +133,6 @@ int main(void)
 	printf("\nNULL test\n");
 	test("'test''");
 	test("\"test\"\"");
-	test("\"echo \\\"test\\\"\"");
 	test("'''");
 	test("''' ");
 	test("'' '");
@@ -152,4 +151,18 @@ int main(void)
 	test("\\");
 	test("\\\\\\");
 	test("aiueo\\");
+	
+	printf("\n\\\" \\\" \\\"\n");
+	test("\"echo \\\"test\\\"\"");
+	test("\"echo \\\"test\\\"\" a");
+	test("\"echo \\\"test\\\"\"a ");
+	test("\"echo \\\"test\\\"\" a ");
+	test("\"echo \\\"test\\\"\"a");
+	test("tatata\"  aiueo  \"test");
+	test("\\\'");
+	test("\\\" \\\"");
+	test("\\\"");
+	test("\"\\\"\"");
+	test("\" \\\" \"");
+	test("\" \\\" \\\" \"");
 }
