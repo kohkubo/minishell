@@ -1,7 +1,8 @@
 #ifndef PARSE_H
 # define PARSE_H
-# include "shell.h"
+# include "libft.h"
 # include "astree.h"
+# include "lex.h"
 
 bool		is_tokentype(t_token_type type, t_list **current);
 t_astree	*cmdline(t_list **toks);
