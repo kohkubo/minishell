@@ -1,20 +1,22 @@
 #include "../../includes/lex_analyze.h"
 
 static t_state_type	break_quote_state(\
-t_tok *tok, t_state_type st, char *s, size_t *i)
+t_tok *tok, t_state_type st, char **s, size_t *i)
 {
-	if (*s == 0)
+	if (**s == 0)
 		return (STATE_ERROR);
 	else if (st == STATE_IN_DQUOTE)
 	{
-		tok->data[(*i)++] = *s;
-		if (*s == CHAR_DQUOTE)
+		tok->data[(*i)++] = **s;
+		if (**s == '\\' && *(*s + 1) == '"')
+			tok->data[(*i)++] = *(++(*s));
+		else if (**s == CHAR_DQUOTE)
 			return (STATE_GENERAL);
 	}
 	else if (st == STATE_IN_QUOTE)
 	{
-		tok->data[(*i)++] = *s;
-		if (*s == CHAR_QOUTE)
+		tok->data[(*i)++] = **s;
+		if (**s == CHAR_QOUTE)
 			return (STATE_GENERAL);
 	}
 	return (st);
@@ -86,7 +88,7 @@ static t_lexer	*minishell_lexer_do(t_lexer *lexer, t_tok *tok, char *s)
 		if (state == STATE_GENERAL)
 			state = generate_token(lexer, &tok, &s, &i);
 		else
-			state = break_quote_state(tok, state, s, &i);
+			state = break_quote_state(tok, state, &s, &i);
 		if (state == STATE_ERROR)
 		{
 			tok_free(tok);
