@@ -1,5 +1,11 @@
 #include "libhash.h"
 
+static char	*return_null_free(char *s)
+{
+	free(s);
+	return (NULL);
+}
+
 static void	*dict_info(int hash_key, char *key, char *value)
 {
 	t_dict_item	*dict;
@@ -7,7 +13,10 @@ static void	*dict_info(int hash_key, char *key, char *value)
 	dict = ft_xmalloc(sizeof(t_dict_item));
 	dict->hash_key = hash_key;
 	dict->key = ft_strdup(key);
-	dict->value = ft_strdup(value);
+	if (value != NULL)
+		dict->value = ft_strdup(value);
+	else
+		dict->value = NULL;
 	return ((void *)dict);
 }
 
@@ -22,13 +31,14 @@ bool	hash_setstr(t_hash_table *h, char *key, char *value)
 	t_list		*newlst;
 	t_dict_item	*item;
 
-	if (h == NULL || key == NULL || value == NULL)
+	if (h == NULL || key == NULL)
 		ft_fatal("hash_setstr : Invalid argument");
 	item = hash_search(h, key);
 	if (item)
 	{
-		free(item->value);
-		item->value = ft_strdup(value);
+		item->value = return_null_free(item->value);
+		if (value != NULL)
+			item->value = ft_strdup(value);
 		return (false);
 	}
 	else
