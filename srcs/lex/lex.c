@@ -22,7 +22,7 @@ t_tok *tok, t_state_type st, char **s, size_t *i)
 	return (st);
 }
 
-static void	cut_off_token(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
+static t_state_type	cut_off_token(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
 {
 	if (ft_isspace(**s))
 	{
@@ -40,12 +40,15 @@ static void	cut_off_token(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
 		token_end(lexer, tok, *i);
 	else if (**s == '<' || **s == '>')
 	{
+		if (*(*s + 1) == '<')
+			return (STATE_ERROR);
 		token_end_and_create(lexer, tok, *s, i);
-		if (*(*s + 1) == '<' || *(*s + 1) == '>')
+		if (*(*s + 1) == '>')
 			token_store2_and_create(lexer, tok, s);
 		else
 			token_store_and_create(lexer, tok, *s, **s);
 	}
+	return (STATE_GENERAL);
 }
 
 static t_state_type	generate_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
@@ -72,7 +75,7 @@ static t_state_type	generate_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
 		(*tok)->type = TOKEN;
 	}
 	else
-		cut_off_token(l, tok, s, i);
+		state = cut_off_token(l, tok, s, i);
 	return (state);
 }
 
