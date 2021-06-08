@@ -1,6 +1,9 @@
 #!/bin/bash
 
 DIR=$1
+if [ "$2" != "" ]; then
+	DIR="$1/$2"
+fi
 
 make leak
 

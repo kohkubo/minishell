@@ -91,10 +91,10 @@ test		:
 	bash ./all-test.sh tests
 
 test_unit	:
-	bash ./all-test.sh ./tests/unit-test
+	bash ./all-test.sh ./tests/unit-test $(TARGET)
 
 test_issue	:
-	bash ./all-test.sh ./tests/issue
+	bash ./all-test.sh ./tests/issue $(TARGET)
 
 leak		: $(obj) $(lib) $(libdebug)
 	$(CC) $(CFLAGS) $(obj) $(lib) $(libdebug) ./tests/sharedlib.c -o $(NAME)
