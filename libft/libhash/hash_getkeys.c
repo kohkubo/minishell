@@ -19,7 +19,7 @@ char	**hash_getkeys(t_hash_table *h)
 		while (lst)
 		{
 			item = (t_dict_item *)lst->content;
-			*all++ = ft_strdup(item->key);
+			*all++ = ft_xstrdup(item->key);
 			lst = lst->next;
 		}
 		i++;

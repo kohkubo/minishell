@@ -17,5 +17,6 @@ char	*ft_strndup(const char *s1, size_t n);
 int		contain(char **array, char *word);
 int		ft_isspace(int c);
 int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_xstrdup(const char *s1);
 
 #endif
