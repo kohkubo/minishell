@@ -3,6 +3,9 @@
 # include "../libft/libft/libft.h"
 # include "../libft/libex/libex.h"
 # include "../libft/libhash/libhash.h"
+# ifdef DEBUG
+#  include "../libft/libdebug/libdebug.h"
+# endif
 # include "lex.h"
 # include <stdio.h>
 # include <stdbool.h>

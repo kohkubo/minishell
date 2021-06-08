@@ -100,11 +100,11 @@ leak		: $(obj) $(lib) $(libdebug)
 	$(CC) $(CFLAGS) $(obj) $(lib) $(libdebug) ./tests/sharedlib.c -o $(NAME)
 
 debug		: fclean lib_debug
-	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g"
+	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g" lib="$(lib) $(libdebug)"
 	$(MAKE) clean
 
 sani-debug	: fclean lib_sani-debug
-	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g -fsanitize=address"
+	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g -fsanitize=address" lib="$(lib) $(libdebug)"
 	$(MAKE) clean
 
 norm		:
