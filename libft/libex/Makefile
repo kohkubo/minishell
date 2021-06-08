@@ -23,6 +23,7 @@ src =\
 	./contain.c \
 	./ft_isspace.c \
 	./ft_strcmp.c \
+	./ft_xstrdup.c \
 
 # ***********************************
 
