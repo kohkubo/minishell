@@ -53,7 +53,11 @@ int	main()
 	if (item != NULL)
 		exit(1);
 
-	// 上書きのチェック
+	// NULLで上書きされているか
+	hash_setstr(t, "VAL3", NULL);
+	test_res_null(t, "VAL3");
+
+	//もともとNULLのときに上書きできるかチェック
 	test_res_null(t, "VAL5");
 	hash_setstr(t, "VAL5", "aiueo");
 	char *val5 = hash_getstr(t, "VAL5");
