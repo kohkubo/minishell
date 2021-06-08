@@ -266,50 +266,25 @@ test : -1
 << << <<
  === test ===
 s : echo test<<aiueo
-lexer->len : 4
-echo : -1
-test : -1
-<< : 316
-aiueo : -1
+NULL!
  === test ===
 s : echo test<< aiueo
-lexer->len : 4
-echo : -1
-test : -1
-<< : 316
-aiueo : -1
+NULL!
  === test ===
 s : echo test <<aiueo
-lexer->len : 4
-echo : -1
-test : -1
-<< : 316
-aiueo : -1
+NULL!
  === test ===
 s : echo test << aiueo
-lexer->len : 4
-echo : -1
-test : -1
-<< : 316
-aiueo : -1
+NULL!
  === test ===
 s : echo test<<
-lexer->len : 3
-echo : -1
-test : -1
-<< : 316
+NULL!
  === test ===
 s : echo test <<
-lexer->len : 3
-echo : -1
-test : -1
-<< : 316
+NULL!
  === test ===
 s : echo test<< 
-lexer->len : 3
-echo : -1
-test : -1
-<< : 316
+NULL!
 
 ' ' '
  === test ===

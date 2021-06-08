@@ -22,30 +22,31 @@ t_tok *tok, t_state_type st, char **s, size_t *i)
 	return (st);
 }
 
-static void	cut_off_token(t_lexer *lexer, t_tok **tok, char **s, size_t *i)
+static t_state_type	cut_off_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
 {
 	if (ft_isspace(**s))
-	{
-		token_end_and_create(lexer, tok, *s, i);
-	}
+		token_end_and_create(l, tok, *s, i);
 	else if (**s == CHAR_PIPE || **s == CHAR_SEMICOLON)
 	{
-		token_end_and_create(lexer, tok, *s, i);
+		token_end_and_create(l, tok, *s, i);
 		if (*(*s + 1) == ';')
-			token_store2_and_create(lexer, tok, s);
+			token_store2_and_create(l, tok, s);
 		else
-			token_store_and_create(lexer, tok, *s, **s);
+			token_store_and_create(l, tok, *s, **s);
 	}
 	else if (**s == 0)
-		token_end(lexer, tok, *i);
+		token_end(l, tok, *i);
 	else if (**s == '<' || **s == '>')
 	{
-		token_end_and_create(lexer, tok, *s, i);
-		if (*(*s + 1) == '<' || *(*s + 1) == '>')
-			token_store2_and_create(lexer, tok, s);
+		if (*(*s + 1) == '<')
+			return (STATE_ERROR);
+		token_end_and_create(l, tok, *s, i);
+		if (*(*s + 1) == '>')
+			token_store2_and_create(l, tok, s);
 		else
-			token_store_and_create(lexer, tok, *s, **s);
+			token_store_and_create(l, tok, *s, **s);
 	}
+	return (STATE_GENERAL);
 }
 
 static t_state_type	generate_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
@@ -72,7 +73,7 @@ static t_state_type	generate_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
 		(*tok)->type = TOKEN;
 	}
 	else
-		cut_off_token(l, tok, s, i);
+		state = cut_off_token(l, tok, s, i);
 	return (state);
 }
 
