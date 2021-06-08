@@ -6,13 +6,16 @@
 */
 bool	hash_getint(t_hash_table *h, char *key, int *ret)
 {
-	char	*str;
+	t_dict_item	*item;
 
-	if (h == NULL || key == NULL)
+	if (h == NULL || key == NULL || ret == NULL)
 		ft_fatal("hash_getint : Invalid argument");
-	str = hash_getstr(h, key);
-	if (str == NULL)
+	item = hash_search(h, key);
+	if (item == NULL)
 		return (false);
-	*ret = ft_atoi(str);
+	if (item->value == NULL)
+		*ret = 0;
+	else
+		*ret = ft_atoi(item->value);
 	return (true);
 }
