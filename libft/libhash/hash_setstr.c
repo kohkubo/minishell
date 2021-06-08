@@ -12,9 +12,9 @@ static void	*dict_info(int hash_key, char *key, char *value)
 
 	dict = ft_xmalloc(sizeof(t_dict_item));
 	dict->hash_key = hash_key;
-	dict->key = ft_strdup(key);
+	dict->key = ft_xstrdup(key);
 	if (value != NULL)
-		dict->value = ft_strdup(value);
+		dict->value = ft_xstrdup(value);
 	else
 		dict->value = NULL;
 	return ((void *)dict);
@@ -38,7 +38,7 @@ bool	hash_setstr(t_hash_table *h, char *key, char *value)
 	{
 		item->value = return_null_free(item->value);
 		if (value != NULL)
-			item->value = ft_strdup(value);
+			item->value = ft_xstrdup(value);
 		return (false);
 	}
 	else
