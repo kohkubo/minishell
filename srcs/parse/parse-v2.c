@@ -8,13 +8,39 @@ bool	is_tokentype(t_token_type type, t_list **current, char **buf_ptr)
 	if (((t_tok *)(*current)->content)->type == type)
 	{
 		if (buf_ptr != NULL)
-			*buf_ptr = ft_strdup(((t_tok *)(*current)->content)->data);
+			*buf_ptr = ft_xstrdup(((t_tok *)(*current)->content)->data);
 		*current = (*current)->next;
 		return (true);
 	}
 	return (false);
 }
 
+/**
+<command line>		::= <job> ';' <command line>
+					  | <job> ';'
+					  | <job> '&' <command line>	// not make
+					  | <job> '&'					// not make
+					  | <job>
+
+<job>				::= <command> '|' <job>
+					  | <command>
+
+<command>			::= <simple command> <redirection list>
+					  | <simple command>
+
+<redirection list>	::= <redirection> <redirection list>
+
+<redirection>		::= '<' <filename> <token list>
+					  | '>' <filename> <token list>
+					  | '<<' <filename> <token list>
+					  | '>>' <filename> <token list>
+// <token list> will be added after the arg of the previous <simple command>.
+
+<simple command>	::= <pathname> <token list>
+
+<token list>		::= <token> <token list>
+					  | (EMPTY)
+*/
 bool	parse_v2(t_lexer *lex, t_astree **res_buf)
 {
 	if (lex == NULL || lex->len == 0 || res_buf == NULL)

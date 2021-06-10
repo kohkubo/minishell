@@ -15,12 +15,24 @@ t_astree	*astree_create_node(
 	return (res);
 }
 
+/**
+ * @brief delete node.
+ * @return always NULL.
+ */
 t_astree	*astree_delete_node(t_astree *node)
 {
 	if (node == NULL)
 		return (NULL);
 	node->left = astree_delete_node(node->left);
 	node->right = astree_delete_node(node->right);
+	free(node->data);
 	free(node);
 	return (NULL);
+}
+
+t_astree	*astree_get_right_last(t_astree *node)
+{
+	while (node->right != NULL)
+		node = node->right;
+	return (node);
 }

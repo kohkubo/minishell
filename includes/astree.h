@@ -13,6 +13,8 @@ typedef enum e_node_type
 	NODE_CMDPATH		= (1 << 7),
 	NODE_ARGUMENT		= (1 << 8),
 	NODE_DATA 			= (1 << 9),
+	NODE_REDIRECT_LIST	= (1 << 10),
+	NODE_REDIRECTION	= (1 << 11),
 }	t_node_type;
 
 /*
@@ -29,5 +31,6 @@ typedef struct s_astree
 t_astree	*astree_create_node(
 				t_node_type type, char *data, t_astree *left, t_astree *right);
 t_astree	*astree_delete_node(t_astree *node);
+t_astree	*astree_get_right_last(t_astree *node);
 
 #endif

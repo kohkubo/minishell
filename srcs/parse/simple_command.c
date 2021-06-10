@@ -19,9 +19,7 @@ t_astree	*simplecmd1(t_list **toks)
 	char		*pathname;
 
 	if (!is_tokentype(TOKEN, toks, &pathname))
-	{
 		return (NULL);
-	}
 	tokenlist_node = tokenlist(toks);
 	return (astree_create_node(NODE_CMDPATH | NODE_DATA, pathname,
 			NULL, tokenlist_node));
