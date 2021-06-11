@@ -44,7 +44,7 @@ bool	is_tokentype(t_token_type type, t_list **current, char **buf_ptr)
 */
 bool	parse_v2(t_lexer *lex, t_astree **res_buf)
 {
-	t_list *tokens;
+	t_list	*tokens;
 
 	if (lex == NULL || lex->len == 0 || res_buf == NULL)
 		return (false);

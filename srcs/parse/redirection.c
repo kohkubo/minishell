@@ -46,11 +46,11 @@ t_astree	*redirection1(t_list **toks, t_token_type t, t_node_type n)
 
 t_astree	*redirection2(t_list **toks)
 {
-	char		*data;
+	char		*doc;
 
 	if (!is_tokentype(CHAR_LESSER2, toks, NULL))
 		return (NULL);
-	if (!is_tokentype(TOKEN, toks, &data))
+	if (!is_tokentype(TOKEN, toks, &doc))
 		return (NULL);
-	return (astree_create_node(NODE_REDIRECT_IN2 | NODE_DATA, data, NULL, NULL));
+	return (astree_create_node(NODE_REDIRECT_IN2 | NODE_DATA, doc, NULL, NULL));
 }
