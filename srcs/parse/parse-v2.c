@@ -1,5 +1,6 @@
 #include "shell.h"
 #include "parse.h"
+#include "logging.h"
 
 bool	is_tokentype(t_token_type type, t_list **current, char **buf_ptr)
 {
@@ -43,14 +44,16 @@ bool	is_tokentype(t_token_type type, t_list **current, char **buf_ptr)
 */
 bool	parse_v2(t_lexer *lex, t_astree **res_buf)
 {
+	t_list	*tokens;
+
 	if (lex == NULL || lex->len == 0 || res_buf == NULL)
 		return (false);
-	*res_buf = cmdline(&lex->listtok);
-	if (lex->listtok != NULL
-		&& ((t_tok *)lex->listtok->content)->type != CHAR_NULL)
+	tokens = lex->listtok;
+	*res_buf = cmdline(&tokens);
+	if (tokens != NULL && ((t_tok *)tokens->content)->type != CHAR_NULL)
 	{
 		ft_putstr_fd("Syntax Error near unexpected token `", 2);
-		ft_putstr_fd(((t_tok *)lex->listtok->content)->data, 2);
+		ft_putstr_fd(((t_tok *)tokens->content)->data, 2);
 		ft_putendl_fd("'", 2);
 		return (false);
 	}
