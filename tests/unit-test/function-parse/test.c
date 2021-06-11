@@ -86,55 +86,83 @@ void test(char *input) {
 
 int main(void) {
 
-	// <command line> ::= <job>
-	// test("echo a");
-	// test("echo b b b b b b b b b b");
-	// printf("(no-length-string)\n");
-	// test("");
-	// printf("(white space only)\n");
-	// test("    ");
-	// <command line> ::= <job> ; <command line>
-	// test("echo a; echo b");
-	// test("echo b; echo ; HOGE c c c c");
-	// test("echo c; HOGE d d d d;");
-	// 	//error
-	// 	test("echo a; ;"); // ';'
-	// 	test("echo b; ; HOGE c c c c"); // ';'
-	// <command line> ::= <job> ;
-	// test("echo a;");
-	// test("a;");
-	// test("a b c d e f g;");
-	// 	//error
-	// 	test("echo a;;"); // ';;'
-	// 	test("echo a;; ;"); // ';;'
-	// <command line> ::= <job> & <command line> // not make
-	// <command line> ::= <job> & // not make
+	/*
+	 * <token list> ::= (EMPTY)
+	 */
+	printf("(no-length string)\n");
+	test("");
+	printf("(white space only)\n");
+	test("    ");
+	/*
+	 * <token list>		::= <token> <token list>
+	 * <simple command>	::= <pathname> <token list>
+	 * <command>		::= <simple command>
+	 */
+	test("token");
+	test("token token token token");
+	test("echo a");
+	test("echo b b b b b b b b b b");
+	/*
+	 * <command>			::= <simple command> <redirection list>
+	 * <redirection list>	::= <redirection> <redirection list>
+	 * <redirection>		::= '<' <filename> <token list>
+	 */
+	test("cat < test");
+	test("cat < test1 < test2 < test3");
+	test("cat test1 < out test2");
+	test("cat test1 < a b b b b b b < c");
+		// error
+		test("cat < out test;;"); // ';;'
+		test("cat < ;"); // ';'
+	/*
+	 * <redirection> ::= '>' <filename> <token list>
+	 */
+	test("echo a > testfile");
+	test("echo a > testfile b");
+	test("echo a > test1 b b b b b  > test2");
+		// error
+		test("echo >"); // 'newline';
+	/*
+	 * <redirection> ::= '<<' <filename> <token list>
+	 */
+	/*
+	 * <redirection> ::= '>>' <filename> <token list>
+	 */
+	test("echo a >> testfile");
+	test("echo a >> testfile b");
+	test("echo a >> test1 b b b b b  > test2");
+		// error
+		test("echo >>"); // 'newline';
 
-	// <job> ::= <command> '|' <job>
-	// test("echo a | tr a A");
+	/*
+	 * <command line> ::= <job>
+	 * <job> ::= <command>
+	 * <job> ::= <command> '|' <job>
+	 */
+	test("echo a | tr a A");
+	/*
+	 * <command line> ::= <job> ;
+	 */
+	test("echo a;");
+	test("a;");
+	test("a b c d e f g;");
+		//error
+		test("echo a;;"); // ';;'
+		test("echo a;; ;"); // ';;'
+	/*
+	 * <command line> ::= <job> ; <command line>
+	 */
+	test("echo a; echo b");
+	test("echo b; echo ; HOGE c c c c");
+	test("echo c; HOGE d d d d;");
+		//error
+		test("echo a; ;"); // ';'
+		test("echo b; ; HOGE c c c c"); // ';'
+	/*
+	 * <command line> ::= <job> & // not make
+	 * <command line> ::= <job> & <command line> // not make
+	 */
 
-	// <job> ::= <command>
 
-	// <command> ::= <simple command> '<' <filename> <token list>
-	// test("cat < test");
-	// test("cat < test1 < test2 < test3");
-	// test("cat test1 < out test2");
-	// test("cat test1 < a b b b b b b < c");
 
-	// <command> ::= <simple command> '>' <filename> <token list> // 1つ目のtokenに対して操作 2つ目以降は<simple command>の引数
-	// test("echo a > testfile");
-	// test("echo a > testfile b");
-	// test("echo a > test1 b b b b b  > test2");
-
-	// expect = astree_create_node(NODE_SEQ, NULL,
-	// 			astree_create_node(NODE_CMDPATH | NODE_DATA, "echo",
-	// 				NULL,
-	// 				astree_create_node()),
-	// 			astree_create_node());
-	// <command> ::= <simple command> '<<' <filename> <token list>
-	// <command> ::= <simple command> '>>' <filename> <token list>
-	// <command> ::= <simple command>
-	// <simple command>::= <pathname> <token list>
-	// <token list> ::= <token> <token list>
-	// <token list> ::= (EMPTY)
 }
