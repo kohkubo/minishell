@@ -1,11 +1,12 @@
 #include "parse.h"
 
 t_astree	*redirection1(t_list **toks, t_token_type t, t_node_type n);
+t_astree	*redirection2(t_list **toks);
 
 /**
 <redirection>		::= '<' <filename> <token list>
 					  | '>' <filename> <token list>
-					  | '<<' <filename> <token list>
+					  | '<<' <token>
 					  | '>>' <filename> <token list>
 // <token list> will be added after the arg of the previous <simple command>.
 */
@@ -23,7 +24,7 @@ t_astree	*redirection(t_list **toks)
 	if (result != NULL)
 		return (result);
 	*toks = save;
-	result = redirection1(toks, CHAR_LESSER2, NODE_REDIRECT_IN2);
+	result = redirection2(toks);
 	if (result != NULL)
 		return (result);
 	*toks = save;
@@ -41,4 +42,15 @@ t_astree	*redirection1(t_list **toks, t_token_type t, t_node_type n)
 		return (NULL);
 	tokenlist_node = tokenlist(toks);
 	return (astree_create_node(n | NODE_DATA, filename, NULL, tokenlist_node));
+}
+
+t_astree	*redirection2(t_list **toks)
+{
+	char		*data;
+
+	if (!is_tokentype(CHAR_LESSER2, toks, NULL))
+		return (NULL);
+	if (!is_tokentype(TOKEN, toks, &data))
+		return (NULL);
+	return (astree_create_node(NODE_REDIRECT_IN2 | NODE_DATA, data, NULL, NULL));
 }

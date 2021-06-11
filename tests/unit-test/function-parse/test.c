@@ -123,8 +123,9 @@ int main(void) {
 		// error
 		test("echo >"); // 'newline';
 	/*
-	 * <redirection> ::= '<<' <filename> <token list>
+	 * <redirection> ::= '<<' <token>
 	 */
+	// test("cat << test");
 	/*
 	 * <redirection> ::= '>>' <filename> <token list>
 	 */

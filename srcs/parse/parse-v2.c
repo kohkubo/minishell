@@ -33,7 +33,7 @@ bool	is_tokentype(t_token_type type, t_list **current, char **buf_ptr)
 
 <redirection>		::= '<' <filename> <token list>
 					  | '>' <filename> <token list>
-					  | '<<' <filename> <token list>
+					  | '<<' <token>
 					  | '>>' <filename> <token list>
 // <token list> will be added after the arg of the previous <simple command>.
 
