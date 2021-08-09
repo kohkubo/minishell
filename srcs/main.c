@@ -19,11 +19,15 @@ int	main(void)
 	input = NULL;
 	while (1)
 	{
-		if (get_next_line(0, &input) <= 0)
+		input = readline(SHELL_PROMPT);
+		if (input == NULL || ft_strlen(input) == 0)
+		{
+			free_set((void **)&input, NULL);
 			break ;
+		}
+		add_history(input);
 		parse(input);
 		free_set((void **)&input, NULL);
 	}
-	free_set((void **)&input, NULL);
 	return (0);
 }
