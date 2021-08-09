@@ -20,10 +20,6 @@ t_token_type	token_type(char c)
 		return (c);
 	if (c == '"')
 		return (c);
-	if (c == ';')
-		return (c);
-	if (c == '\\')
-		return (c);
 	if (c == '>')
 		return (c);
 	if (c == '<')
