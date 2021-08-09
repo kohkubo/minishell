@@ -5,9 +5,11 @@
 __attribute__((destructor))
 void	destructor(void)
 {
-	int	status;
+	int		status;
+	char	buf[50];
 
-	status = system("leaks minishell &> leaksout");
+	snprintf(buf, 50, "leaks %d &> leaksout", getpid());
+	status = system(buf);
 	if (status)
 	{
 		write(2, "leak!!!\n", 8);
