@@ -97,7 +97,7 @@ test_issue	:
 	bash ./all-test.sh ./tests/issue $(TARGET)
 
 leak		: $(obj) $(lib) $(libdebug)
-	$(CC) $(CFLAGS) $(obj) $(lib) $(libdebug) ./tests/sharedlib.c -o $(NAME)
+	$(CC) $(CFLAGS) $(obj) $(lib) $(libdebug) ./tests/sharedlib.c -o $(NAME) -lreadline
 
 debug		: fclean lib_debug
 	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g" lib="$(lib) $(libdebug)"
