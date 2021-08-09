@@ -21,6 +21,8 @@
 # include "lex.h"
 # include <stdio.h>
 # include <stdbool.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 t_lexer			*minishell_lexer(char *s);
 void			parse(char *input);
