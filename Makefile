@@ -67,7 +67,7 @@ libdebug		= $(libdebug_dir)/libdebug.a
 all			: $(NAME)
 
 $(NAME)		: $(obj) $(lib)
-	$(CC) $(CFLAGS) $(obj) $(lib) -o $(NAME)
+	$(CC) $(CFLAGS) $(obj) $(lib) -o $(NAME) -lreadline
 
 clean		: lib_clean
 	$(RM) $(obj)
