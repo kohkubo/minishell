@@ -18,6 +18,7 @@
 # ifdef DEBUG
 #  include "../libft/libdebug/libdebug.h"
 # endif
+# define SHELL_PROMPT "minishell> "
 # include "lex.h"
 # include <stdio.h>
 # include <stdbool.h>
