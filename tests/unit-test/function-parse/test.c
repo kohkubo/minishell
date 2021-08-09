@@ -52,7 +52,7 @@ void	print_tree(t_astree *node, int sp_num)
 	if (node->type & NODE_DATA)
 		printf(YELLOW"%s"END"("BLUE"%s"END")\n", node->data, str);
 	else
-		printf(BLUE"%s\n"END, str);
+		printf(BOLD BLUE"%s\n"END, str);
 
 	printf("%*s", sp_num, "");
 	printf("├");

@@ -22,6 +22,8 @@ t_astree	*redirlist1(t_list **toks)
 	if (redirection_node == NULL)
 		return (NULL);
 	redirlist_node = redirlist(toks);
+	if (redirlist_node == NULL)
+		return (astree_delete_node(redirection_node));
 	return (astree_create_node(NODE_REDIRECT_LIST, NULL,
 			redirection_node, redirlist_node));
 }
