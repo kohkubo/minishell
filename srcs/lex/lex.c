@@ -20,9 +20,7 @@ t_tok *tok, t_state_type st, char **s, size_t *i)
 	else if (st == STATE_IN_DQUOTE)
 	{
 		tok->data[(*i)++] = **s;
-		if (**s == '\\' && *(*s + 1) == '"')
-			tok->data[(*i)++] = *(++(*s));
-		else if (**s == CHAR_DQUOTE)
+		if (**s == CHAR_DQUOTE)
 			return (STATE_GENERAL);
 	}
 	else if (st == STATE_IN_QUOTE)
@@ -70,13 +68,6 @@ static t_state_type	generate_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
 	{
 		state = **s;
 		(*tok)->data[(*i)++] = **s;
-		(*tok)->type = TOKEN;
-	}
-	else if (**s == '\\')
-	{
-		if (*(*s + 1) == 0)
-			state = STATE_ERROR;
-		(*tok)->data[(*i)++] = *(++*s);
 		(*tok)->type = TOKEN;
 	}
 	else if (token_type(**s) == CHAR_GENERAL)
