@@ -39,10 +39,7 @@ static t_state_type	cut_off_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
 	else if (**s == CHAR_PIPE || **s == CHAR_SEMICOLON)
 	{
 		token_end_and_create(l, tok, *s, i);
-		if (*(*s + 1) == ';')
-			token_store2_and_create(l, tok, s);
-		else
-			token_store_and_create(l, tok, *s, **s);
+		token_store_and_create(l, tok, *s, **s);
 	}
 	else if (**s == 0)
 		token_end(l, tok, *i);
