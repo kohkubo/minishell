@@ -38,11 +38,11 @@ typedef enum e_token_type
 }	t_token_type;
 
 typedef enum e_state_type{
-	STATE_IN_DQUOTE	= '"',
-	STATE_IN_QUOTE	= '\'',
-	STATE_HEREDOC	= '<' + PAD,
-	STATE_GENERAL	= -1,
-	STATE_ERROR		= -2,
+	STATE_IN_DQUOTE		= '"',
+	STATE_IN_QUOTE		= '\'',
+	STATE_IN_HEREDOC	= '<' + PAD,
+	STATE_GENERAL		= -1,
+	STATE_ERROR			= -2,
 }	t_state_type;
 
 /*
