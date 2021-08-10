@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_hash_display_table.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:00:32 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:00:43 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/10 16:25:28 by ywake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,15 @@ char	*debug_rand_text(size_t size)
 {
 	char	*char_set;
 	char	*text;
+	size_t	i;
 
 	char_set = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	text = calloc(size + 1, sizeof(char));
-	for (size_t i = 0; i < size; i++)
+	i = 0;
+	while (i < size)
 	{
 		text[i] = char_set[rand() % 62];
+		i++;
 	}
 	return (text);
 }
