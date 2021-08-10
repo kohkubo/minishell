@@ -77,7 +77,7 @@ static t_state_type	generate_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
 	return (state);
 }
 
-static t_lexer	*minishell_lexer_do(t_lexer *lexer, t_tok *tok, char *s)
+static t_state_type	minishell_lexer_do(t_lexer *lexer, t_tok *tok, char *s)
 {
 	t_state_type	state;
 	size_t			i;
@@ -94,23 +94,22 @@ static t_lexer	*minishell_lexer_do(t_lexer *lexer, t_tok *tok, char *s)
 		{
 			tok_free(tok);
 			lexer_free(&lexer);
-			return (NULL);
+			return (state);
 		}
 		if (*s == 0)
 			break ;
 		s++;
 	}
-	return (lexer);
+	return (state);
 }
 
-t_lexer	*minishell_lexer(char *s)
+t_state_type	minishell_lexer(char *s, t_lexer **lexer)
 {
-	t_lexer			*lexer;
-	t_tok			*tok;
+	t_tok	*tok;
 
 	if (s == NULL)
 		ft_fatal("minishell_lexer : Invalid argument");
-	lexer = lexer_init();
+	*lexer = lexer_init();
 	tok = tok_init(s);
-	return (minishell_lexer_do(lexer, tok, s));
+	return (minishell_lexer_do(*lexer, tok, s));
 }
