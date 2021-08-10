@@ -10,6 +10,7 @@
 			leak \
 			debug \
 			sani-debug \
+			get_module \
 
 # ***********************************
 
@@ -87,14 +88,17 @@ init		:
 	zsh header.sh $(libhash_dir) $(libhash_dir)/libhash.h $(libhash_dir)/Makefile
 	zsh header.sh $(libdebug_dir) $(libdebug_dir)/libdebug.h $(libdebug_dir)/Makefile
 
-test		:
-	bash ./all-test.sh tests
+get_module	:
+	git submodule update --init
 
-test_unit	:
-	bash ./all-test.sh ./tests/unit-test $(TARGET)
+test		: get_module
+	bash ./tests/all-test.sh tests
 
-test_issue	:
-	bash ./all-test.sh ./tests/issue $(TARGET)
+test_unit	: get_module
+	bash ./tests/all-test.sh ./tests/unit-test $(TARGET)
+
+test_issue	: get_module
+	bash ./tests/all-test.sh ./tests/issue $(TARGET)
 
 leak		: $(obj) $(lib) $(libdebug)
 	$(CC) $(CFLAGS) $(obj) $(lib) $(libdebug) ./tests/sharedlib.c -o $(NAME) -lreadline

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug_array.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:00:24 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:00:27 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/10 16:24:52 by ywake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	display_array(char **array)
 
 /*
 ** @brief Compares two string arrays.
-** @return If there is no difference returns -1, find difference returns the index.
+** @return If there is no difference returns -1,
+** find difference returns the index.
 */
 int	array_cmp(char **aa, char **bb)
 {
@@ -39,7 +40,8 @@ int	array_cmp(char **aa, char **bb)
 	i = 0;
 	while (aa[i] || bb[i])
 	{
-		if (!(aa[i] && bb[i])) {
+		if (!(aa[i] && bb[i]))
+		{
 			printf("[index: %d] %s : %s\n", i, aa[i], bb[i]);
 			return (i);
 		}
