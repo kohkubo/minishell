@@ -112,10 +112,7 @@ sani-debug	: fclean lib_sani-debug
 	$(MAKE) clean
 
 norm		:
-	norminette $(src_dir) $(includes) \
-		$(libft_dir) \
-		$(libex_dir) \
-		$(libhash_dir) \
+	norminette $(src_dir) $(includes) ./libft
 	|| (printf "\e[31m%s\n\e[m" "Norm KO!"; exit 1)
 	@printf "\e[32m%s\n\e[m" "Norm OK!"
 
