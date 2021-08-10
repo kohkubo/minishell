@@ -26,7 +26,7 @@ t_token_type	token_type(char c)
 		return (c);
 	if (c == '<')
 		return (c);
-	if (ft_isspace(c))
+	if (c == '\t' || c == '\v' || c == '\f' || c == '\r' || c == ' ')
 		return (' ');
 	if (c == 0)
 		return (c);
