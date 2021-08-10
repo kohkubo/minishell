@@ -12,6 +12,7 @@
 
 #include "libex.h"
 
+/* \t \n \v \f \r ' ' */
 int	ft_isspace(int c)
 {
 	return (('\t' <= c && c <= '\r') || c == ' ');
