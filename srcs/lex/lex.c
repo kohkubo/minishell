@@ -90,7 +90,7 @@ static t_state_type	minishell_lexer_do(t_lexer **lexer, t_tok *tok, char *s)
 			state = generate_token(*lexer, &tok, &s, &i);
 		else
 			state = break_quote_state(tok, state, &s, &i);
-		if (state == STATE_ERROR)
+		if (*s == 0 && (state != STATE_GENERAL))
 		{
 			tok_free(tok);
 			lexer_free(lexer);
