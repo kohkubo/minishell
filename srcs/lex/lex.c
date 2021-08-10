@@ -44,7 +44,9 @@ static t_state_type	cut_off_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
 	else if (**s == '<' || **s == '>')
 	{
 		if (*(*s + 1) == '<')
-			return (STATE_ERROR);
+		{
+			return (STATE_HEREDOC);
+		}
 		token_end_and_create(l, tok, *s, i);
 		if (*(*s + 1) == '>')
 			token_store2_and_create(l, tok, s);
