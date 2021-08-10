@@ -15,9 +15,7 @@
 static t_state_type	break_quote_state(\
 t_tok *tok, t_state_type st, char **s, size_t *i)
 {
-	if (**s == 0)
-		return (STATE_ERROR);
-	else if (st == STATE_IN_DQUOTE)
+	if (st == STATE_IN_DQUOTE)
 	{
 		tok->data[(*i)++] = **s;
 		if (**s == CHAR_DQUOTE)
