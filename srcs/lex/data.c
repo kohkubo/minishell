@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lex_analyze.h"
+#include "lex_analyze.h"
 
 t_tok	*tok_init(char *s)
 {
