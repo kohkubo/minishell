@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/lex_analyze.h"
+extern t_shell	g_all;
 
 static t_state_type	break_quote_state(\
 t_tok *tok, t_state_type st, char **s, size_t *i)

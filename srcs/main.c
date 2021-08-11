@@ -12,6 +12,7 @@
 
 #include "../includes/shell.h"
 
+t_shell	g_all;
 char	*shell_prompt(t_state_type state)
 {
 	if (state == STATE_GENERAL)
