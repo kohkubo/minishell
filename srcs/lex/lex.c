@@ -45,18 +45,15 @@ static t_state_type	cut_off_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
 	}
 	else if (**s == 0)
 		token_end(l, tok, *i);
-	else if (**s == '<' || **s == '>')
+	else if (ft_strncmp(*s, "<<", 2) == 0)
 	{
-		if (*(*s + 1) == '<')
-		{
+		*s += 2;
 			return (STATE_IN_HEREDOC);
 		}
-		token_end_and_create(l, tok, *s, i);
-		if (*(*s + 1) == '>')
+	else if (ft_strncmp(*s, ">>", 2) == 0)
 			token_store2_and_create(l, tok, s);
-		else
+	else if (**s == '<' || **s == '>')
 			token_store_and_create(l, tok, *s, **s);
-	}
 	return (STATE_GENERAL);
 }
 
