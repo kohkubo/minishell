@@ -13,8 +13,6 @@
 #include "lex_analyze.h"
 #include "shell.h"
 
-extern t_shell	g_all;
-
 static t_state_type	store_char_and_check_state(\
 t_tok *tok, t_state_type st, char **s, size_t *i)
 {

@@ -62,11 +62,6 @@ typedef struct s_lexer
 	t_list	*listtok;
 }	t_lexer;
 
-typedef struct s_shell
-{
-	char	*heredoc;
-}	t_shell;
-
 void	lexer_free(t_lexer **lexer);
 void	tok_free(void *content);
 t_tok	*tok_init(char *s);
