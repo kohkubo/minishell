@@ -23,6 +23,7 @@ char	*shell_prompt(t_state_type state)
 		return (SHELL_DQUOTE);
 	else if (state == STATE_IN_QUOTE)
 		return (SHELL_QUOTE);
+	return (NULL);
 }
 
 int	main(void)
