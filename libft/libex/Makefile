@@ -19,6 +19,7 @@ src =\
 	./ft_fatal.c \
 	./ft_strndup.c \
 	./ft_error_exit.c \
+	./ft_xcalloc.c \
 	./contain.c \
 	./ft_isspace.c \
 	./ft_strcmp.c \
