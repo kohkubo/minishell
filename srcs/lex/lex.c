@@ -16,13 +16,21 @@ extern t_shell	g_all;
 static t_state_type	store_char_and_check_state(\
 t_tok *tok, t_state_type st, char **s, size_t *i)
 {
-		tok->data[(*i)++] = **s;
 	if (st == STATE_IN_DQUOTE && **s == CHAR_DQUOTE)
+	{
+		tok->data[(*i)++] = **s;
 			return (STATE_GENERAL);
-	else if (st == STATE_IN_QUOTE && **s == CHAR_QOUTE)
+	}
+	else if (st == STATE_IN_QUOTE && **s == CHAR_QUOTE)
+	{
+		tok->data[(*i)++] = **s;
 			return (STATE_GENERAL);
-	else if (st == STATE_IN_HEREDOC && !ft_strcmp(*s, g_all.heredoc))
+	}
+	else if (st == STATE_IN_HEREDOC && *(*s - 1) == '\n' && !ft_strcmp(*s, g_all.heredoc))
+	{
+		*s += ft_strlen(g_all.heredoc);
 		return (STATE_GENERAL);
+	}
 	return (st);
 }
 
