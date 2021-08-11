@@ -71,6 +71,13 @@ static t_state_type	generate_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
 		(*tok)->data[(*i)++] = **s;
 		(*tok)->type = TOKEN;
 	}
+	else if (ft_strncmp(*s, "<<", 2) == 0)
+	{
+		if (*(*s + 3) == 0 || is_space_string(*s + 3))
+			ft_error_exit("minishell : syntax error near unexpected token `newline'");
+		state = STATE_IN_HEREDOC;
+		*s += 2;
+	}
 	else if (token_type(**s) == CHAR_GENERAL)
 	{
 		(*tok)->data[(*i)++] = **s;
