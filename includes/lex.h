@@ -21,7 +21,7 @@ typedef enum e_token_type
 	CHAR_GENERAL		= -1,
 	CHAR_PIPE			= '|',
 	CHAR_AMPERSAND		= '&',
-	CHAR_QOUTE			= '\'',
+	CHAR_QUOTE			= '\'',
 	CHAR_DQUOTE			= '\"',
 	CHAR_SEMICOLON		= ';',
 	CHAR_SEMICOLON2		= ';' + PAD,
