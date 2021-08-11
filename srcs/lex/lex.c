@@ -64,7 +64,10 @@ static t_state_type	generate_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
 	state = STATE_GENERAL;
 	if (**s == '\'' || **s == '"')
 	{
-		state = **s;
+		if (**s == '\'')
+			state = STATE_IN_QUOTE;
+		else
+			state = STATE_IN_DQUOTE;
 		(*tok)->data[(*i)++] = **s;
 		(*tok)->type = TOKEN;
 	}
