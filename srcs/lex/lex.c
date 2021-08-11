@@ -13,7 +13,7 @@
 #include "../../includes/lex_analyze.h"
 extern t_shell	g_all;
 
-static t_state_type	break_quote_state(\
+static t_state_type	store_char_and_check_state(\
 t_tok *tok, t_state_type st, char **s, size_t *i)
 {
 	if (st == STATE_IN_DQUOTE)
@@ -90,7 +90,7 @@ static t_state_type	minishell_lexer_do(t_lexer **lexer, t_tok *tok, char *s)
 		if (state == STATE_GENERAL)
 			state = generate_token(*lexer, &tok, &s, &i);
 		else
-			state = break_quote_state(tok, state, &s, &i);
+			state = store_char_and_check_state(tok, state, &s, &i);
 		if (*s == 0 && (state != STATE_GENERAL))
 		{
 			tok_free(tok);
