@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lex_analyze.h"
+#include "lex_analyze.h"
+#include "shell.h"
+
 extern t_shell	g_all;
 
 static t_state_type	store_char_and_check_state(\
