@@ -18,6 +18,7 @@ src =\
 	./ft_xmalloc.c \
 	./ft_fatal.c \
 	./ft_strndup.c \
+	./ft_error_exit.c \
 	./contain.c \
 	./ft_isspace.c \
 	./ft_strcmp.c \

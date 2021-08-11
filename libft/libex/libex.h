@@ -24,6 +24,7 @@ int		min(int a, int b);
 void	free_set(void **dst, void *src);
 void	*ft_xmalloc(size_t size);
 void	ft_fatal(const char *emsg);
+void	ft_error_exit(const char *emsg);
 char	*ft_strndup(const char *s1, size_t n);
 int		contain(char **array, char *word);
 int		ft_isspace(int c);
