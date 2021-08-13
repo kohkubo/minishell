@@ -39,8 +39,6 @@ char	*generate_heredoc(char *s)
 	char	*buf;
 	int		i;
 
-	while (ft_isspace(*s))
-		s++;
 	buf = ft_xcalloc(1, ft_strlen(s) + 1);
 	i = 0;
 	while (s[i])
@@ -57,7 +55,6 @@ char	*generate_heredoc(char *s)
 t_state_type	heredoc(t_lexer **l, t_tok **tok, char **s, size_t *i)
 {
 	char	*heredoc;
-	int		len;
 
 	if (*(*s + 2) == 0 || is_space_string(*s + 2))
 	{
@@ -66,18 +63,14 @@ t_state_type	heredoc(t_lexer **l, t_tok **tok, char **s, size_t *i)
 	}
 	token_store2_and_create(*l, tok, s);
 	*s += 1;
+	*i = 0;
+	*s += spacelen(*s);
 	heredoc = generate_heredoc(*s);
 	(*tok)->data = heredoc_readline(heredoc, (*tok)->data);
 	(*tok)->type = TOKEN;
-	len = ft_strlen(heredoc);
-	*s += len;
-	*i += len;
+	*s += ft_strlen(heredoc);
+	*s += spacelen(*s);
 	free_set((void **)&heredoc, NULL);
-	while (ft_isspace(**s))
-	{
-		*s += 1;
-		*i += 1;
-	}
-	token_end_and_create(*l, tok, *s, i);
+	token_end_and_create(*l, tok, *s, NULL);
 	return (STATE_GENERAL);
 }
