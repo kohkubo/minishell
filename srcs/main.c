@@ -12,20 +12,6 @@
 
 #include "shell.h"
 
-
-char	*shell_prompt(t_state_type state)
-{
-	if (state == STATE_GENERAL)
-		return (SHELL_PROMPT);
-	else if (state == STATE_IN_HEREDOC)
-		return (SHELL_HEREDOC);
-	else if (state == STATE_IN_DQUOTE)
-		return (SHELL_DQUOTE);
-	else if (state == STATE_IN_QUOTE)
-		return (SHELL_QUOTE);
-	return (NULL);
-}
-
 int	main(void)
 {
 	char	*input;
@@ -33,7 +19,7 @@ int	main(void)
 	input = NULL;
 	while (1)
 	{
-		input = readline(SHELL_PROMPT);
+		input = readline(PROMPT);
 		if (input == NULL || ft_strlen(input) == 0)
 		{
 			free_set((void **)&input, NULL);
