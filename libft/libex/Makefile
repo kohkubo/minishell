@@ -25,6 +25,7 @@ src =\
 	./ft_strcmp.c \
 	./ft_xstrdup.c \
 	./is_space_string.c \
+	./spacelen.c \
 
 # ***********************************
 

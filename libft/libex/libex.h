@@ -32,5 +32,6 @@ int		ft_isspace(int c);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_xstrdup(const char *s1);
 bool	is_space_string(char *s);
+size_t	spacelen(char *s);
 
 #endif
