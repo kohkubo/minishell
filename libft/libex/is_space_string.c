@@ -2,7 +2,7 @@
 
 bool	is_space_string(char *s)
 {
-	while (ft_isspace(*s++))
-		;
+	while (ft_isspace(*s))
+		s++;
 	return (!*s);
 }
