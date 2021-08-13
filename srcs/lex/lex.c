@@ -19,12 +19,12 @@ t_tok *tok, t_state_type st, char **s, size_t *i)
 	if (st == STATE_IN_DQUOTE && **s == CHAR_DQUOTE)
 	{
 		tok->data[(*i)++] = **s;
-			return (STATE_GENERAL);
+		return (STATE_GENERAL);
 	}
 	else if (st == STATE_IN_QUOTE && **s == CHAR_QUOTE)
 	{
 		tok->data[(*i)++] = **s;
-			return (STATE_GENERAL);
+		return (STATE_GENERAL);
 	}
 	return (st);
 }
@@ -41,13 +41,14 @@ static t_state_type	cut_off_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
 	else if (**s == 0)
 		token_end(l, tok, *i);
 	else if (ft_strncmp(*s, ">>", 2) == 0)
-			token_store2_and_create(l, tok, s);
+		token_store2_and_create(l, tok, s);
 	else if (**s == '<' || **s == '>')
-			token_store_and_create(l, tok, *s, **s);
+		token_store_and_create(l, tok, *s, **s);
 	return (STATE_GENERAL);
 }
 
-static t_state_type	generate_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
+static t_state_type	generate_token(\
+t_lexer **l, t_tok **tok, char **s, size_t *i)
 {
 	t_state_type	state;
 
