@@ -27,10 +27,11 @@ char	*heredoc_readline(char *heredoc, char *tok)
 			free_set((void **)&tmp, NULL);
 			return (tok);
 		}
-		if (flg++ > 0)
+		if (flg > 0 || (flg == 0 && *tmp == 0))
 			free_set((void **)&tok, ft_strjoin(tok, "\n"));
 		free_set((void **)&tok, ft_strjoin(tok, tmp));
 		free_set((void **)&tmp, NULL);
+		flg++;
 	}
 }
 
