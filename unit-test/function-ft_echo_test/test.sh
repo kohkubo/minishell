@@ -20,7 +20,8 @@ gcc test.c \
 	$(find $REPO_ROOT/srcs -type f -name echo.c) \
 	$REPO_ROOT/libft/libft/libft.a \
 	$REPO_ROOT/libft/libex/libex.a \
-	$SHARED_LIB
+	$SHARED_LIB \
+	-I$REPO_ROOT/includes
 
 touch expect output
 test_echo "test"
@@ -62,7 +63,8 @@ gcc test2.c \
 	$(find $REPO_ROOT/srcs -type f -name echo.c) \
 	$REPO_ROOT/libft/libft/libft.a \
 	$REPO_ROOT/libft/libex/libex.a \
-	$SHARED_LIB
+	$SHARED_LIB \
+	-I$REPO_ROOT/includes
 
 echo "========= test2 ========="
 ./minishell > output2
