@@ -75,6 +75,7 @@ void	token_store2_and_create(t_lexer *l, t_tok **t, char **s)
 	tmp = *t;
 	tmp->data[0] = *(*s)++;
 	tmp->data[1] = **s;
+	tmp->data[2] = 0;
 	tmp->type = **s + PAD;
 	token_end_and_create(l, t, *s, NULL);
 }
