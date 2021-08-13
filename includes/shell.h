@@ -18,10 +18,10 @@
 # ifdef DEBUG
 #  include "../libft/libdebug/libdebug.h"
 # endif
-# define SHELL_PROMPT "minishell> "
-# define SHELL_QUOTE "quote... "
-# define SHELL_DQUOTE "dquote... "
-# define SHELL_HEREDOC "heredoc... "
+# define PROMPT "minishell> "
+# define QUOTE_PROMPT "quote... "
+# define DQUOTE_PROMPT "dquote... "
+# define HEREDOC_PROMPT "heredoc... "
 # include "lex.h"
 # include <stdio.h>
 # include <stdbool.h>

@@ -21,7 +21,7 @@ char	*heredoc_readline(char *heredoc, char *tok)
 	flg = 0;
 	while (1)
 	{
-		tmp = readline(SHELL_HEREDOC);
+		tmp = readline(HEREDOC_PROMPT);
 		if (ft_strcmp(tmp, heredoc) == 0)
 		{
 			free_set((void **)&tmp, NULL);
