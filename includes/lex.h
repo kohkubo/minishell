@@ -65,8 +65,10 @@ typedef struct s_lexer
 char			*shell_prompt(t_state_type state);
 t_token_type	token_type(char c);
 void			token_end(t_lexer *lexer, t_tok **tok, size_t n);
-void			token_end_and_create(t_lexer *lexer, t_tok **tok, char *s, size_t *n);
-void			token_store_and_create(t_lexer *l, t_tok **t, char *s, t_token_type typ);
+void			token_end_and_create(\
+t_lexer *lexer, t_tok **tok, char *s, size_t *n);
+void			token_store_and_create(\
+t_lexer *l, t_tok **t, char *s, t_token_type typ);
 void			token_store2_and_create(t_lexer *l, t_tok **t, char **s);
 char			*heredoc_readline(char *heredoc, char *tok);
 char			*generate_heredoc(char *s);
