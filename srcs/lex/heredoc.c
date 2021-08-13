@@ -36,21 +36,22 @@ char	*heredoc_readline(char *heredoc, char *tok)
 
 char	*generate_heredoc(char *s)
 {
-	char	buf[1024 + 1];
+	char	*buf;
 	int		i;
 
-	ft_bzero(buf, sizeof(buf));
-	i = 0;
 	while (ft_isspace(*s))
 		s++;
-	while (s[i] && i < 1024)
+	buf = ft_xcalloc(1, ft_strlen(s) + 1);
+	i = 0;
+	while (s[i])
 	{
 		if (ft_isspace(s[i]))
 			break ;
 		buf[i] = s[i];
 		i++;
 	}
-	return (ft_strdup(buf));
+	free_set((void **)&buf, ft_xstrdup(buf));
+	return (buf);
 }
 
 t_state_type	heredoc(t_lexer **l, t_tok **tok, char **s, size_t *i)
