@@ -84,7 +84,7 @@ static t_state_type	minishell_lexer_do(t_lexer **lexer, t_tok *tok, char *s)
 	while (1)
 	{
 		if (state == STATE_GENERAL)
-			state = generate_token(*lexer, &tok, &s, &i);
+			state = generate_token(lexer, &tok, &s, &i);
 		else
 			state = store_char_and_check_state(tok, state, &s, &i);
 		if (*s == 0 && (state != STATE_GENERAL))
