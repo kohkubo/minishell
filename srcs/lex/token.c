@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lex_analyze.h"
+#include "lex.h"
 
 t_token_type	token_type(char c)
 {
