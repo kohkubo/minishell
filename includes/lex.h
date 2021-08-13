@@ -62,7 +62,6 @@ typedef struct s_lexer
 	t_list	*listtok;
 }	t_lexer;
 
-char			*shell_prompt(t_state_type state);
 t_token_type	token_type(char c);
 void			token_end(t_lexer *lexer, t_tok **tok, size_t n);
 void			token_end_and_create(\
