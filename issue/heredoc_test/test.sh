@@ -1,3 +1,5 @@
+#!/bin/bash
+
 make fclean > /dev/null
 
 mv srcs/main.c srcs/main.c.orig
@@ -10,6 +12,8 @@ cp -f ./minishell "$(dirname "$0")"
 cd "$(dirname "$0")" || exit
 
 rm -f output leaksout
+
+echo $PWD
 
 for file in $(ls *.txt); do
 	echo "Testing $file" >> output
