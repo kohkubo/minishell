@@ -6,17 +6,17 @@
 /*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:06:15 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/18 18:24:06 by ywake            ###   ########.fr       */
+/*   Updated: 2021/08/24 15:57:37 by ywake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
-# include "../libft/libft/libft.h"
-# include "../libft/libex/libex.h"
-# include "../libft/libhash/libhash.h"
+# include "libft.h"
+# include "libex.h"
+# include "libhash.h"
 # ifdef DEBUG
-#  include "../libft/libdebug/libdebug.h"
+#  include "libdebug.h"
 # endif
 # define PROMPT "minishell> "
 # define QUOTE_PROMPT "quote... "
