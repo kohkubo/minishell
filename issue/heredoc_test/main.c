@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 15:50:29 by ywake             #+#    #+#             */
-/*   Updated: 2021/08/09 15:50:30 by ywake            ###   ########.fr       */
+/*   Created: 2021/08/09 15:50:29 by kohkubo           #+#    #+#             */
+/*   Updated: 2021/08/16 20:43:38 by ywake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	display_lexer(void *content)
 	printf("%s : %d\n", tok->data, tok->type);
 }
 
-void test(t_lexer *lexer)
+void	test(t_lexer *lexer)
 {
 	printf(" === test ===\n");
 	printf("lexer->len : %d\n", lexer->len);
@@ -48,20 +48,4 @@ int	main(void)
 		free_set((void **)&input, NULL);
 	}
 	return (0);
-}
-
-__attribute__((destructor))
-void	destructor(void)
-{
-	int		status;
-	char	buf[50];
-
-	snprintf(buf, 50, "leaks %d &> leaksout", getpid());
-	status = system(buf);
-	if (status)
-	{
-		write(2, "leak!!!\n", 8);
-		system("cat leaksout >/dev/stderr");
-		exit(1);
-	}
 }
