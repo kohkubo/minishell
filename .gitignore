@@ -1,0 +1,24 @@
+*
+
+# allowed files
+!Makefile
+!*.c
+!*.h
+
+# allowed dirs
+!srcs/
+!srcs/**/
+!includes/
+!tests
+
+# lib
+!libft/
+!libft/**/
+
+# git / github
+!.github
+!.github/workflows
+!.github/workflows/*.yml
+!.gitignore
+!.editorconfig
+!.gitkeep
