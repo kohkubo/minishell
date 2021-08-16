@@ -30,6 +30,7 @@ CFLAGS		= -Wall -Wextra -Werror -O3 -I$(includes)
 src =\
 	./lex/lex.c \
 	./lex/token.c \
+	./lex/heredoc.c \
 	./lex/data.c \
 	./parse/parse.c \
 	./built-in/ft_exit.c \

@@ -21,7 +21,7 @@ typedef enum e_token_type
 	CHAR_GENERAL		= -1,
 	CHAR_PIPE			= '|',
 	CHAR_AMPERSAND		= '&',
-	CHAR_QOUTE			= '\'',
+	CHAR_QUOTE			= '\'',
 	CHAR_DQUOTE			= '\"',
 	CHAR_SEMICOLON		= ';',
 	CHAR_SEMICOLON2		= ';' + PAD,
@@ -38,11 +38,11 @@ typedef enum e_token_type
 }	t_token_type;
 
 typedef enum e_state_type{
-	STATE_IN_DQUOTE	= '"',
-	STATE_IN_QUOTE	= '\'',
-	STATE_HEREDOC	= '<' + PAD,
-	STATE_GENERAL	= -1,
-	STATE_ERROR		= -2,
+	STATE_IN_DQUOTE		= '"',
+	STATE_IN_QUOTE		= '\'',
+	STATE_IN_HEREDOC	= '<' + PAD,
+	STATE_GENERAL		= -1,
+	STATE_ERROR			= -2,
 }	t_state_type;
 
 /*
@@ -62,9 +62,19 @@ typedef struct s_lexer
 	t_list	*listtok;
 }	t_lexer;
 
-void	lexer_free(t_lexer **lexer);
-void	tok_free(void *content);
-t_tok	*tok_init(char *s);
-t_lexer	*lexer_init(void);
+t_token_type	token_type(char c);
+void			token_end(t_lexer *lexer, t_tok **tok, size_t n);
+void			token_end_and_create(\
+t_lexer *lexer, t_tok **tok, char *s, size_t *n);
+void			token_store_and_create(\
+t_lexer *l, t_tok **t, char *s, t_token_type typ);
+void			token_store2_and_create(t_lexer *l, t_tok **t, char **s);
+char			*heredoc_readline(char *heredoc, char *tok);
+char			*generate_heredoc(char *s);
+t_tok			*tok_init(char *s);
+t_lexer			*lexer_init(void);
+void			tok_free(void *content);
+void			lexer_free(t_lexer **lexer);
+t_state_type	heredoc(t_lexer **l, t_tok **tok, char **s, size_t *i);
 
 #endif

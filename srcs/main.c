@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shell.h"
+#include "shell.h"
 
 int	main(void)
 {
@@ -19,7 +19,7 @@ int	main(void)
 	input = NULL;
 	while (1)
 	{
-		input = readline(SHELL_PROMPT);
+		input = readline(PROMPT);
 		if (input == NULL || ft_strlen(input) == 0)
 		{
 			free_set((void **)&input, NULL);

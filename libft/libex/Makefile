@@ -18,10 +18,14 @@ src =\
 	./ft_xmalloc.c \
 	./ft_fatal.c \
 	./ft_strndup.c \
+	./ft_error_exit.c \
+	./ft_xcalloc.c \
 	./contain.c \
 	./ft_isspace.c \
 	./ft_strcmp.c \
 	./ft_xstrdup.c \
+	./is_space_string.c \
+	./spacelen.c \
 
 # ***********************************
 
