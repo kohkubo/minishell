@@ -1,67 +1,66 @@
 #!/bin/bash
 
-make leak > /dev/null
+make srcs/main.c+leak > /dev/null
 
 set -e
 
-cp minishell "$(dirname "$0")"
+cp srcs/a.out "$(dirname "$0")"
 cd "$(dirname "$0")" || exit
 
-echo "exit" | ./minishell
+echo "exit" | ./a.out
 echo $? > output
 echo "exit" | bash
 echo $? > expect
 
-echo "exit 0" | ./minishell
+echo "exit 0" | ./a.out
 echo $? >> output
 echo "exit 0" | bash
 echo $? >> expect
 
-echo "exit 1" | ./minishell
+echo "exit 1" | ./a.out
 echo $? >> output
 echo "exit 1" | bash
 echo $? >> expect
 
-echo "exit 255" | ./minishell
+echo "exit 255" | ./a.out
 echo $? >> output
 echo "exit 255" | bash
 echo $? >> expect
 
-echo "exit 256" | ./minishell
+echo "exit 256" | ./a.out
 echo $? >> output
 echo "exit 256" | bash
 echo $? >> expect
 
-echo "exit -1" | ./minishell
+echo "exit -1" | ./a.out
 echo $? >> output
 echo "exit -1" | bash
 echo $? >> expect
 
-echo "exit -344" | ./minishell
+echo "exit -344" | ./a.out
 echo $? >> output
 echo "exit -344" | bash
 echo $? >> expect
 
-echo "exit 300" | ./minishell
+echo "exit 300" | ./a.out
 echo $? >> output
 echo "exit 300" | bash
 echo $? >> expect
 
-echo "exit 21474836477" | ./minishell
+echo "exit 21474836477" | ./a.out
 echo $? >> output
 echo "exit 21474836477" | bash
 echo $? >> expect
 
-echo "exit aaaa" | ./minishell 2>> output
+echo "exit aaaa" | ./a.out 2>> output
 echo $? >> output
-echo "minishell: line 1: exit: aaaa: numeric argument required" >> expect
+echo "a.out: line 1: exit: aaaa: numeric argument required" >> expect
 echo "exit aaaa" | bash
 echo $? >> expect
 
 diff output expect
 
 RES=$?
-rm expect output ./minishell
+rm expect output ./a.out
 cd "$PWD" || exit
-rm -f srcs/main.o
 exit $RES
