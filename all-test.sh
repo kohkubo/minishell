@@ -6,9 +6,14 @@ if [ "$2" != "" ]; then
 fi
 
 export REPO_ROOT="$PWD"
+export INCLUDES="-I./includes -I./libft/libft -I./libft/libex -I./libft/libhash -I./libft/libdebug"
+export LIBS="-L./libft/libft -L./libft/libex -L./libft/libhash -L./libft/libdebug"
 export SHARED_LIB="$PWD/tests/sharedlib.c"
 
 FLG=0
+
+make fclean > /dev/null
+make leak > /dev/null
 
 for path in $(find $DIR -type f -name test.sh);
 do

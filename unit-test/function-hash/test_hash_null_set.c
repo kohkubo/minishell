@@ -1,8 +1,7 @@
-
-#include "./../../../libft/libft/libft.h"
-#include "./../../../libft/libex/libex.h"
-#include "./../../../libft/libhash/libhash.h"
-#include "./../../../libft/libdebug/libdebug.h"
+#include "libft.h"
+#include "libex.h"
+#include "libhash.h"
+#include "libdebug.h"
 #include <libc.h>
 
 static void	test_res_null(t_hash_table *t, char *key)
@@ -18,7 +17,7 @@ int	main()
 	t_hash_table *t;
 
 	t = hash_create_table(10);
-	
+
 	// setのチェック、上書きのチェック
 	hash_setstr(t, "VAL0", NULL);
 	hash_setstr(t, "VAL0", NULL);

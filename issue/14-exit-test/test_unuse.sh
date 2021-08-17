@@ -1,7 +1,5 @@
 #!/bin/bash
 
-make srcs/main.c+leak > /dev/null
-
 set -e
 
 cp srcs/a.out "$(dirname "$0")"

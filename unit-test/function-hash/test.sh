@@ -8,23 +8,22 @@ test_res_print() {
 	fi
 }
 
-cd "$(dirname "$0")" || exit
+DIR=$(dirname "$0")
+
+make re -C libft/libdebug > /dev/null
 
 EXIT_CODE=0
-for path in $(find . -type f -name "*.c");
+for path in $(find $DIR -type f -name "*.c");
 do
 	echo $path
-	gcc -o "minishell" -g -O3 "$path" \
-	$REPO_ROOT/libft/libft/libft.a \
-	$REPO_ROOT/libft/libex/libex.a \
-	$REPO_ROOT/libft/libhash/libhash.a \
-	$REPO_ROOT/libft/libdebug/libdebug.a \
+	gcc -g -O3 "$path" $INCLUDES $LIBS\
+	-lft -lex -lhash -ldebug \
 	$SHARED_LIB
 
-	./minishell
-	AOUT=$?
+	./a.out
+	RES=$?
 
-	if [ $AOUT -ne 0 ]; then
+	if [ $RES -ne 0 ]; then
 		EXIT_CODE=1
 		printf "\e[31m%s\n\e[m" ">>  KO!"
 	else
@@ -32,21 +31,17 @@ do
 	fi
 done
 
-cd $REPO_ROOT || exit
-make sani-debug > /dev/null
-cd "$(dirname "$0")" || exit
+make sani-debug -C libft/libhash > /dev/null
+make sani-debug -C libft/libdebug > /dev/null
 
-for path in $(find . -type f -name "*.c");
+for path in $(find $DIR -type f -name "*.c");
 do
-	gcc -o "b.out" -g -O3 -fsanitize=address "$path" \
-	$REPO_ROOT/libft/libft/libft.a \
-	$REPO_ROOT/libft/libex/libex.a \
-	$REPO_ROOT/libft/libhash/libhash.a \
-	$REPO_ROOT/libft/libdebug/libdebug.a
+	gcc -g -O3 "$path" -fsanitize=address $INCLUDES $LIBS\
+	-lft -lex -lhash -ldebug
 
-	./b.out
-	BOUT=$?
-	if [ $BOUT -ne 0 ]; then
+	./a.out
+	RES=$?
+	if [ $RES -ne 0 ]; then
 		EXIT_CODE=1
 		printf "\e[31m%s\n\e[m" ">>  KO!"
 	else
@@ -54,13 +49,10 @@ do
 	fi
 done
 
-rm ./minishell
-rm ./b.out leaksout
-rm -rf ./minishell.dSYM
-rm -rf ./b.out.dSYM
+rm -f ./a.out leaksout
+rm -rf ./a.out.dSYM
 
-cd $REPO_ROOT || exit
-make fclean > /dev/null
-make leak > /dev/null
+make re -C libft/libhash > /dev/null
+make re -C libft/libdebug > /dev/null
 
 exit $EXIT_CODE
