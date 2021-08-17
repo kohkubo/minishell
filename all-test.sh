@@ -5,8 +5,6 @@ if [ "$2" != "" ]; then
 	DIR="$1/$2"
 fi
 
-make leak
-
 export REPO_ROOT="$PWD"
 export SHARED_LIB="$PWD/tests/sharedlib.c"
 
