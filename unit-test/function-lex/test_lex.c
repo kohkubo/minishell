@@ -1,9 +1,9 @@
-#include "./../../../includes/shell.h"
-#include "./../../../includes/lex.h"
-#include "./../../../libft/libft/libft.h"
-#include "./../../../libft/libex/libex.h"
-#include "./../../../libft/libhash/libhash.h"
-#include "./../../../libft/libdebug/libdebug.h"
+#include "shell.h"
+#include "lex.h"
+#include "libft.h"
+#include "libex.h"
+#include "libhash.h"
+#include "libdebug.h"
 #include <libc.h>
 
 void	display_lexer(void *content)
@@ -91,7 +91,7 @@ int main(void)
 	test("echo test<<");
 	test("echo test <<");
 	test("echo test<< ");
-	
+
 	printf("\n' ' '\n");
 	test("'echo test << aiueo'");
 	test("echo 'echo test << aiueo'");
@@ -123,7 +123,7 @@ int main(void)
 	test("aiueo \\ ssssssssss");
 	test("aiueo\\ssssssssss");
 	test("aiueo\\\\ssssssssss");
-	
+
 	printf("\nその他\n");
 	test(" ");
 	test("           ");
@@ -151,7 +151,7 @@ int main(void)
 	test("\\");
 	test("\\\\\\");
 	test("aiueo\\");
-	
+
 	printf("\n\\\" \\\" \\\"\n");
 	test("\"echo \\\"test\\\"\"");
 	test("\"echo \\\"test\\\"\" a");

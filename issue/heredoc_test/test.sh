@@ -1,6 +1,6 @@
 #!/bin/bash
 
-make tests/issue/heredoc_test/main.c+leak &> /dev/null
+make tests/issue/heredoc_test/main.c+leak > /dev/null
 
 cd "$(dirname "$0")" || exit
 
@@ -21,5 +21,6 @@ diff expect output
 RES=$?
 
 rm -f a.out output leaksout
+rm -rf a.out.dSYM
 
 exit $RES

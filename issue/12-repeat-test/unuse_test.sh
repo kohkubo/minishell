@@ -1,7 +1,5 @@
 #!/bin/bash
 
-make leak > /dev/null
-
 cp ./minishell "$(dirname "$0")"
 cd "$(dirname "$0")" || exit
 
@@ -65,5 +63,4 @@ diff output expect
 RES=$?
 rm leaksout expect output ./minishell
 cd "$PWD" || exit
-rm -f srcs/main.o
 exit $(($RES | $LEAKS))
