@@ -10,6 +10,7 @@
 			leak \
 			debug \
 			sani-debug \
+			get_module \
 
 # ***********************************
 
@@ -29,6 +30,7 @@ CFLAGS		= -Wall -Wextra -Werror -O3 -I$(includes)
 src =\
 	./lex/lex.c \
 	./lex/token.c \
+	./lex/heredoc.c \
 	./lex/data.c \
 	./parse/parse.c \
 	./built-in/ft_exit.c \
@@ -67,7 +69,7 @@ libdebug		= $(libdebug_dir)/libdebug.a
 all			: $(NAME)
 
 $(NAME)		: $(obj) $(lib)
-	$(CC) $(CFLAGS) $(obj) $(lib) -o $(NAME)
+	$(CC) $(CFLAGS) $(obj) $(lib) -o $(NAME) -lreadline
 
 clean		: lib_clean
 	$(RM) $(obj)
@@ -87,17 +89,20 @@ init		:
 	zsh header.sh $(libhash_dir) $(libhash_dir)/libhash.h $(libhash_dir)/Makefile
 	zsh header.sh $(libdebug_dir) $(libdebug_dir)/libdebug.h $(libdebug_dir)/Makefile
 
-test		:
-	bash ./all-test.sh tests
+get_module	:
+	git submodule update --init
 
-test_unit	:
-	bash ./all-test.sh ./tests/unit-test $(TARGET)
+test		: get_module
+	bash ./tests/all-test.sh tests
 
-test_issue	:
-	bash ./all-test.sh ./tests/issue $(TARGET)
+test_unit	: get_module
+	bash ./tests/all-test.sh ./tests/unit-test $(TARGET)
+
+test_issue	: get_module
+	bash ./tests/all-test.sh ./tests/issue $(TARGET)
 
 leak		: $(obj) $(lib) $(libdebug)
-	$(CC) $(CFLAGS) $(obj) $(lib) $(libdebug) ./tests/sharedlib.c -o $(NAME)
+	$(CC) $(CFLAGS) $(obj) $(lib) $(libdebug) ./tests/sharedlib.c -o $(NAME) -lreadline
 
 debug		: fclean lib_debug
 	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g" lib="$(lib) $(libdebug)"
@@ -108,10 +113,7 @@ sani-debug	: fclean lib_sani-debug
 	$(MAKE) clean
 
 norm		:
-	norminette $(src_dir) $(includes) \
-		$(libft_dir) \
-		$(libex_dir) \
-		$(libhash_dir) \
+	norminette $(src_dir) $(includes) ./libft \
 	|| (printf "\e[31m%s\n\e[m" "Norm KO!"; exit 1)
 	@printf "\e[32m%s\n\e[m" "Norm OK!"
 

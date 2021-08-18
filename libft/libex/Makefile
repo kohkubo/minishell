@@ -15,15 +15,17 @@ src =\
 	./get_next_line.c \
 	./min.c \
 	./free_set.c \
-	./errlst.c \
 	./ft_xmalloc.c \
 	./ft_fatal.c \
-	./ft_strerror.c \
 	./ft_strndup.c \
+	./ft_error_exit.c \
+	./ft_xcalloc.c \
 	./contain.c \
 	./ft_isspace.c \
 	./ft_strcmp.c \
 	./ft_xstrdup.c \
+	./is_space_string.c \
+	./spacelen.c \
 
 # ***********************************
 
