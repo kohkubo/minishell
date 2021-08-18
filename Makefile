@@ -11,11 +11,12 @@
 			debug \
 			sani-debug \
 			get_module \
+			FORCE \
 
 # ***********************************
 
 NAME		= minishell
-includes	= includes
+includes	= ./includes ./libft/libft ./libft/libex ./libft/libhash ./libft/libdebug
 src_dir		= srcs
 obj_dir		= objs
 obj			= $(src:%.c=$(src_dir)/%.o)
@@ -23,7 +24,8 @@ obj			= $(src:%.c=$(src_dir)/%.o)
 # ***********************************
 
 CC 			= gcc
-CFLAGS		= -Wall -Wextra -Werror -O3 -I$(includes)
+LIBS		= -L./libft/libft -L./libft/libex -L./libft/libhash -L./libft/libdebug -lft -lex -lhash -lreadline
+CFLAGS		= -Wall -Wextra -Werror -O3 -g $(includes:%=-I%)
 
 # ***********************************
 
@@ -71,10 +73,11 @@ libdebug		= $(libdebug_dir)/libdebug.a
 all			: $(NAME)
 
 $(NAME)		: $(obj) $(lib)
-	$(CC) $(CFLAGS) $(obj) $(lib) -o $(NAME) -lreadline
+	$(CC) $(CFLAGS) $(obj) -o $(NAME) $(LIBS)
 
 clean		: lib_clean
 	$(RM) $(obj)
+	/bin/rm -rf $(NAME).dSYM
 
 fclean		: lib_fclean
 	$(RM) $(obj)
@@ -85,7 +88,7 @@ re			: fclean all
 # ***********************************
 
 init		:
-	zsh header.sh $(src_dir) $(includes)/shell.h Makefile $(src_dir)
+	zsh header.sh $(src_dir) includes/shell.h Makefile $(src_dir)
 	zsh header.sh $(libft_dir) $(libft_dir)/libft.h $(libft_dir)/Makefile
 	zsh header.sh $(libex_dir) $(libex_dir)/libex.h $(libex_dir)/Makefile
 	zsh header.sh $(libhash_dir) $(libhash_dir)/libhash.h $(libhash_dir)/Makefile
@@ -106,12 +109,8 @@ test_issue	: get_module
 leak		: $(obj) $(lib) $(libdebug)
 	$(CC) $(CFLAGS) $(obj) $(lib) $(libdebug) $(sharedlib) -o $(NAME) -lreadline
 
-debug		: fclean lib_debug
-	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g" lib="$(lib) $(libdebug)"
-	$(MAKE) clean
-
 sani-debug	: fclean lib_sani-debug
-	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g -fsanitize=address" lib="$(lib) $(libdebug)"
+	$(MAKE) CFLAGS="$(CFLAGS) -fsanitize=address" lib="$(lib) $(libdebug)"
 	$(MAKE) clean
 
 norm		:
@@ -119,14 +118,14 @@ norm		:
 	|| (printf "\e[31m%s\n\e[m" "Norm KO!"; exit 1)
 	@printf "\e[32m%s\n\e[m" "Norm OK!"
 
-%/main.c: $(lib) FORCE
-	$(CC) $(CFLAGS) $@ $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) $(lib) -o $(subst main.c,a.out,$@) -lreadline
+tests/%/main.c: $(lib) FORCE
+	$(CC) $(CFLAGS) $@ $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) -o $(subst main.c,a.out,$@) $(LIBS) -ldebug
 
-%/main.c+leak: $(lib) $(sharedlib)
-	$(CC) $(CFLAGS) $(subst +leak,,$@) $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) $^ -o $(subst main.c+leak,a.out,$@) -lreadline
+tests/%/main.c+leak: $(lib) $(sharedlib)
+	$(CC) $(CFLAGS) $(subst +leak,,$@) $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) $(sharedlib) -o $(subst main.c+leak,a.out,$@) $(LIBS) -ldebug
 
-%/main.c+sani: $(lib) (libdebug) $(sharedlib)
-	$(CC) $(CFLAGS) -D DEBUG=1 -g -fsanitize=address $(subst +leak,,$@) $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) $^ -o $(subst main.c+leak,a.out,$@) -lreadline
+tests/%/main.c+sani: $(lib) $(libdebug)
+	$(CC) $(CFLAGS) -fsanitize=address $(subst +sani,,$@) $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) -o $(subst main.c+sani,a.out,$@) $(LIBS) -ldebug
 
 prepush		: norm test
 
@@ -158,14 +157,8 @@ lib_fclean	:
 	$(MAKE) fclean -C $(libhash_dir)
 	$(MAKE) fclean -C $(libdebug_dir)
 
-lib_debug	:
-	$(MAKE) re -C $(libft_dir)
-	$(MAKE) debug -C $(libex_dir)
-	$(MAKE) debug -C $(libhash_dir)
-	$(MAKE) debug -C $(libdebug_dir)
-
-lib_sani-debug	: fclean
-	$(MAKE) re -C $(libft_dir)
+lib_sani-debug	:
+	$(MAKE) -C $(libft_dir)
 	$(MAKE) sani-debug -C $(libex_dir)
 	$(MAKE) sani-debug -C $(libhash_dir)
 	$(MAKE) sani-debug -C $(libdebug_dir)

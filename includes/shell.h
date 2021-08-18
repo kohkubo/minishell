@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:06:15 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:06:15 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/18 17:39:39 by ywake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
-# include "../libft/libft/libft.h"
-# include "../libft/libex/libex.h"
-# include "../libft/libhash/libhash.h"
+# include "libft.h"
+# include "libex.h"
+# include "libhash.h"
 # ifdef DEBUG
-#  include "../libft/libdebug/libdebug.h"
+#  include "libdebug.h"
 # endif
 # define PROMPT "minishell> "
 # define QUOTE_PROMPT "quote... "
