@@ -112,11 +112,11 @@ sani-debug	: fclean lib_sani-debug
 	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g -fsanitize=address" lib="$(lib) $(libdebug)"
 	$(MAKE) clean
 
-norm		:
-	norminette $(src_dir) $(includes) ./libft \
-	|| (printf "\e[31m%s\n\e[m" "Norm KO!"; exit 1)
-	@printf "\e[32m%s\n\e[m" "Norm OK!"
-
+norm:
+	@printf "\e[31m"; norminette $(src_dir) $(includes) ./libft \
+	| grep -v -e ": OK!" -v -e "Missing or invalid header. Header are being reintroduced as a mandatory part of your files. This is not yet an error." \
+	&& exit 1 \
+	|| printf "\e[32m%s\n\e[m" "Norm OK!"; printf "\e[m"
 
 prepush		: norm test
 
