@@ -1,7 +1,7 @@
 #!/bin/bash
 
 test_echo() {
-	./minishell $1 >>output
+	./a.out $1 >>output
 	echo $1 >>expect
 }
 
@@ -13,15 +13,12 @@ test_res_print() {
 	fi
 }
 
-cd "$(dirname "$0")" || exit
+DIR=$(dirname "$0")
 
-gcc test.c \
-	-o "minishell" \
+gcc $DIR/test.c \
 	$(find $REPO_ROOT/srcs -type f -name echo.c) \
-	$REPO_ROOT/libft/libft/libft.a \
-	$REPO_ROOT/libft/libex/libex.a \
 	$SHARED_LIB \
-	-I$REPO_ROOT/includes
+	$INCLUDES $LIBS -lft -lex
 
 touch expect output
 test_echo "test"
@@ -58,25 +55,20 @@ diff expect output
 RES1=$?
 test_res_print $RES1
 
-gcc test2.c \
-	-o "minishell" \
+gcc $DIR/test2.c \
 	$(find $REPO_ROOT/srcs -type f -name echo.c) \
-	$REPO_ROOT/libft/libft/libft.a \
-	$REPO_ROOT/libft/libex/libex.a \
 	$SHARED_LIB \
-	-I$REPO_ROOT/includes
+	$INCLUDES $LIBS -lft -lex
 
 echo "========= test2 ========="
-./minishell > output2
-diff expect2 output2
+./a.out > output2
+diff $DIR/expect2 output2
 RES2=$?
 test_res_print $RES2
 
 echo "===================================="
 
-rm expect output output2 minishell leaksout
-
-cd "$PWD" || exit
+rm expect output output2 a.out leaksout
 
 if [ $RES1 -eq 1 ] || [ $RES2 -eq 1 ]; then
 	exit 1
