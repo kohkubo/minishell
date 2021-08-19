@@ -6,7 +6,7 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:01:50 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/19 13:52:16 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/19 14:06:12 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ int		arraylen(char **array);
 void	print_array(char **array);
 char	*random_string(size_t size);
 char	**str_arraydup(char **array);
+int		debug_arraycmp(char **aa, char **bb);
 
 #endif
