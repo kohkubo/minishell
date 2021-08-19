@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <libc.h>
-#include "./../../../includes/shell.h"
+#include "shell.h"
 
 int main()
 {
