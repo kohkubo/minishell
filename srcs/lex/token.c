@@ -48,11 +48,17 @@ void	token_end(t_lexer *lexer, t_tok **tok, size_t n)
 
 void	token_end_and_create(t_lexer *lexer, t_tok **tok, char *s, size_t *n)
 {
-	token_end(lexer, tok, 1);
-	*tok = tok_init(s);
 	if (n == NULL)
-		return ;
-	*n = 0;
+	{
+		token_end(lexer, tok, 1);
+		*tok = tok_init(s);
+	}
+	else if (*n > 0)
+	{
+		token_end(lexer, tok, 1);
+		*tok = tok_init(s);
+		*n = 0;
+	}
 }
 
 void	token_store_and_create(t_lexer *l, t_tok **t, char *s, t_token_type typ)
