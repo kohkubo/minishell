@@ -6,7 +6,7 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:06:15 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/19 14:25:32 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/19 14:28:57 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_state_type	minishell_lexer(char *s, t_lexer **lexer);
 void			parse(char *input);
 int				ft_exit(char **arg);
 int				ft_echo(char **args);
+int				ft_env(char **args);
 void			minishell_init(void);
 void			store_shellenv(char **arr);
 
