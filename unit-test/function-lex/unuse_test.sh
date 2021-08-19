@@ -19,7 +19,6 @@ do
 	$REPO_ROOT/libft/libft/libft.a \
 	$REPO_ROOT/libft/libex/libex.a \
 	$REPO_ROOT/libft/libhash/libhash.a \
-	$REPO_ROOT/libft/libdebug/libdebug.a \
 	$SHARED_LIB
 
 	./minishell > output
@@ -45,8 +44,7 @@ do
 	$(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
 	$REPO_ROOT/libft/libft/libft.a \
 	$REPO_ROOT/libft/libex/libex.a \
-	$REPO_ROOT/libft/libhash/libhash.a \
-	$REPO_ROOT/libft/libdebug/libdebug.a
+	$REPO_ROOT/libft/libhash/libhash.a
 
 	./b.out > output
 	BOUT=$?

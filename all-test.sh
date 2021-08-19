@@ -6,8 +6,8 @@ if [ "$2" != "" ]; then
 fi
 
 export REPO_ROOT="$PWD"
-export INCLUDES="-I./includes -I./libft/libft -I./libft/libex -I./libft/libhash -I./libft/libdebug"
-export LIBS="-L./libft/libft -L./libft/libex -L./libft/libhash -L./libft/libdebug"
+export INCLUDES="-I./includes -I./libft/libft -I./libft/libex -I./libft/libhash"
+export LIBS="-L./libft/libft -L./libft/libex -L./libft/libhash"
 export SHARED_LIB="$PWD/tests/sharedlib.c"
 
 FLG=0

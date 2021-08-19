@@ -3,7 +3,6 @@
 #include "libft.h"
 #include "libex.h"
 #include "libhash.h"
-#include "libdebug.h"
 #include <libc.h>
 
 void	display_lexer(void *content)

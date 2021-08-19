@@ -10,14 +10,12 @@ test_res_print() {
 
 DIR=$(dirname "$0")
 
-make re -C libft/libdebug > /dev/null
-
 EXIT_CODE=0
 for path in $(find $DIR -type f -name "*.c");
 do
 	echo $path
 	gcc -g -O3 "$path" $INCLUDES $LIBS\
-	-lft -lex -lhash -ldebug \
+	-lft -lex -lhash \
 	$SHARED_LIB
 
 	./a.out
@@ -32,12 +30,11 @@ do
 done
 
 make sani-debug -C libft/libhash > /dev/null
-make sani-debug -C libft/libdebug > /dev/null
 
 for path in $(find $DIR -type f -name "*.c");
 do
 	gcc -g -O3 "$path" -fsanitize=address $INCLUDES $LIBS\
-	-lft -lex -lhash -ldebug
+	-lft -lex -lhash
 
 	./a.out
 	RES=$?
@@ -53,6 +50,5 @@ rm -f ./a.out leaksout
 rm -rf ./a.out.dSYM
 
 make re -C libft/libhash > /dev/null
-make re -C libft/libdebug > /dev/null
 
 exit $EXIT_CODE

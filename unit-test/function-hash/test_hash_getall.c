@@ -1,8 +1,6 @@
 #include "libft.h"
 #include "libex.h"
 #include "libhash.h"
-#include "libdebug.h"
-
 #include <libc.h>
 
 int main()

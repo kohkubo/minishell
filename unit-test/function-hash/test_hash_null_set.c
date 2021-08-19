@@ -1,7 +1,6 @@
 #include "libft.h"
 #include "libex.h"
 #include "libhash.h"
-#include "libdebug.h"
 #include <libc.h>
 
 static int	compare(const void *a, const void *b)
