@@ -30,6 +30,7 @@ src =\
 	./print_array.c \
 	./random_string.c \
 	./str_arraydup.c \
+	./debug_array.c \
 
 # ***********************************
 

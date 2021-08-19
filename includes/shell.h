@@ -6,7 +6,7 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:06:15 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/19 14:28:57 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/19 14:50:28 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 # include "libft.h"
 # include "libex.h"
 # include "libhash.h"
-# ifdef DEBUG
-#  include "libdebug.h"
-# endif
 # define PROMPT "minishell> "
 # define QUOTE_PROMPT "quote... "
 # define DQUOTE_PROMPT "dquote... "

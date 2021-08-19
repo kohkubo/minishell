@@ -6,11 +6,11 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:00:32 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/19 13:25:00 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/19 14:35:03 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libdebug.h"
+#include "libhash.h"
 
 static void	display_dict_item(void *content)
 {
@@ -48,5 +48,3 @@ void	debug_hash_display_table(t_hash_table *h)
 		i++;
 	}
 }
-
-
