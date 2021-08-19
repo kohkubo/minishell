@@ -40,5 +40,6 @@ void			parse(char *input);
 int				ft_exit(char **arg);
 int				ft_echo(char **args);
 void			minishell_init(void);
+void			store_shellenv(char **arr);
 
 #endif
