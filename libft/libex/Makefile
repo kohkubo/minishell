@@ -13,7 +13,7 @@ src =\
 	./strsort.c \
 	./free_string_array.c \
 	./get_next_line.c \
-	./min.c \
+	./ft_min_size_t.c \
 	./free_set.c \
 	./ft_xmalloc.c \
 	./ft_fatal.c \
