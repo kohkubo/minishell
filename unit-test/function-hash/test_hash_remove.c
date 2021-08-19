@@ -136,8 +136,8 @@ int main()
 			delcount++;
 		free(key);
 	}
-	printf("delcount : %d\n", delcount);
-	printf("   count : %d\n", count);
+	// printf("delcount : %d\n", delcount);
+	// printf("   count : %d\n", count);
 	if (table->count != count - delcount)
 		exit(1);
 	hash_clear_table(&table);

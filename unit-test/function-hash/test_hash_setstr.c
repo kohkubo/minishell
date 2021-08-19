@@ -83,7 +83,7 @@ int	main()
 		free(key);
 		free(value);
 	}
-	printf("table->count : %d\n", table->count);
+	// printf("table->count : %d\n", table->count);
 	if (table->count != count)
 		exit(1);
 	hash_clear_table(&table);

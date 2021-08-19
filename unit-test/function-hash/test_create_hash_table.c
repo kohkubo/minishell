@@ -38,7 +38,7 @@ int	main()
 	// ランダムテスト
 	srand((unsigned) time(NULL));
 	int i = rand() % 10000 + 1;
-	printf("rand(): %d\n", i);
+	// printf("rand(): %d\n", i);
 	table = hash_create_table(i);
 	hash_clear_table(&table);
 
