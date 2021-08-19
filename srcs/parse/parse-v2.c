@@ -2,7 +2,8 @@
 #include "parse.h"
 #include "logging.h"
 
-bool	is_tokentype(t_token_type type, t_list **current, char **buf_ptr)
+bool	is_tokentype_and_store_data(
+	t_token_type type, t_list **current, char **buf_ptr)
 {
 	if (*current == NULL)
 		return (false);
