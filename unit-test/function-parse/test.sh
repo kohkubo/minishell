@@ -28,3 +28,5 @@ do
 		printf "\e[32m%s\n\e[m" ">>  OK!"
 	fi
 done
+
+rm -f a.out leaksout

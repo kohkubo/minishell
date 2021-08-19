@@ -15,6 +15,8 @@ void print_token(void *tok)
 
 void	print_tree(t_astree *node, int sp_num)
 {
+	char	*str;
+
 	if (sp_num != 0)
 		printf(" ");
 	if (node == NULL)
@@ -22,7 +24,6 @@ void	print_tree(t_astree *node, int sp_num)
 		printf(BLACK"(null)\n"END);
 		return ;
 	}
-	char *str;
 	if (node->type & NODE_PIPE)
 		str = "PIPE";
 	else if (node->type & NODE_BCKGRND)
@@ -47,13 +48,10 @@ void	print_tree(t_astree *node, int sp_num)
 		str = "REDIRECTION";
 	else
 		str = BOLD RED"NOT FOUND"END;
-
-
 	if (node->type & NODE_DATA)
 		printf(YELLOW"%s"END"("BLUE"%s"END")\n", node->data, str);
 	else
 		printf(BOLD BLUE"%s\n"END, str);
-
 	printf("%*s", sp_num, "");
 	printf("├");
 	print_tree(node->left, sp_num + 2);
@@ -63,9 +61,9 @@ void	print_tree(t_astree *node, int sp_num)
 }
 
 void test(char *input) {
-	t_lexer *lex;
-	t_astree *tree;
-	t_astree *expect;
+	t_lexer		*lex;
+	t_astree	*tree;
+	t_astree	*expect;
 
 	printf(BOLD"%s\n"END, input);
 	minishell_lexer(input, &lex);
@@ -85,7 +83,6 @@ void test(char *input) {
 }
 
 int main(void) {
-
 	/*
 	 * <token list> ::= (EMPTY)
 	 */
@@ -123,7 +120,7 @@ int main(void) {
 		// error
 		test("echo >"); // 'newline';
 	/*
-	 * <redirection> ::= '<<' <token>
+	 * <redirection> ::= '<<' <token> <token list>
 	 */
 	// test("cat << test");
 	/*
@@ -141,6 +138,7 @@ int main(void) {
 	 * <job> ::= <command> '|' <job>
 	 */
 	test("echo a | tr a A");
+	test("echo a|");
 	/*
 	 * <command line> ::= <job> ;
 	 */
@@ -163,5 +161,4 @@ int main(void) {
 	 * <command line> ::= <job> & // not make
 	 * <command line> ::= <job> & <command line> // not make
 	 */
-	test("echo a|");
 }
