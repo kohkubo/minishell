@@ -26,6 +26,8 @@ src =\
 	./ft_xstrdup.c \
 	./is_space_string.c \
 	./spacelen.c \
+	./arraylen.c \
+	./print_array.c \
 
 # ***********************************
 

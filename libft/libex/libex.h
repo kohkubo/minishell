@@ -6,7 +6,7 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:01:50 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:01:51 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/19 11:42:38 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_xstrdup(const char *s1);
 bool	is_space_string(char *s);
 size_t	spacelen(char *s);
+int		arraylen(char **array);
+void	print_array(char **array);
 
 #endif
