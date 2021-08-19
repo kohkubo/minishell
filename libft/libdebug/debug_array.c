@@ -6,7 +6,7 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:00:24 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/19 11:43:07 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/19 13:38:47 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,3 @@ int	array_cmp(char **aa, char **bb)
 	return (-1);
 }
 
-char	**str_array_dup(char **array)
-{
-	int		i;
-	char	**ss;
-	char	**head;
-
-	ss = calloc(sizeof(char *), arraylen(array) + 1);
-	head = ss;
-	i = 0;
-	while (array[i])
-	{
-		ss[i] = ft_strdup(array[i]);
-		i++;
-	}
-	ss[i] = 0;
-	return (head);
-}

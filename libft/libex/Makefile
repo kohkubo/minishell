@@ -28,6 +28,8 @@ src =\
 	./spacelen.c \
 	./arraylen.c \
 	./print_array.c \
+	./random_string.c \
+	./str_arraydup.c \
 
 # ***********************************
 

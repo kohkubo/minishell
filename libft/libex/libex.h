@@ -6,7 +6,7 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:01:50 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/19 11:42:38 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/19 13:52:16 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ bool	is_space_string(char *s);
 size_t	spacelen(char *s);
 int		arraylen(char **array);
 void	print_array(char **array);
+char	*random_string(size_t size);
+char	**str_arraydup(char **array);
 
 #endif
