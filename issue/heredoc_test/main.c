@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:50:29 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/16 20:43:38 by ywake            ###   ########.fr       */
+/*   Updated: 2021/08/19 14:58:19 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+t_shell	g_shell;
 
 void	display_lexer(void *content)
 {
