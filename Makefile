@@ -91,7 +91,7 @@ init		:
 	zsh header.sh $(libhash_dir) $(libhash_dir)/libhash.h $(libhash_dir)/Makefile
 
 get_module	:
-	# git submodule update --init
+	git submodule update --init
 
 test		: get_module
 	bash ./tests/all-test.sh tests
