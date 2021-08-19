@@ -5,6 +5,8 @@
 #include "libhash.h"
 #include <libc.h>
 
+t_shell	g_shell;
+
 void	display_lexer(void *content)
 {
 	t_tok	*tok;
@@ -19,7 +21,7 @@ void test(char *s)
 
 	printf(" === test ===\n");
 	printf("s : %s\n", s);
-	lexer = minishell_lexer(s);
+	minishell_lexer(s, &lexer);
 	if (lexer == NULL)
 	{
 		printf("NULL!\n");
@@ -37,14 +39,14 @@ int main(void)
 	test("   echo test aiueo");
 	test("echo test aiueo  ");
 
-	printf("\n; ; ;\n");
-	test("echo test;aiueo");
-	test("echo test; aiueo");
-	test("echo test ;aiueo");
-	test("echo test ; aiueo");
-	test("echo test;");
-	test("echo test ;");
-	test("echo test; ");
+	// printf("\n; ; ;\n");
+	// test("echo test;aiueo");
+	// test("echo test; aiueo");
+	// test("echo test ;aiueo");
+	// test("echo test ; aiueo");
+	// test("echo test;");
+	// test("echo test ;");
+	// test("echo test; ");
 
 	printf("\n| | |\n");
 	test("echo test|aiueo");
@@ -82,14 +84,14 @@ int main(void)
 	test("echo test >>");
 	test("echo test>> ");
 
-	printf("\n<< << <<\n");
-	test("echo test<<aiueo");
-	test("echo test<< aiueo");
-	test("echo test <<aiueo");
-	test("echo test << aiueo");
-	test("echo test<<");
-	test("echo test <<");
-	test("echo test<< ");
+	// printf("\n<< << <<\n");
+	// test("echo test<<aiueo");
+	// test("echo test<< aiueo");
+	// test("echo test <<aiueo");
+	// test("echo test << aiueo");
+	// test("echo test<<");
+	// test("echo test <<");
+	// test("echo test<< ");
 
 	printf("\n' ' '\n");
 	test("'echo test << aiueo'");
@@ -101,27 +103,27 @@ int main(void)
 	test("'echo \\' test");
 	test("'\\n'");
 
-	printf("\n'\" '\" '\"\n");
-	test("'echo test << test'\"sssssssssssss\"");
+	// printf("\n'\" '\" '\"\n");
+	// test("'echo test << test'\"sssssssssssss\"");
 
 	printf("\n\" \" \"\n");
 	test("\"echo ssssss\"");
 	test("\"echo 'ssssss'\"");
 
-	printf("\n;; ;; ;;\n");
-	test("echo test ;;");
-	test(";;");
+	// printf("\n;; ;; ;;\n");
+	// test("echo test ;;");
+	// test(";;");
 
-	printf("\n\\ \\ \\\n");
-	test("echo test ;\n\taaaaa");
-	test("\\\\");
-	test("echo \\\\");
-	test("echo test\\\\");
-	test("aiueo\\ ssssssssss");
-	test("aiueo \\ssssssssss");
-	test("aiueo \\ ssssssssss");
-	test("aiueo\\ssssssssss");
-	test("aiueo\\\\ssssssssss");
+	// printf("\n\\ \\ \\\n");
+	// // test("echo test ;\n\taaaaa");
+	// test("\\\\");
+	// test("echo \\\\");
+	// test("echo test\\\\");
+	// test("aiueo\\ ssssssssss");
+	// test("aiueo \\ssssssssss");
+	// test("aiueo \\ ssssssssss");
+	// test("aiueo\\ssssssssss");
+	// test("aiueo\\\\ssssssssss");
 
 	printf("\nその他\n");
 	test(" ");
@@ -129,39 +131,39 @@ int main(void)
 	test("echo -n");
 	test("echo -n test");
 
-	printf("\nNULL test\n");
-	test("'test''");
-	test("\"test\"\"");
-	test("'''");
-	test("''' ");
-	test("'' '");
-	test("'' ' ");
-	test("\"\"\"");
-	test("\"\" \"");
-	test("\"\"\" ");
-	test("\"\" \" ");
-	test("\"\" \" >");
-	test("\"\" \" aaa");
-	test("\"\" \" >>");
-	test("\"\" \" >>>");
-	test("\"\" \">>>");
-	test("'");
-	test("\"");
-	test("\\");
-	test("\\\\\\");
-	test("aiueo\\");
+	// printf("\nNULL test\n");
+	// test("'test''");
+	// test("\"test\"\"");
+	// test("'''");
+	// test("''' ");
+	// test("'' '");
+	// test("'' ' ");
+	// test("\"\"\"");
+	// test("\"\" \"");
+	// test("\"\"\" ");
+	// test("\"\" \" ");
+	// test("\"\" \" >");
+	// test("\"\" \" aaa");
+	// test("\"\" \" >>");
+	// test("\"\" \" >>>");
+	// test("\"\" \">>>");
+	// test("'");
+	// test("\"");
+	// test("\\");
+	// test("\\\\\\");
+	// test("aiueo\\");
 
-	printf("\n\\\" \\\" \\\"\n");
-	test("\"echo \\\"test\\\"\"");
-	test("\"echo \\\"test\\\"\" a");
-	test("\"echo \\\"test\\\"\"a ");
-	test("\"echo \\\"test\\\"\" a ");
-	test("\"echo \\\"test\\\"\"a");
-	test("tatata\"  aiueo  \"test");
-	test("\\\'");
-	test("\\\" \\\"");
-	test("\\\"");
-	test("\"\\\"\"");
-	test("\" \\\" \"");
-	test("\" \\\" \\\" \"");
+	// printf("\n\\\" \\\" \\\"\n");
+	// test("\"echo \\\"test\\\"\"");
+	// test("\"echo \\\"test\\\"\" a");
+	// test("\"echo \\\"test\\\"\"a ");
+	// test("\"echo \\\"test\\\"\" a ");
+	// test("\"echo \\\"test\\\"\"a");
+	// test("tatata\"  aiueo  \"test");
+	// test("\\\'");
+	// test("\\\" \\\"");
+	// test("\\\"");
+	// test("\"\\\"\"");
+	// test("\" \\\" \"");
+	// test("\" \\\" \\\" \"");
 }
