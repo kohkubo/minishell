@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:06:12 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:06:13 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/18 17:36:17 by ywake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEX_H
 # define LEX_H
 
-# include "../libft/libft/libft.h"
+# include "libft.h"
 # define PAD 256
 
 typedef enum e_token_type

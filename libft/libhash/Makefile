@@ -2,7 +2,7 @@
 
 NAME	= libhash.a
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -O3
+CFLAGS	= -Wall -Wextra -Werror -O3 -g
 obj		= $(src:%.c=%.o)
 
 .PHONY: all clean fclean re debug sani-debug
@@ -42,8 +42,5 @@ re: fclean all
 
 # ***********************************
 
-debug: fclean
-	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g"
-
 sani-debug: fclean
-	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g -fsanitize=address"
+	$(MAKE) CFLAGS="$(CFLAGS) -fsanitize=address"
