@@ -18,8 +18,8 @@ bool	is_tokentype_and_store_data(
 }
 
 /**
-<command line>		::= <job> ';' <command line>
-					  | <job> ';'
+<command line>		::= <job> ';' <command line>	// not make
+					  | <job> ';'					// not make
 					  | <job> '&' <command line>	// not make
 					  | <job> '&'					// not make
 					  | <job>

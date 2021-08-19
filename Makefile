@@ -44,6 +44,8 @@ lib			= $(libft) \
 			$(libex) \
 			$(libhash) \
 
+sharedlib	= ./tests/sharedlib.c
+
 # ****************
 
 libft_dir	= $(lib_dir)/libft
@@ -102,7 +104,7 @@ test_issue	: get_module
 	bash ./tests/all-test.sh ./tests/issue $(TARGET)
 
 leak		: $(obj) $(lib) $(libdebug)
-	$(CC) $(CFLAGS) $(obj) $(lib) $(libdebug) ./tests/sharedlib.c -o $(NAME) -lreadline
+	$(CC) $(CFLAGS) $(obj) $(lib) $(libdebug) $(sharedlib) -o $(NAME) -lreadline
 
 debug		: fclean lib_debug
 	$(MAKE) CFLAGS="$(CFLAGS) -D DEBUG=1 -g" lib="$(lib) $(libdebug)"
@@ -116,6 +118,15 @@ norm		:
 	norminette $(src_dir) $(includes) ./libft \
 	|| (printf "\e[31m%s\n\e[m" "Norm KO!"; exit 1)
 	@printf "\e[32m%s\n\e[m" "Norm OK!"
+
+%/main.c: $(lib) FORCE
+	$(CC) $(CFLAGS) $@ $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) $(lib) -o $(subst main.c,a.out,$@) -lreadline
+
+%/main.c+leak: $(lib) $(sharedlib)
+	$(CC) $(CFLAGS) $(subst +leak,,$@) $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) $^ -o $(subst main.c+leak,a.out,$@) -lreadline
+
+%/main.c+sani: $(lib) (libdebug) $(sharedlib)
+	$(CC) $(CFLAGS) -D DEBUG=1 -g -fsanitize=address $(subst +leak,,$@) $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) $^ -o $(subst main.c+leak,a.out,$@) -lreadline
 
 prepush		: norm test
 
@@ -158,3 +169,5 @@ lib_sani-debug	: fclean
 	$(MAKE) sani-debug -C $(libex_dir)
 	$(MAKE) sani-debug -C $(libhash_dir)
 	$(MAKE) sani-debug -C $(libdebug_dir)
+
+FORCE:
