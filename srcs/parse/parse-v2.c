@@ -34,7 +34,7 @@ bool	is_tokentype_and_store_data(
 
 <redirection>		::= '<' <filename> <token list>
 					  | '>' <filename> <token list>
-					  | '<<' <token>
+					  | '<<' <token> <token list>
 					  | '>>' <filename> <token list>
 // <token list> will be added after the arg of the previous <simple command>.
 
