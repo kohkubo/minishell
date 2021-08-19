@@ -16,15 +16,17 @@
 static t_state_type	store_char_and_check_state(\
 t_tok *tok, t_state_type st, char **s, size_t *i)
 {
-	if (st == STATE_IN_DQUOTE && **s == CHAR_DQUOTE)
+	if (st == STATE_IN_DQUOTE)
 	{
 		tok->data[(*i)++] = **s;
-		return (STATE_GENERAL);
+		if (**s == CHAR_DQUOTE)
+			return (STATE_GENERAL);
 	}
-	else if (st == STATE_IN_QUOTE && **s == CHAR_QUOTE)
+	else if (st == STATE_IN_QUOTE)
 	{
 		tok->data[(*i)++] = **s;
-		return (STATE_GENERAL);
+		if (**s == CHAR_QUOTE)
+			return (STATE_GENERAL);
 	}
 	return (st);
 }
