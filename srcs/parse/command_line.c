@@ -4,26 +4,14 @@ t_astree	*cmdline2(t_list **toks); // <job> ';'
 t_astree	*cmdline3(t_list **toks); // <job>
 
 /*
-** <command line>	::= <job> ';' <command line>
-**					  | <job> ';'
+** <command line>	::= <job> ';' <command line>	// not make
+**					  | <job> ';'					// not make
 **					  | <job> '&' <command line>	// not make
 **					  | <job> '&'					// not make
 **					  | <job>
 */
 t_astree	*cmdline(t_list **toks)
 {
-	t_list		*save;
-	t_astree	*result;
-
-	save = *toks;
-	result = cmdline1(toks);
-	if (result != NULL)
-		return (result);
-	*toks = save;
-	result = cmdline2(toks);
-	if (result != NULL)
-		return (result);
-	*toks = save;
 	return (cmdline3(toks));
 }
 
