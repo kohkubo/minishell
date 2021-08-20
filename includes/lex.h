@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:06:12 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/18 17:36:17 by ywake            ###   ########.fr       */
+/*   Updated: 2021/08/19 17:38:48 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 typedef enum e_token_type
 {
 	CHAR_GENERAL		= -1,
+	CHAR_SPACE			= ' ',
 	CHAR_PIPE			= '|',
 	CHAR_AMPERSAND		= '&',
 	CHAR_QUOTE			= '\'',
