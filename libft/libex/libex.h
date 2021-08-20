@@ -6,7 +6,7 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:01:50 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:01:51 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/19 14:06:12 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 void	strsort(char *str[], int n);
 char	**free_string_array(char **buf);
 int		get_next_line(int fd, char **line);
-int		min(int a, int b);
+size_t	ft_min_size_t(size_t a, size_t b);
 void	free_set(void **dst, void *src);
 void	*ft_xmalloc(size_t size);
 void	ft_fatal(const char *emsg);
