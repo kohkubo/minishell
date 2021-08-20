@@ -37,6 +37,7 @@ src =\
 	./parse/parse.c \
 	./built-in/ft_exit.c \
 	./built-in/echo.c \
+	./built-in/ft_env.c \
 	./main.c \
 	./env/env.c \
 

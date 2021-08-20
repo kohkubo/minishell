@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:50:37 by ywake             #+#    #+#             */
-/*   Updated: 2021/08/09 15:50:37 by ywake            ###   ########.fr       */
+/*   Updated: 2021/08/19 11:50:13 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char				*g_reserved_words[] = {
 	"echo", "cd", "pwd", "export", "unset", "env", "exit", NULL
 };
 t_reserved_func		g_reserved_funcs[] = {
-	ft_echo, NULL, NULL, NULL, NULL, NULL, ft_exit, NULL
+	ft_echo, NULL, NULL, NULL, NULL, ft_env, ft_exit, NULL
 };
 
 static void	not_implemented(char *word)
