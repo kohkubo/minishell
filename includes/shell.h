@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:06:15 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/18 17:39:39 by ywake            ###   ########.fr       */
+/*   Updated: 2021/08/19 14:28:57 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+typedef struct s_shell
+{
+	t_hash_table	*hash;
+}	t_shell;
+
+extern t_shell	g_shell;
 
 t_state_type	minishell_lexer(char *s, t_lexer **lexer);
 void			parse(char *input);

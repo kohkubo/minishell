@@ -12,6 +12,8 @@
 
 #include "shell.h"
 
+t_shell	g_shell;
+
 int	main(void)
 {
 	char	*input;
