@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   debug_hash_display_table.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:00:32 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/10 16:25:28 by ywake            ###   ########.fr       */
+/*   Updated: 2021/08/19 14:35:03 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libdebug.h"
+#include "libhash.h"
 
 static void	display_dict_item(void *content)
 {
@@ -47,21 +47,4 @@ void	debug_hash_display_table(t_hash_table *h)
 			ft_lstiter(h->hash_bucket[i]->lst, display_dict_item);
 		i++;
 	}
-}
-
-char	*debug_rand_text(size_t size)
-{
-	char	*char_set;
-	char	*text;
-	size_t	i;
-
-	char_set = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	text = calloc(size + 1, sizeof(char));
-	i = 0;
-	while (i < size)
-	{
-		text[i] = char_set[rand() % 62];
-		i++;
-	}
-	return (text);
 }

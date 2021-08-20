@@ -6,7 +6,7 @@
 /*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:06:15 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/24 15:57:37 by ywake            ###   ########.fr       */
+/*   Updated: 2021/08/24 16:00:12 by ywake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 # include "libft.h"
 # include "libex.h"
 # include "libhash.h"
-# ifdef DEBUG
-#  include "libdebug.h"
-# endif
 # define PROMPT "minishell> "
 # define QUOTE_PROMPT "quote... "
 # define DQUOTE_PROMPT "dquote... "
@@ -29,10 +26,19 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+typedef struct s_shell
+{
+	t_hash_table	*hash;
+}	t_shell;
+
+extern t_shell	g_shell;
+
 t_state_type	minishell_lexer(char *s, t_lexer **lexer);
 void			parse(char *input);
 int				ft_exit(char **arg);
 int				ft_echo(char **args);
 bool			parse_v2(t_lexer *lex, t_astree **res_buf);
+void			minishell_init(void);
+void			store_shellenv(char **arr);
 
 #endif
