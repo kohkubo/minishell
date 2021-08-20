@@ -6,7 +6,7 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:08:13 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:08:13 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/19 14:15:07 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ bool			hash_setint(t_hash_table *h, char *key, int integer);
 bool			hash_clear_table(t_hash_table **h);
 bool			hash_getint(t_hash_table *h, char *key, int *ret);
 t_hash_table	*hash_create_table(int size);
+void			debug_hash_display_table(t_hash_table *h);
 
 #endif

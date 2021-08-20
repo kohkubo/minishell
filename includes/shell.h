@@ -15,9 +15,6 @@
 # include "libft.h"
 # include "libex.h"
 # include "libhash.h"
-# ifdef DEBUG
-#  include "libdebug.h"
-# endif
 # define PROMPT "minishell> "
 # define QUOTE_PROMPT "quote... "
 # define DQUOTE_PROMPT "dquote... "

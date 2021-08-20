@@ -3,37 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   debug_array.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:00:24 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/10 16:24:52 by ywake            ###   ########.fr       */
+/*   Updated: 2021/08/19 14:08:03 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libdebug.h"
-
-int	arraylen(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i])
-		i++;
-	return (i);
-}
-
-void	display_array(char **array)
-{
-	while (*array)
-		printf("%s\n", *array++);
-}
+#include "libex.h"
 
 /*
 ** @brief Compares two string arrays.
 ** @return If there is no difference returns -1,
 ** find difference returns the index.
 */
-int	array_cmp(char **aa, char **bb)
+int	debug_arraycmp(char **aa, char **bb)
 {
 	int	i;
 
@@ -53,22 +37,4 @@ int	array_cmp(char **aa, char **bb)
 		i++;
 	}
 	return (-1);
-}
-
-char	**str_array_dup(char **array)
-{
-	int		i;
-	char	**ss;
-	char	**head;
-
-	ss = calloc(sizeof(char *), arraylen(array) + 1);
-	head = ss;
-	i = 0;
-	while (array[i])
-	{
-		ss[i] = ft_strdup(array[i]);
-		i++;
-	}
-	ss[i] = 0;
-	return (head);
 }

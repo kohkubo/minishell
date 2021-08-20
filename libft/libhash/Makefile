@@ -23,6 +23,7 @@ src =\
 	./hash_clear_hash_table.c \
 	./hash_getint.c \
 	./hash_create_table.c \
+	./debug_hash_display_table.c \
 
 # ***********************************
 
