@@ -35,17 +35,18 @@ static t_state_type	cut_off_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
 {
 	if (ft_isspace(**s))
 		token_end_and_create(l, tok, *s, i);
-	else if (**s == CHAR_PIPE)
+	else if (**s == CHAR_NULL)
+		token_end(l, tok, *i);
+	else if (ft_strncmp(*s, ">>", 2) == 0)
+	{
+		token_end_and_create(l, tok, *s, i);
+		token_store2_and_create(l, tok, s);
+	}
+	else if (**s == CHAR_GREATER || **s == CHAR_LESSER || **s == CHAR_PIPE)
 	{
 		token_end_and_create(l, tok, *s, i);
 		token_store_and_create(l, tok, *s, **s);
 	}
-	else if (**s == 0)
-		token_end(l, tok, *i);
-	else if (ft_strncmp(*s, ">>", 2) == 0)
-		token_store2_and_create(l, tok, s);
-	else if (**s == '<' || **s == '>')
-		token_store_and_create(l, tok, *s, **s);
 	return (STATE_GENERAL);
 }
 
