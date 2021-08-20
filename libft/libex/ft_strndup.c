@@ -6,7 +6,7 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:01:28 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:01:29 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/19 13:47:13 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strndup(const char *s1, size_t n)
 	len = 0;
 	while (s1[len] != '\0')
 		len++;
-	len = min(len, n);
+	len = ft_min_size_t(len, n);
 	ptr = (char *)malloc(len + 1 * sizeof(char));
 	if (ptr == NULL)
 		return (NULL);
