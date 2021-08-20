@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   min.c                                              :+:      :+:    :+:   */
+/*   arraylen.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 16:02:19 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:02:20 by kohkubo          ###   ########.fr       */
+/*   Created: 2021/08/19 11:36:05 by kohkubo           #+#    #+#             */
+/*   Updated: 2021/08/19 11:36:06 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	min(int a, int b)
+#include "libex.h"
+
+int	arraylen(char **array)
 {
-	if (a < b)
-		return (a);
-	return (b);
+	int	i;
+
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
 }

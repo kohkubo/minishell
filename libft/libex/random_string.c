@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libdebug.h                                         :+:      :+:    :+:   */
+/*   random_string.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 16:00:39 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:00:39 by kohkubo          ###   ########.fr       */
+/*   Created: 2021/08/19 13:57:46 by kohkubo           #+#    #+#             */
+/*   Updated: 2021/08/19 13:57:47 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBDEBUG_H
-# define LIBDEBUG_H
-# include "../libft/libft.h"
-# include "../libex/libex.h"
-# include "../libhash/libhash.h"
+#include "libex.h"
 
-int		arraylen(char **array);
-void	display_array(char **array);
-int		array_cmp(char **aa, char **bb);
-char	**str_array_dup(char **array);
-void	qsort_strarray(char **array);
-void	debug_hash_display_table(t_hash_table *h);
-char	*debug_rand_text(size_t size);
+char	*random_string(size_t size)
+{
+	char	*char_set;
+	char	*str;
+	size_t	i;
 
-#endif
+	char_set = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	str = ft_xmalloc(size + 1);
+	i = 0;
+	while (i < size)
+	{
+		str[i] = char_set[rand() % 62];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}

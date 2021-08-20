@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug_array_sort.c                                 :+:      :+:    :+:   */
+/*   ft_min_size_t.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 16:00:17 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/10 16:47:11 by ywake            ###   ########.fr       */
+/*   Created: 2021/08/19 13:47:28 by kohkubo           #+#    #+#             */
+/*   Updated: 2021/08/19 13:47:39 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libdebug.h"
+#include "libex.h"
 
-static int	compare(const void *a, const void *b)
+size_t	ft_min_size_t(size_t a, size_t b)
 {
-	return (ft_strcmp(*(const char **)a, *(const char **)b));
-}
-
-void	qsort_strarray(char **array)
-{
-	qsort(array, arraylen(array), sizeof(char *), compare);
+	if (a < b)
+		return (a);
+	return (b);
 }
