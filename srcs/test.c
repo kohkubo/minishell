@@ -3,4 +3,5 @@
 int	main(void)
 {
 	printf("aaa\n");
+	printf("bbb\n");
 }
