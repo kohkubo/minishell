@@ -12,10 +12,13 @@
 
 #include "shell.h"
 
+t_shell	g_shell;
+
 int	main(void)
 {
 	char	*input;
 
+	minishell_init();
 	input = NULL;
 	while (1)
 	{
