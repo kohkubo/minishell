@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug_array_sort.c                                 :+:      :+:    :+:   */
+/*   arraylen.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
+/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 16:00:17 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/10 16:47:11 by ywake            ###   ########.fr       */
+/*   Created: 2021/08/19 11:36:05 by kohkubo           #+#    #+#             */
+/*   Updated: 2021/08/19 11:36:06 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libdebug.h"
+#include "libex.h"
 
-static int	compare(const void *a, const void *b)
+int	arraylen(char **array)
 {
-	return (ft_strcmp(*(const char **)a, *(const char **)b));
-}
+	int	i;
 
-void	qsort_strarray(char **array)
-{
-	qsort(array, arraylen(array), sizeof(char *), compare);
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
 }
