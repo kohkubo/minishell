@@ -6,7 +6,7 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 20:23:32 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/23 16:54:25 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/23 18:13:18 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	env_init(void)
 	extern char	**environ;
 
 	store_shellenv(environ, g_shell.env);
+	hash_remove(g_shell.env, "OLDPWD");
 }
 
 void	minishell_init(void)
