@@ -27,7 +27,7 @@
 
 typedef struct s_shell
 {
-	t_hash_table	*hash;
+	t_hash_table	*env;
 }	t_shell;
 
 extern t_shell	g_shell;
