@@ -4,9 +4,9 @@ extern t_shell	g_shell;
 
 int	ft_env(char **args)
 {
-	char	**env;
-	char	**tmp;
-	t_hash_table *env_hash;
+	char			**env;
+	char			**tmp;
+	t_hash_table	*env_hash;
 
 	tmp = hash_getall(g_shell.env);
 	env_hash = hash_create_table(1024);
