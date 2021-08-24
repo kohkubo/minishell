@@ -47,7 +47,7 @@ bool	parse_v2(t_lexer *lex, t_astree **res_buf)
 {
 	t_list	*tokens;
 
-	if (lex == NULL || lex->len == 0 || res_buf == NULL)
+	if (res_buf == NULL)
 		return (false);
 	tokens = lex->listtok;
 	*res_buf = cmdline(&tokens);
