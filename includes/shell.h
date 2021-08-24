@@ -28,5 +28,6 @@ void			minishell_init(void);
 void			store_shellenv(char **arr, t_hash_table *table);
 int				ft_env(char **args);
 int				ft_export(char **args);
+int				ft_unset(char **args);
 
 #endif
