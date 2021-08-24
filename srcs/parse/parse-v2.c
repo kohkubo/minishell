@@ -53,7 +53,7 @@ bool	parse_v2(t_lexer *lex, t_astree **res_buf)
 	*res_buf = cmdline(&tokens);
 	if (tokens != NULL && ((t_tok *)tokens->content)->type != CHAR_NULL)
 	{
-		ft_putstr_fd("Syntax Error near unexpected token `", 2);
+		ft_putstr_fd("syntax error near unexpected token `", 2);
 		ft_putstr_fd(((t_tok *)tokens->content)->data, 2);
 		ft_putendl_fd("'", 2);
 		return (false);
