@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   shell.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 16:06:15 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/27 18:21:05 by ywake            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef SHELL_H
 # define SHELL_H
 # include "libft.h"
@@ -39,5 +27,6 @@ int				ft_echo(char **args);
 void			minishell_init(void);
 void			store_shellenv(char **arr, t_hash_table *table);
 int				ft_env(char **args);
+int				ft_export(char **args);
 
 #endif
