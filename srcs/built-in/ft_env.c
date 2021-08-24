@@ -1,7 +1,5 @@
 #include "shell.h"
 
-extern t_shell	g_shell;
-
 int	ft_env(char **args)
 {
 	char			**env;
