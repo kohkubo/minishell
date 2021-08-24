@@ -12,7 +12,9 @@ export SHARED_LIB="$PWD/tests/sharedlib.c"
 
 FLG=0
 
-make fclean > /dev/null
+if [ "$2" == "" ]; then
+	make fclean > /dev/null
+fi
 make leak > /dev/null
 
 for path in $(find $DIR -type f -name test.sh);
