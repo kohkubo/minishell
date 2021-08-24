@@ -38,6 +38,7 @@ src =\
 	./built-in/ft_exit.c \
 	./built-in/echo.c \
 	./built-in/ft_env.c \
+	./built-in/ft_export.c \
 	./main.c \
 	./env/env.c \
 
