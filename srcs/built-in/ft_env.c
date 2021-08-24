@@ -1,5 +1,15 @@
 #include "shell.h"
 
+static void	print_env_array(char **array)
+{
+	while (*array)
+	{
+		if (ft_strchr(*array, '=') != NULL)
+			printf("%s\n", *array);
+		array++;
+	}
+}
+
 int	ft_env(char **args)
 {
 	char			**env;
@@ -11,7 +21,7 @@ int	ft_env(char **args)
 	store_shellenv(tmp, env_hash);
 	store_shellenv(args, env_hash);
 	env = hash_getall(env_hash);
-	print_array(env);
+	print_env_array(env);
 	free_string_array(env);
 	free_string_array(tmp);
 	hash_clear_table(&env_hash);
