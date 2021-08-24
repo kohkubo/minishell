@@ -15,6 +15,10 @@ void	store_shellenv(char **arr, t_hash_table *table)
 			hash_setstr(table, tmp, tmp + ft_strlen(tmp) + 1);
 			free_set((void **)&tmp, NULL);
 		}
+		else
+		{
+			hash_setstr(table, arr[i], NULL);
+		}
 		i++;
 	}
 }
