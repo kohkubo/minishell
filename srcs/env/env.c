@@ -25,6 +25,7 @@ static void	env_init(void)
 
 	store_shellenv(environ, g_shell.env);
 	hash_remove(g_shell.env, "OLDPWD");
+	hash_setstr(g_shell.env, "OLDPWD", NULL);
 }
 
 void	minishell_init(void)
