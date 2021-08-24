@@ -23,54 +23,6 @@ echo : -1
 test : -1
 aiueo : -1
 
-; ; ;
- === test ===
-s : echo test;aiueo
-lexer->len : 4
-echo : -1
-test : -1
-; : 59
-aiueo : -1
- === test ===
-s : echo test; aiueo
-lexer->len : 4
-echo : -1
-test : -1
-; : 59
-aiueo : -1
- === test ===
-s : echo test ;aiueo
-lexer->len : 4
-echo : -1
-test : -1
-; : 59
-aiueo : -1
- === test ===
-s : echo test ; aiueo
-lexer->len : 4
-echo : -1
-test : -1
-; : 59
-aiueo : -1
- === test ===
-s : echo test;
-lexer->len : 3
-echo : -1
-test : -1
-; : 59
- === test ===
-s : echo test ;
-lexer->len : 3
-echo : -1
-test : -1
-; : 59
- === test ===
-s : echo test; 
-lexer->len : 3
-echo : -1
-test : -1
-; : 59
-
 | | |
  === test ===
 s : echo test|aiueo
@@ -263,29 +215,6 @@ echo : -1
 test : -1
 >> : 318
 
-<< << <<
- === test ===
-s : echo test<<aiueo
-NULL!
- === test ===
-s : echo test<< aiueo
-NULL!
- === test ===
-s : echo test <<aiueo
-NULL!
- === test ===
-s : echo test << aiueo
-NULL!
- === test ===
-s : echo test<<
-NULL!
- === test ===
-s : echo test <<
-NULL!
- === test ===
-s : echo test<< 
-NULL!
-
 ' ' '
  === test ===
 s : 'echo test << aiueo'
@@ -325,12 +254,6 @@ s : '\n'
 lexer->len : 1
 '\n' : -1
 
-'" '" '"
- === test ===
-s : 'echo test << test'"sssssssssssss"
-lexer->len : 1
-'echo test << test'"sssssssssssss" : -1
-
 " " "
  === test ===
 s : "echo ssssss"
@@ -340,64 +263,6 @@ lexer->len : 1
 s : "echo 'ssssss'"
 lexer->len : 1
 "echo 'ssssss'" : -1
-
-;; ;; ;;
- === test ===
-s : echo test ;;
-lexer->len : 3
-echo : -1
-test : -1
-;; : 315
- === test ===
-s : ;;
-lexer->len : 1
-;; : 315
-
-\ \ \
- === test ===
-s : echo test ;
-	aaaaa
-lexer->len : 4
-echo : -1
-test : -1
-; : 59
-aaaaa : -1
- === test ===
-s : \\
-lexer->len : 1
-\ : -1
- === test ===
-s : echo \\
-lexer->len : 2
-echo : -1
-\ : -1
- === test ===
-s : echo test\\
-lexer->len : 2
-echo : -1
-test\ : -1
- === test ===
-s : aiueo\ ssssssssss
-lexer->len : 1
-aiueo ssssssssss : -1
- === test ===
-s : aiueo \ssssssssss
-lexer->len : 2
-aiueo : -1
-ssssssssss : -1
- === test ===
-s : aiueo \ ssssssssss
-lexer->len : 2
-aiueo : -1
- ssssssssss : -1
- === test ===
-s : aiueo\ssssssssss
-lexer->len : 1
-aiueossssssssss : -1
- === test ===
-s : aiueo\\ssssssssss
-lexer->len : 1
-aiueo\ssssssssss : -1
 
 その他
  === test ===
@@ -417,118 +282,3 @@ lexer->len : 3
 echo : -1
 -n : -1
 test : -1
-
-NULL test
- === test ===
-s : 'test''
-NULL!
- === test ===
-s : "test""
-NULL!
- === test ===
-s : '''
-NULL!
- === test ===
-s : ''' 
-NULL!
- === test ===
-s : '' '
-NULL!
- === test ===
-s : '' ' 
-NULL!
- === test ===
-s : """
-NULL!
- === test ===
-s : "" "
-NULL!
- === test ===
-s : """ 
-NULL!
- === test ===
-s : "" " 
-NULL!
- === test ===
-s : "" " >
-NULL!
- === test ===
-s : "" " aaa
-NULL!
- === test ===
-s : "" " >>
-NULL!
- === test ===
-s : "" " >>>
-NULL!
- === test ===
-s : "" ">>>
-NULL!
- === test ===
-s : '
-NULL!
- === test ===
-s : "
-NULL!
- === test ===
-s : \
-NULL!
- === test ===
-s : \\\
-NULL!
- === test ===
-s : aiueo\
-NULL!
-
-\" \" \"
- === test ===
-s : "echo \"test\""
-lexer->len : 1
-"echo \"test\"" : -1
- === test ===
-s : "echo \"test\"" a
-lexer->len : 2
-"echo \"test\"" : -1
-a : -1
- === test ===
-s : "echo \"test\""a 
-lexer->len : 1
-"echo \"test\""a : -1
- === test ===
-s : "echo \"test\"" a 
-lexer->len : 2
-"echo \"test\"" : -1
-a : -1
- === test ===
-s : "echo \"test\""a
-lexer->len : 1
-"echo \"test\""a : -1
- === test ===
-s : tatata"  aiueo  "test
-lexer->len : 1
-tatata"  aiueo  "test : -1
- === test ===
-s : \'
-lexer->len : 1
-' : -1
- === test ===
-s : \" \"
-lexer->len : 2
-" : -1
-" : -1
- === test ===
-s : \"
-lexer->len : 1
-" : -1
- === test ===
-s : "\""
-lexer->len : 1
-"\"" : -1
- === test ===
-s : " \" "
-lexer->len : 1
-" \" " : -1
- === test ===
-s : " \" \" "
-lexer->len : 1
-" \" \" " : -1

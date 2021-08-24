@@ -1,7 +1,6 @@
 #include "libft.h"
 #include "libex.h"
 #include "libhash.h"
-#include "libdebug.h"
 #include <libc.h>
 
 #define TABLE_SIZE 10000
@@ -75,8 +74,8 @@ int	main()
 	table = hash_create_table(TABLE_SIZE);
 	for (int i = 0; i < TABLE_SIZE; i++)
 	{
-		char *key = debug_rand_text(rand() % 100);
-		char *value = debug_rand_text(rand() % 100);
+		char *key = random_string(rand() % 100);
+		char *value = random_string(rand() % 100);
 		if (hash_setstr(table, key, value))
 			count++;
 		if (strcmp(value, hash_getstr(table, key)))
@@ -84,7 +83,7 @@ int	main()
 		free(key);
 		free(value);
 	}
-	printf("table->count : %d\n", table->count);
+	// printf("table->count : %d\n", table->count);
 	if (table->count != count)
 		exit(1);
 	hash_clear_table(&table);

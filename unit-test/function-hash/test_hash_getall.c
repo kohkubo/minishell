@@ -1,8 +1,6 @@
 #include "libft.h"
 #include "libex.h"
 #include "libhash.h"
-#include "libdebug.h"
-
 #include <libc.h>
 
 int main()
@@ -17,9 +15,9 @@ int main()
 	int j = 0;
 	for (int i = 0; i < 10; i++)
 	{
-		char *key1 = debug_rand_text(rand() % 100);
-		char *key2 = debug_rand_text(rand() % 100);
-		char *value = debug_rand_text(rand() % 100);
+		char *key1 = random_string(rand() % 100);
+		char *key2 = random_string(rand() % 100);
+		char *value = random_string(rand() % 100);
 		ans[j++] = strdup(key1);
 		hash_setstr(table, key1, value);
 		ans[j++] = strdup(key2);
@@ -46,11 +44,11 @@ int main()
 
 	// ソートのチェック
 	// char **aa = hash_getall(table);
-	// char **bb = str_array_dup(aa);
+	// char **bb = str_arraydup(aa);
 	// qsort(bb, arraylen(bb), sizeof(char *), compare);
 	// qsort(ans, arraylen(ans), sizeof(char *), compare);
 	// char **cc = hash_getkeys(table);
-	// if (array_cmp(cc, ans) != -1)
+	// if (debug_arraycmp(cc, ans) != -1)
 	// 	exit(1);
 
 	free_string_array(ans);

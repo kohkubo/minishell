@@ -1,8 +1,17 @@
 #include "libft.h"
 #include "libex.h"
 #include "libhash.h"
-#include "libdebug.h"
 #include <libc.h>
+
+static int	compare(const void *a, const void *b)
+{
+	return (ft_strcmp(*(const char **)a, *(const char **)b));
+}
+
+static void	qsort_strarray(char **array)
+{
+	qsort(array, arraylen(array), sizeof(char *), compare);
+}
 
 static void	test_res_null(t_hash_table *t, char *key)
 {
@@ -41,7 +50,7 @@ int	main()
 	char **arr = hash_getall(t);
 	qsort_strarray(arr);
 	char **ans = ft_split("VAL0 VAL2 VAL3=test VAL5 VAL6", ' ');
-	if (array_cmp(arr, ans) != -1)
+	if (debug_arraycmp(arr, ans) != -1)
 		exit(1);
 	free_string_array(arr);
 	free_string_array(ans);

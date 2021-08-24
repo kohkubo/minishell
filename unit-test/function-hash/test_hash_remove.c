@@ -1,7 +1,6 @@
 #include "libft.h"
 #include "libex.h"
 #include "libhash.h"
-#include "libdebug.h"
 #include <libc.h>
 
 # define PP(str) printf("    %d : %s\n", __LINE__, #str); str;
@@ -66,7 +65,7 @@ int main()
 		exit(1);
 	char **all = hash_getall(table);
 	char **ex = ft_split("aiueo4=15 aiueo3=16 aiueo1=18 aiueo0=19", ' ');
-	if (array_cmp(all, ex) != -1 || !hash_clear_table(&table))
+	if (debug_arraycmp(all, ex) != -1 || !hash_clear_table(&table))
 	{
 		all = free_string_array(all);
 		ex = free_string_array(ex);
@@ -87,7 +86,7 @@ int main()
 		exit(1);
 	all = hash_getall(table);
 	ex = ft_split("aiueo4=15 aiueo3=16 aiueo2=17 aiueo1=18", ' ');
-	if (array_cmp(all, ex) != -1 || !hash_clear_table(&table))
+	if (debug_arraycmp(all, ex) != -1 || !hash_clear_table(&table))
 	{
 		all = free_string_array(all);
 		ex = free_string_array(ex);
@@ -108,7 +107,7 @@ int main()
 		exit(1);
 	all = hash_getall(table);
 	ex = ft_split("aiueo4=15 aiueo2=17 aiueo1=18 aiueo0=19", ' ');
-	if (array_cmp(all, ex) != -1 || !hash_clear_table(&table))
+	if (debug_arraycmp(all, ex) != -1 || !hash_clear_table(&table))
 	{
 		all = free_string_array(all);
 		ex = free_string_array(ex);
@@ -122,8 +121,8 @@ int main()
 	int count = 0;
 	for (int i = 0; i < 100; i++)
 	{
-		char *key = debug_rand_text(rand() % 100);
-		char *value = debug_rand_text(rand() % 100);
+		char *key = random_string(rand() % 100);
+		char *value = random_string(rand() % 100);
 		if (hash_setstr(table, key, value))
 			count++;
 		free(key);
@@ -132,13 +131,13 @@ int main()
 	int delcount = 0;
 	for (int i = 0; i < 100; i++)
 	{
-		char *key = debug_rand_text(rand() % 100);
+		char *key = random_string(rand() % 100);
 		if (hash_remove(table, key))
 			delcount++;
 		free(key);
 	}
-	printf("delcount : %d\n", delcount);
-	printf("   count : %d\n", count);
+	// printf("delcount : %d\n", delcount);
+	// printf("   count : %d\n", count);
 	if (table->count != count - delcount)
 		exit(1);
 	hash_clear_table(&table);
