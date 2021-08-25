@@ -6,11 +6,17 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:02:27 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:02:27 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/25 11:30:39 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/* \t \n \v \f \r ' ' */
+static int	ft_isspace(int c)
+{
+	return (('\t' <= c && c <= '\r') || c == ' ');
+}
 
 int	ft_atoi(const char *s)
 {
