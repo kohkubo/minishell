@@ -109,10 +109,10 @@ sani-debug	: fclean lib_sani-debug
 	$(MAKE) clean
 
 norm:
-	@printf "\e[31m"; norminette $(src_dir) $(includes) ./libft \
+	@printf "$(_RED)"; norminette $(src_dir) $(includes) ./libft \
 	| grep -v -e ": OK!" -v -e "Missing or invalid header. Header are being reintroduced as a mandatory part of your files. This is not yet an error." \
-	&& exit 1 \
-	|| printf "\e[32m%s\n\e[m" "Norm OK!"; printf "\e[m"
+	&& printf "$(_END)" && exit 1 \
+	|| printf "$(_GREEN)%s\n$(_END)" "Norm OK!"
 
 tests/%/main.c: $(lib) FORCE
 	$(CC) $(CFLAGS) $@ $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) -o $(subst main.c,a.out,$@) $(LIBS)
@@ -154,3 +154,16 @@ lib_sani-debug	:
 	$(MAKE) sani-debug -C $(libhash_dir)
 
 FORCE:
+
+# Colors
+# ****************************************************************************
+
+_GREY	= \033[30m
+_RED	= \033[31m
+_GREEN	= \033[32m
+_YELLOW	= \033[33m
+_BLUE	= \033[34m
+_PURPLE	= \033[35m
+_CYAN	= \033[36m
+_WHITE	= \033[37m
+_END	= \033[0m
