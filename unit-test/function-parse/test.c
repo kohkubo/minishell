@@ -147,38 +147,25 @@ int main(void) {
 	 */
 	// <pathname> (EMPTY)
 	test(varbose, "pwd",
-		astree_create_node( // RIGHT
-			NODE_CMDPATH | NODE_DATA,
-			strdup("pwd"),
-			NULL,
-			NULL));
+		astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("pwd"),
+			NULL, // LEFT
+			NULL)); // RIGHT
 	// <pathname> <token>
 	test(varbose, "echo a",
-		astree_create_node(
-			NODE_CMDPATH | NODE_DATA,
-			strdup("echo"),
-			NULL, // LEFT
-			astree_create_node( // RIGHT
-				NODE_ARGUMENT | NODE_DATA,
-				strdup("a"),
+		astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("echo"),
+			NULL,
+			astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("a"),
 				NULL,
 				NULL)));
 	// <pathname> <token list>
 	test(varbose, "token1 token2 token3 token4",
-		astree_create_node(
-			NODE_CMDPATH | NODE_DATA,
-			strdup("token1"),
-			NULL, // LEFT
-			astree_create_node( // RIGHT
-				NODE_ARGUMENT | NODE_DATA,
-				strdup("token2"),
-				NULL, // LEFT
-				astree_create_node( // RIGHT
-					NODE_ARGUMENT | NODE_DATA,
-					strdup("token3"),
-					NULL, // LEFT
-					astree_create_node( // RIGHT
-						NODE_ARGUMENT | NODE_DATA,
+		astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("token1"),
+			NULL,
+			astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("token2"),
+				NULL,
+				astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("token3"),
+					NULL,
+					astree_create_node(NODE_ARGUMENT | NODE_DATA,
 						strdup("token4"),
 						NULL,
 						NULL)))));
@@ -189,130 +176,361 @@ int main(void) {
 	 */
 	// <simple command> <redirection>
 	test(varbose, "cat < in1",
-		astree_create_node(
-			NODE_REDIRECTION,
-			NULL,
-			astree_create_node( // LEFT
-				NODE_CMDPATH | NODE_DATA,
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA,
 				strdup("cat"),
-				NULL, // LEFT
-				NULL), // RIGHT
-			astree_create_node( // RIGHT
-				NODE_REDIRECT_LIST,
 				NULL,
-				astree_create_node( // LEFT
-					NODE_REDIRECT_IN | NODE_DATA,
-					strdup("in1"),
-					NULL, // LEFT
-					NULL), // RIGHT
-				NULL))); // RIGHT
+				NULL),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in1"),
+					NULL,
+					NULL),
+				NULL)));
 	test(varbose, "cat > out1",
-		astree_create_node(
-			NODE_REDIRECTION,
-			NULL,
-			astree_create_node( // LEFT
-				NODE_CMDPATH | NODE_DATA,
-				strdup("cat"),
-				NULL, // LEFT
-				NULL), // RIGHT
-			astree_create_node( // RIGHT
-				NODE_REDIRECT_LIST,
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
 				NULL,
-				astree_create_node( // LEFT
-					NODE_REDIRECT_OUT | NODE_DATA,
-					strdup("out1"),
-					NULL, // LEFT
-					NULL), // RIGHT
-				NULL))); // RIGHT
+				NULL),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_OUT | NODE_DATA, strdup("out1"),
+					NULL,
+					NULL),
+				NULL)));
 	test(varbose, "cat >> out1",
-		astree_create_node(
-			NODE_REDIRECTION,
-			NULL,
-			astree_create_node( // LEFT
-				NODE_CMDPATH | NODE_DATA,
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA,
 				strdup("cat"),
-				NULL, // LEFT
-				NULL), // RIGHT
-			astree_create_node( // RIGHT
-				NODE_REDIRECT_LIST,
 				NULL,
-				astree_create_node( // LEFT
-					NODE_REDIRECT_OUT2 | NODE_DATA,
-					strdup("out1"),
-					NULL, // LEFT
-					NULL), // RIGHT
-				NULL))); // RIGHT
+				NULL),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_OUT2 | NODE_DATA, strdup("out1"),
+					NULL,
+					NULL),
+				NULL)));
 	// // <simple command> <redirection list>
-	// TODO
-	// test(true, "cat < in1 < in2",
-
-	// 	);
-	// test("cat > out1 > out2");
-	// test("cat >> out1 >> out2");
+	test(varbose, "cat < in1 < in2",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				NULL),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in1"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_REDIRECT_LIST, NULL,
+						astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in2"),
+							NULL,
+							NULL),
+						NULL))));
+	test(varbose, "cat > out1 > out2",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				NULL),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_OUT | NODE_DATA, strdup("out1"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_REDIRECT_LIST, NULL,
+						astree_create_node(NODE_REDIRECT_OUT | NODE_DATA, strdup("out2"),
+							NULL,
+							NULL),
+						NULL))));
+	test(varbose, "cat >> out1 >> out2",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				NULL),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_OUT2 | NODE_DATA, strdup("out1"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_REDIRECT_LIST, NULL,
+						astree_create_node(NODE_REDIRECT_OUT2 | NODE_DATA, strdup("out2"),
+							NULL,
+							NULL),
+						NULL))));
 	// // <simple command> <redirection> <token>
-	// test("cat < in1 arg1");
-	// test("cat arg1 < in1 arg2");
-	// // <simple command> <redirection> <token list>
-	// test("cat < in1 arg1 arg2");
-	// test("cat arg1 < in1 arg2 arg3");
-	// // <simple command> <redirection list> <token>
-	// test("cat < in1 < in2 arg1");
-	// test("cat arg1 < in1 < in2 arg2");
-	// test("cat < in1 arg1 < in2");
-	// test("cat arg1 < in1 arg2 < in2");
-	// // <simple command> <redirection list> <token list>
-	// test("cat < in1 arg1 arg2 < in2");
-	// test("cat arg1 < in1 arg2 arg3 < in2");
+	test(varbose, "cat < in1 arg1",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg1"),
+					NULL,
+					NULL)),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in1"),
+					NULL,
+					NULL),
+				NULL)));
+	test(varbose, "cat arg1 < in1 arg2",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg1"),
+					NULL,
+					astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg2"),
+						NULL,
+						NULL))),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in1"),
+					NULL,
+					NULL),
+				NULL)));
+	// <simple command> <redirection> <token list>
+	test(varbose, "cat < in1 arg1 arg2",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg1"),
+					NULL,
+					astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg2"),
+						NULL,
+						NULL))),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in1"),
+					NULL,
+					NULL),
+				NULL)));
+	test(varbose, "cat arg1 < in1 arg2 arg3",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg1"),
+					NULL,
+					astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg2"),
+						NULL,
+						astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg3"),
+							NULL,
+							NULL)))),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in1"),
+					NULL,
+					NULL),
+				NULL)));
+	// <simple command> <redirection list> <token>
+	test(varbose, "cat < in1 < in2 arg1",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg1"),
+					NULL,
+					NULL)),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in1"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_REDIRECT_LIST, NULL,
+						astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in2"),
+							NULL,
+							NULL),
+						NULL))));
+	test(varbose, "cat arg1 < in1 < in2 arg2",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg1"),
+					NULL,
+					astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg2"),
+						NULL,
+						NULL))),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in1"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_REDIRECT_LIST, NULL,
+						astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in2"),
+							NULL,
+							NULL),
+						NULL))));
+	test(varbose, "cat < in1 arg1 < in2",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg1"),
+					NULL,
+					NULL)),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in1"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_REDIRECT_LIST, NULL,
+						astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in2"),
+							NULL,
+							NULL),
+						NULL))));
+	test(varbose, "cat arg1 < in1 arg2 < in2 arg3",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg1"),
+					NULL,
+					astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg2"),
+						NULL,
+						astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg3"),
+							NULL,
+							NULL)))),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in1"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_REDIRECT_LIST, NULL,
+						astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in2"),
+							NULL,
+							NULL),
+						NULL))));
+	// <simple command> <redirection list> <token list>
+	test(varbose, "cat < in1 arg1 arg2 < in2",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg1"),
+					NULL,
+					astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg2"),
+						NULL,
+						NULL))),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in1"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_REDIRECT_LIST, NULL,
+						astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in2"),
+							NULL,
+							NULL),
+						NULL))));
+	test(varbose, "cat arg1 arg2 < in1 arg3 arg4 < in2 arg5 arg6",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg1"),
+					NULL,
+					astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg2"),
+						NULL,
+						astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg3"),
+							NULL,
+							astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg4"),
+								NULL,
+								astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg5"),
+									NULL,
+									astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg6"),
+										NULL,
+										NULL))))))),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in1"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_REDIRECT_LIST, NULL,
+						astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in2"),
+							NULL,
+							NULL),
+						NULL))));
+	test(varbose, "cat arg1 arg2 > out1 arg3 arg4 > out2 arg5 arg6",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg1"),
+					NULL,
+					astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg2"),
+						NULL,
+						astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg3"),
+							NULL,
+							astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg4"),
+								NULL,
+								astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg5"),
+									NULL,
+									astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg6"),
+										NULL,
+										NULL))))))),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_OUT | NODE_DATA, strdup("out1"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_REDIRECT_LIST, NULL,
+						astree_create_node(NODE_REDIRECT_OUT | NODE_DATA, strdup("out2"),
+							NULL,
+							NULL),
+						NULL))));
+	test(varbose, "cat arg1 arg2 >> out1 arg3 arg4 >> out2 arg5 arg6",
+		astree_create_node(NODE_REDIRECTION, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("cat"),
+				NULL,
+				astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg1"),
+					NULL,
+					astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg2"),
+						NULL,
+						astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg3"),
+							NULL,
+							astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg4"),
+								NULL,
+								astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg5"),
+									NULL,
+									astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg6"),
+										NULL,
+										NULL))))))),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_OUT2 | NODE_DATA, strdup("out1"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_REDIRECT_LIST, NULL,
+						astree_create_node(NODE_REDIRECT_OUT2 | NODE_DATA, strdup("out2"),
+							NULL,
+							NULL),
+						NULL))));
 	// error
 	// error_test(varbose, "cat < <", "syntax error near unexpected token `<'");
 	// 	test("cat < out test;;"); // ';;'
 	// 	test("cat < ;"); // ';'
-	// /*
-	//  * <redirection> ::= '>' <filename> <token list>
-	//  */
-	// test("echo a > testfile");
-	// test("echo a > testfile b");
-	// test("echo a > test1 b b b b b  > test2");
 	// 	// error
 	// 	test("echo >"); // 'newline';
 	// /*
 	//  * <redirection> ::= '<<' <token> <token list>
 	//  */
 	// // test("cat << test");
-	// /*
-	//  * <redirection> ::= '>>' <filename> <token list>
-	//  */
-	// test("echo a >> testfile");
-	// test("echo a >> testfile b");
-	// test("echo a >> test1 b b b b b  > test2");
 	// 	// error
 	// 	test("echo >>"); // 'newline';
 
-	// /*
-	//  * <command line> ::= <job>
-	//  * <job> ::= <command>
-	//  * <job> ::= <command> '|' <job>
-	//  */
-	// test("echo a | tr a A");
-	// test("echo a|");
+	/*
+	 * <command line> ::= <job>
+	 * <job> ::= <command>
+	 * <job> ::= <command> '|' <job>
+	 */
+	test(varbose, "echo arg1 | tr a A",
+		astree_create_node(NODE_PIPE, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("echo"),
+				NULL,
+				astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("arg1"),
+					NULL,
+					NULL)),
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("tr"),
+					NULL,
+					astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("a"),
+						NULL,
+						astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("A"),
+							NULL,
+							NULL)))));
+	test(varbose, "a | b | c",
+		astree_create_node(NODE_PIPE, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("a"),
+				NULL,
+				NULL),
+			astree_create_node(NODE_PIPE, NULL,
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("b"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("c"),
+					NULL,
+					NULL))));
+	// 	//error
+	// 	test("a |"); // '|'
 	// /*
 	//  * <command line> ::= <job> ;
+	//  * <command line> ::= <job> ; <command line>
 	//  */
-	// test("echo a;");
-	// test("a;");
-	// test("a b c d e f g;");
+	// test(true, "a;", NULL);
+	// test(true, "a; b; c" NULL);
 	// 	//error
 	// 	test("echo a;;"); // ';;'
 	// 	test("echo a;; ;"); // ';;'
-	// /*
-	//  * <command line> ::= <job> ; <command line>
-	//  */
-	// test("echo a; echo b");
-	// test("echo b; echo ; HOGE c c c c");
-	// test("echo c; HOGE d d d d;");
-	// 	//error
-	// 	test("echo a; ;"); // ';'
-	// 	test("echo b; ; HOGE c c c c"); // ';'
 	// /*
 	//  * <command line> ::= <job> & // not make
 	//  * <command line> ::= <job> & <command line> // not make
