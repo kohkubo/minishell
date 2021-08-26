@@ -1,15 +1,25 @@
 #include "shell.h"
 #include "parse.h"
 
-bool	is_tokentype_and_store_data(
-			t_token_type type, t_list **current, char **buf_ptr)
+bool	is_tokentype(t_token_type type, t_list **current)
 {
 	if (*current == NULL)
 		return (false);
 	if (((t_tok *)(*current)->content)->type == type)
 	{
-		if (buf_ptr != NULL)
-			*buf_ptr = ft_xstrdup(((t_tok *)(*current)->content)->data);
+		*current = (*current)->next;
+		return (true);
+	}
+	return (false);
+}
+
+bool	allocate_data_if_is_token(t_list **current, char **buf_ptr)
+{
+	if (*current == NULL)
+		return (false);
+	if (((t_tok *)(*current)->content)->type == TOKEN)
+	{
+		*buf_ptr = ft_xstrdup(((t_tok *)(*current)->content)->data);
 		*current = (*current)->next;
 		return (true);
 	}

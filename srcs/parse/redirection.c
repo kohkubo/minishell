@@ -35,9 +35,9 @@ t_astree	*redirection1(t_list **toks, t_token_type t, t_node_type n)
 	t_astree	*tokenlist_node;
 	char		*filename;
 
-	if (!is_tokentype_and_store_data(t, toks, NULL))
+	if (!is_tokentype(t, toks))
 		return (NULL);
-	if (!is_tokentype_and_store_data(TOKEN, toks, &filename))
+	if (!allocate_data_if_is_token(toks, &filename))
 		return (NULL);
 	tokenlist_node = tokenlist(toks);
 	return (astree_create_node(n | NODE_DATA, filename, NULL, tokenlist_node));
