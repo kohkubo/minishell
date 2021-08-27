@@ -91,20 +91,23 @@ bool	compare(t_astree *ex, t_astree *ac)
 	return (compare(ex->right, ac->right));
 }
 
-void	test(bool verbose, char *input, t_astree *expect_tree)
+void	test(bool varbose, char *input, t_astree *expect_tree)
 {
 	t_lexer		*lex;
 	t_astree	*res_tree;
 	bool		res_flg;
 	bool		is_ok;
 
-	printf("%s", input);
+	if (varbose)
+		printf(BOLD"%s\n"END, input);
+	else
+		printf("%s", input);
 	minishell_lexer(input, &lex);
-	if (verbose)
+	if (varbose)
 		ft_lstiter(lex->listtok, print_token);
 	res_tree = NULL;
 	res_flg = parse_v2(lex, &res_tree);
-	if (verbose)
+	if (varbose)
 	{
 		printf("----- expect -----\n");
 		print_tree(expect_tree, 0);
@@ -135,7 +138,6 @@ int main(void) {
 	/*
 	 * <token list> ::= (EMPTY)
 	 */
-	printf(BOLD"--- (EMPTY) ---\n"END);
 	printf("(no-length string)");
 	test(varbose, "", NULL);
 	printf("(white space only)");
