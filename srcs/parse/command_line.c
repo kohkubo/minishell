@@ -38,7 +38,7 @@ t_astree	*cmdline1(t_list **toks)
 	job_node = job(toks);
 	if (job_node == NULL)
 		return (NULL);
-	if (!is_tokentype(CHAR_SEMICOLON, toks))
+	if (!move_if_is_tokentype(CHAR_SEMICOLON, toks))
 		return (astree_delete_node(job_node));
 	cmdline_node = cmdline(toks);
 	if (cmdline_node == NULL)
@@ -57,7 +57,7 @@ t_astree	*cmdline2(t_list **toks)
 	job_node = job(toks);
 	if (job_node == NULL)
 		return (NULL);
-	if (!is_tokentype(CHAR_SEMICOLON, toks))
+	if (!move_if_is_tokentype(CHAR_SEMICOLON, toks))
 		return (astree_delete_node(job_node));
 	return (astree_create_node(NODE_SEQ, NULL, job_node, NULL));
 }

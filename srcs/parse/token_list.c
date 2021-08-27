@@ -9,10 +9,8 @@ t_astree	*tokenlist2(t_list **toks); // (EMPTY)
  */
 t_astree	*tokenlist(t_list **toks)
 {
-	t_list		*save;
 	t_astree	*node;
 
-	save = *toks;
 	node = tokenlist1(toks);
 	if (node != NULL)
 		return (node);

@@ -1,7 +1,7 @@
 #include "shell.h"
 #include "parse.h"
 
-bool	is_tokentype(t_token_type type, t_list **current)
+bool	move_if_is_tokentype(t_token_type type, t_list **current)
 {
 	if (*current == NULL)
 		return (false);

@@ -1,6 +1,5 @@
 #include "astree.h"
-#include <stdlib.h>
-#include "libft.h"
+#include "libex.h"
 
 t_astree	*astree_create_node(
 				t_node_type type, char *data, t_astree *left, t_astree *right)
