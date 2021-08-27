@@ -6,25 +6,21 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:05:49 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:05:50 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/25 11:42:33 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# include "../libex/libex.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
 # include <errno.h>
-# ifndef T_LIST
-#  define T_LIST
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }	t_list;
-# endif
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int		ft_isdigit(int c);

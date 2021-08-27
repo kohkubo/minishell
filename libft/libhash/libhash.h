@@ -6,7 +6,7 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:08:13 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/19 14:15:07 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/25 11:41:12 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <stdbool.h>
-# ifndef T_LIST
-#  define T_LIST
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
-# endif
+
 typedef struct s_dict_item {
 	int		hash_key;
 	char	*key;

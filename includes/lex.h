@@ -6,7 +6,7 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:06:12 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/19 17:38:48 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/25 11:52:25 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LEX_H
 
 # include "libft.h"
+# include "libex.h"
 # define PAD 256
 
 typedef enum e_token_type
