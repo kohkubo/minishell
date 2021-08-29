@@ -8,3 +8,4 @@
 !unit-test/function-lex/expect
 !issue/heredoc_test/expect
 !issue/heredoc_test/*.txt
+!*case*.txt
