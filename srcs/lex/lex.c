@@ -45,25 +45,16 @@ t_lexer **l, t_tok **tok, char **s, size_t *i)
 	t_state_type	state;
 
 	state = STATE_GENERAL;
-	if (**s == '\'' || **s == '"')
-	{
-		if (**s == '\'')
-			state = STATE_IN_QUOTE;
-		else
-			state = STATE_IN_DQUOTE;
-		(*tok)->data[(*i)++] = **s;
-		(*tok)->type = TOKEN;
-		return (state);
-	}
-	else if (ft_strncmp(*s, "<<", 2) == 0)
+	if (ft_strncmp(*s, "<<", 2) == 0)
 		state = heredoc(l, tok, s, i);
-	if (token_type(**s) == CHAR_GENERAL)
-	{
-		(*tok)->data[(*i)++] = **s;
-		(*tok)->type = TOKEN;
-	}
-	else
-		state = cut_off_token(*l, tok, s, i);
+	else if (**s == CHAR_DQUOTE)
+		state = STATE_IN_DQUOTE;
+	else if (**s == CHAR_QUOTE)
+		state = STATE_IN_QUOTE;
+	if (token_type(**s) != CHAR_GENERAL && state == STATE_GENERAL)
+		return (cut_off_token(*l, tok, s, i));
+	(*tok)->data[(*i)++] = **s;
+	(*tok)->type = TOKEN;
 	return (state);
 }
 
@@ -80,7 +71,7 @@ static t_state_type	minishell_lexer_do(t_lexer **lexer, t_tok *tok, char *s)
 			state = generate_token(lexer, &tok, &s, &i);
 		else
 			state = store_char_and_check_state(tok, state, &s, &i);
-		if (*s == 0 && (state != STATE_GENERAL))
+		if ((*s == 0 && (state != STATE_GENERAL)) || (*s == CHAR_PIPE && *(s + 1) == 0))
 		{
 			tok_free(tok);
 			lexer_free(lexer);
