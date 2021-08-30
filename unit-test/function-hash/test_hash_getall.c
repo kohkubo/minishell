@@ -43,7 +43,7 @@ int main()
 	hash_clear_table(&table);
 
 	// ソートのチェック
-	// char **aa = hash_getall(table);
+	// char **aa = hash_getall(table, NULL);
 	// char **bb = str_arraydup(aa);
 	// qsort(bb, arraylen(bb), sizeof(char *), compare);
 	// qsort(ans, arraylen(ans), sizeof(char *), compare);
