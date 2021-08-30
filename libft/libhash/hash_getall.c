@@ -6,7 +6,7 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:07:51 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:07:52 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/30 17:54:38 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*dict_fmt(char *key, char *value)
 	return (s);
 }
 
-char	**hash_getall(t_hash_table *h)
+char	**hash_getall(t_hash_table *h, char *(*fmt)(char *key, char *value))
 {
 	int			i;
 	char		**all;
@@ -44,19 +44,20 @@ char	**hash_getall(t_hash_table *h)
 
 	if (h == NULL)
 		ft_fatal("hash_getall : Invalid argument");
+	if (fmt == NULL)
+		fmt = dict_fmt;
 	all = ft_xmalloc(sizeof(char *) * (h->count + 1));
 	head = all;
-	i = 0;
-	while (i < h->tsize)
+	i = -1;
+	while (++i < h->tsize)
 	{
 		lst = h->hash_bucket[i]->lst;
 		while (lst)
 		{
 			item = (t_dict_item *)lst->content;
-			*all++ = dict_fmt(item->key, item->value);
+			*all++ = fmt(item->key, item->value);
 			lst = lst->next;
 		}
-		i++;
 	}
 	*all = NULL;
 	return (head);
