@@ -16,6 +16,7 @@
 typedef struct s_shell
 {
 	t_hash_table	*env;
+	char			*pwd;
 }	t_shell;
 
 extern t_shell	g_shell;
@@ -28,5 +29,7 @@ void			minishell_init(void);
 void			store_shellenv(char **arr, t_hash_table *table);
 int				ft_env(char **args);
 int				ft_export(char **args);
+int				ft_unset(char **args);
+int				ft_pwd(char **args);
 
 #endif
