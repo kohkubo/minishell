@@ -10,8 +10,6 @@ for file in $(ls *.txt); do
 	echo "Testing $file"
 	./minishell < $file >> output 2>&1
 	bash < $file >> expect 2>&1
-	grep -v -e "SHLVL" -v -e "_=" -v -e "MAKEOVERRIDES" expect | sort --output=expect
-	grep -v -e "SHLVL" -v -e "_=" -v -e "MAKEOVERRIDES" output | sort --output=output
 	diff expect output
 	if [ $? -ne 0 ]; then
 		echo "FAIL: $file"

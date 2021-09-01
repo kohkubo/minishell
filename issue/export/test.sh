@@ -8,6 +8,7 @@ echo $PWD
 
 
 for file in $(ls *.txt); do
+	echo "Testing $file"
 	./minishell < $file >> output 2>&1
 	bash < $file >> expect 2>&1
 	grep -v -e "SHLVL" -v -e "_=" -v -e "MAKEOVERRIDES" expect | sort --output=expect
