@@ -6,7 +6,6 @@ cd "$(dirname "$0")" || exit
 
 echo $PWD
 
-
 for file in $(ls *.txt); do
 	echo "Testing $file"
 	./minishell < $file >> output 2>&1
