@@ -47,7 +47,7 @@ int	main()
 	test_res_null(t, "VAL6");
 
 	// getallのチェック
-	char **arr = hash_getall(t);
+	char **arr = hash_getall(t, NULL);
 	qsort_strarray(arr);
 	char **ans = ft_split("VAL0 VAL2 VAL3=test VAL5 VAL6", ' ');
 	if (debug_arraycmp(arr, ans) != -1)
