@@ -31,6 +31,8 @@ src =\
 	./random_string.c \
 	./str_arraydup.c \
 	./debug_array.c \
+	./is_num_string.c \
+	./ft_atol.c \
 
 # ***********************************
 
