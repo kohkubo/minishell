@@ -6,7 +6,7 @@
 /*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:08:13 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/25 11:41:12 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/08/30 17:38:05 by kohkubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool			hash_setstr(t_hash_table *h, char *key, char *value);
 char			*hash_getstr(t_hash_table *h, char *key);
 t_dict_item		*hash_search(t_hash_table *h, char *key);
 void			hash_clear_dict_item(void *item);
-char			**hash_getall(t_hash_table *h);
+char			**hash_getall(t_hash_table *h, char *(*fmt)(char *k, char *v));
 bool			hash_setint(t_hash_table *h, char *key, int integer);
 bool			hash_clear_table(t_hash_table **h);
 bool			hash_getint(t_hash_table *h, char *key, int *ret);
