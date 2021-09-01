@@ -1,0 +1,4 @@
+unset VISUAL
+unset USER
+unset PWD
+export

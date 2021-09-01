@@ -1,0 +1,6 @@
+cat
+cat
+cat << TEST aa
+AA
+TEST
+<<

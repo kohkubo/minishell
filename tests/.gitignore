@@ -1,0 +1,12 @@
+*
+!.gitignore
+!.editorconfig
+!**/
+!*.c
+!*.sh
+!*case*.txt
+!unit-test/function-ft_echo_test/expect2
+!unit-test/function-lex/expect
+!issue/heredoc_test/expect
+!issue/heredoc_test/*.txt
+!*case*.txt

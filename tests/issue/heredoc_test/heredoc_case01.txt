@@ -1,0 +1,3 @@
+cat << TEST
+aaa
+TEST
