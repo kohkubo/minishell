@@ -8,6 +8,7 @@
 # define DQUOTE_PROMPT "dquote... "
 # define HEREDOC_PROMPT "heredoc... "
 # include "lex.h"
+# include "astree.h"
 # include <stdio.h>
 # include <stdbool.h>
 # include <readline/readline.h>
@@ -31,5 +32,6 @@ int				ft_env(char **args);
 int				ft_export(char **args);
 int				ft_unset(char **args);
 int				ft_pwd(char **args);
+bool			parse_v2(t_lexer *lex, t_astree **res_buf);
 
 #endif
