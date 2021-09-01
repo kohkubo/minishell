@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 15:50:37 by ywake             #+#    #+#             */
-/*   Updated: 2021/08/09 15:50:37 by ywake            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "shell.h"
 
 typedef int			(*t_reserved_func)(char **arg);
@@ -17,7 +5,7 @@ char				*g_reserved_words[] = {
 	"echo", "cd", "pwd", "export", "unset", "env", "exit", NULL
 };
 t_reserved_func		g_reserved_funcs[] = {
-	ft_echo, NULL, NULL, NULL, NULL, NULL, ft_exit, NULL
+	ft_echo, NULL, ft_pwd, ft_export, ft_unset, ft_env, ft_exit, NULL
 };
 
 static void	not_implemented(char *word)
