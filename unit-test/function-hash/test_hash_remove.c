@@ -63,7 +63,7 @@ int main()
 		exit(1);
 	if (hash_contains_key(table, "aiueo2"))
 		exit(1);
-	char **all = hash_getall(table);
+	char **all = hash_getall(table, NULL);
 	char **ex = ft_split("aiueo4=15 aiueo3=16 aiueo1=18 aiueo0=19", ' ');
 	if (debug_arraycmp(all, ex) != -1 || !hash_clear_table(&table))
 	{
@@ -84,7 +84,7 @@ int main()
 	hash_setstr(table, "aiueo4", "15");
 	if (success != true || table->count != 4 || hash_contains_key(table, "aiueo0"))
 		exit(1);
-	all = hash_getall(table);
+	all = hash_getall(table, NULL);
 	ex = ft_split("aiueo4=15 aiueo3=16 aiueo2=17 aiueo1=18", ' ');
 	if (debug_arraycmp(all, ex) != -1 || !hash_clear_table(&table))
 	{
@@ -105,7 +105,7 @@ int main()
 	hash_setstr(table, "aiueo4", "15");
 	if (success != true || table->count != 4 || hash_contains_key(table, "aiueo3"))
 		exit(1);
-	all = hash_getall(table);
+	all = hash_getall(table, NULL);
 	ex = ft_split("aiueo4=15 aiueo2=17 aiueo1=18 aiueo0=19", ' ');
 	if (debug_arraycmp(all, ex) != -1 || !hash_clear_table(&table))
 	{
