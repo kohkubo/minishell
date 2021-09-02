@@ -10,7 +10,6 @@
 			leak \
 			debug \
 			sani-debug \
-			get_module \
 			FORCE \
 
 # ***********************************
@@ -93,16 +92,13 @@ init		:
 	zsh header.sh $(libex_dir) $(libex_dir)/libex.h $(libex_dir)/Makefile
 	zsh header.sh $(libhash_dir) $(libhash_dir)/libhash.h $(libhash_dir)/Makefile
 
-get_module	:
-	git submodule update --init
-
-test		: get_module
+test		:
 	bash ./tests/all-test.sh tests
 
-test_unit	: get_module
+test_unit	:
 	bash ./tests/all-test.sh ./tests/unit-test $(TARGET)
 
-test_issue	: get_module
+test_issue	:
 	bash ./tests/all-test.sh ./tests/issue $(TARGET)
 
 leak		: $(obj) $(lib)
