@@ -4,7 +4,9 @@ t_shell	g_shell = {};
 
 int	main(void)
 {
-	char	*input;
+	char		*input;
+	t_lexer		*lex;
+	t_astree	*tree;
 
 	minishell_init();
 	input = NULL;
@@ -17,7 +19,13 @@ int	main(void)
 			break ;
 		}
 		add_history(input);
-		parse(input);
+		lex = NULL;
+		minishell_lexer(input, &lex);
+		tree = NULL;
+		parse_v2(lex, &tree);
+		minishell_execute(tree);
+		lexer_free(&lex);
+		tree = astree_delete_node(tree);
 		free_set((void **)&input, NULL);
 	}
 	return (0);
