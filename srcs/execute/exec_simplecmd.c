@@ -44,8 +44,9 @@ void	exec_with_path(char *cmd, char **args)
 					"execve"));
 		i++;
 	}
-	ft_putstr_fd("minishell: command not found: ", 2);
-	ft_putendl_fd(cmd, 2);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putendl_fd(": command not found", 2);
 	exit(1);
 }
 
