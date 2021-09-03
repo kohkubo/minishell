@@ -31,5 +31,6 @@ t_astree	*tokenlist1(t_list **toks)
 
 t_astree	*tokenlist2(t_list **toks)
 {
+	(void)toks;
 	return (NULL);
 }

@@ -28,7 +28,6 @@ t_astree	*cmd1(t_list **toks)
 {
 	t_astree	*simplecmd_node;
 	t_astree	*redirlist_node;
-	t_astree	*result;
 
 	simplecmd_node = simplecmd(toks);
 	if (simplecmd_node == NULL)

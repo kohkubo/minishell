@@ -52,7 +52,6 @@ t_astree	*cmdline1(t_list **toks)
 t_astree	*cmdline2(t_list **toks)
 {
 	t_astree	*job_node;
-	t_astree	*result;
 
 	job_node = job(toks);
 	if (job_node == NULL)
