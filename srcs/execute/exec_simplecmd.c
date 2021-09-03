@@ -29,7 +29,7 @@ char	**get_fullpath(char *path, char *cmd)
 	return (paths);
 }
 
-void	exec_with_path(char *cmd, char **args)
+void	exec_with_path(char *cmd, char **args, char **envp)
 {
 	char	**fullpaths;
 	int		i;
@@ -39,9 +39,7 @@ void	exec_with_path(char *cmd, char **args)
 	while (fullpaths && fullpaths[i])
 	{
 		if (access(fullpaths[i], X_OK) == 0)
-			exit(catch_error(
-					execve(fullpaths[i], args, hash_getall(g_shell.env, NULL)),
-					"execve"));
+			exit(catch_error(execve(fullpaths[i], args, envp), cmd));
 		i++;
 	}
 	ft_putstr_fd("minishell: ", 2);
@@ -81,18 +79,18 @@ char	**tree_to_argv(t_astree *tree)
 void	execute_simplecmd(t_astree *tree, int *status)
 {
 	char	**args;
+	char	**envp;
 	pid_t	pid;
 
 	args = tree_to_argv(tree);
 	pid = catch_error(fork(), "fork");
 	if (pid == CHILD)
 	{
+		envp = hash_getall(g_shell.env, NULL);
 		if (!ft_strchr(tree->data, '/'))
-			exec_with_path(tree->data, args);
+			exec_with_path(tree->data, args, envp);
 		else
-			exit(catch_error(
-					execve(tree->data, args, hash_getall(g_shell.env, NULL)),
-					"execve"));
+			exit(catch_error(execve(tree->data, args, envp), tree->data));
 	}
 	if (args)
 		args = free_string_array(args);
