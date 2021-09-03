@@ -17,6 +17,9 @@ tests=(
 	"$DIR/tester.py"
 	"$DIR/tester.py arg1 arg2"
 	# "ls | cat | cat"
+	"no_exist_command"
+	"./no_exist_file"
+	"$DIR/no_perm.py"
 )
 
 for i in ${!tests[@]};
