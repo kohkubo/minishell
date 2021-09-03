@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:01:50 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/29 13:14:59 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/09/02 17:25:37 by ywake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ char	**str_arraydup(char **array);
 int		debug_arraycmp(char **aa, char **bb);
 bool	is_num_string(char *s);
 long	ft_atol(const char *s);
+int		catch_error(int status, char *title);
+void	*catch_null(void *ptr, char *title);
 
 #endif
