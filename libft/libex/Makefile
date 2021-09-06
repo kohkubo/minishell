@@ -33,7 +33,6 @@ src =\
 	./debug_array.c \
 	./is_num_string.c \
 	./ft_atol.c \
-	./catch.c \
 
 # ***********************************
 

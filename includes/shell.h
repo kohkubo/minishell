@@ -35,4 +35,8 @@ int				ft_pwd(char **args);
 bool			parse_v2(t_lexer *lex, t_astree **res_buf);
 void			minishell_execute(t_astree *tree);
 
+void			pexit(char *message);
+int				catch_error(int status, char *title);
+void			*catch_null(void *ptr, char *title);
+
 #endif
