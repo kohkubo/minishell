@@ -1,5 +1,6 @@
 #include "exec.h"
 
+#include <sys/wait.h>
 #include <unistd.h>
 #include "shell.h"
 #include "astree.h"
