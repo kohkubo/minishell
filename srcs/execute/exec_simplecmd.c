@@ -9,7 +9,7 @@
 
 #define CHILD (0)
 
-char	**get_fullpath(char *path, char *cmd)
+char	**get_fullpath(const char *path, char *cmd)
 {
 	char	**paths;
 	int		i;
