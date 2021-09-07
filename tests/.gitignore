@@ -5,6 +5,8 @@
 !*.c
 !*.sh
 !*case*.txt
+!unit-test/execute/no_perm.py
+!unit-test/execute/tester.py
 !unit-test/function-ft_echo_test/expect2
 !unit-test/function-lex/expect
 !issue/heredoc_test/expect

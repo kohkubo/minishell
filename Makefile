@@ -33,7 +33,6 @@ src =\
 	./lex/token.c \
 	./lex/heredoc.c \
 	./lex/data.c \
-	./parse/parse.c \
 	./built-in/ft_exit.c \
 	./built-in/echo.c \
 	./built-in/ft_env.c \
@@ -41,7 +40,22 @@ src =\
 	./built-in/ft_unset.c \
 	./built-in/ft_pwd.c \
 	./main.c \
+	./error.c \
 	./env/env.c \
+	./parse/parse-v2.c \
+	./parse/astree.c \
+	./parse/command_line.c \
+	./parse/job.c \
+	./parse/command.c \
+	./parse/redirection_list.c \
+	./parse/redirection.c \
+	./parse/simple_command.c \
+	./parse/token_list.c \
+	./execute/exec__main.c \
+	./execute/exec_cmdline.c \
+	./execute/exec_job.c \
+	./execute/exec_cmd.c \
+	./execute/exec_simplecmd.c \
 
 # ***********************************
 
