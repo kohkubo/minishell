@@ -6,8 +6,11 @@ int main(int argc, char *argv[])
 {
 	t_lexer		*lex;
 	t_astree	*tree;
+	bool		isSuccess;
 
-	printf("%s\n", argv[1]);
-	// minishell_lexer(argv[1], &lex);
-	// parse_v2(lex, &tree);
+	minishell_lexer(argv[1], &lex);
+	isSuccess = parse_v2(lex, &tree);
+	lexer_free(&lex);
+	tree = astree_delete_node(tree);
+	return (!isSuccess);
 }

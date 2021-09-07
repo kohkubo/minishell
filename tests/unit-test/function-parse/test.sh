@@ -10,12 +10,13 @@ DIR="$(dirname "$0")"
 
 EXIT_CODE=0
 gcc -g $INCLUDES \
+-o $DIR/a.out \
 $DIR/test.c \
 $(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/parse/ -type f -name "*.c" -not -name 'parse.c') \
 $SHARED_LIB $LIBS -lft -lex -lreadline || exit 1
 
-./a.out
+$DIR/a.out
 AOUT=$?
 
 if [ $AOUT -ne 0 ]; then
@@ -25,25 +26,36 @@ else
 	printf "\e[32m%s\n\e[m" ">>  OK!"
 fi
 
-rm -f a.out leaksout
+rm -f $DIR/a.out leaksout
 
-tests=(
+
+errors=(
+	"a |"
+	"a ||"
+	"a | |"
 	"cat >"
 	"cat >> >"
+
+	### never support
+	# "cat < ;"
+	# "echo a;;"
+	# "echo a;; ;"
 )
 
-echo "=== error_test ==="
+echo "--- error_test ---"
 gcc -g $INCLUDES \
+-o $DIR/a.out \
 "$DIR/for_error_test.c" \
 $(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/parse/ -type f -name "*.c" -not -name 'parse.c') \
 $SHARED_LIB $LIBS -lft -lex -lreadline || exit 1
 
-for i in ${!tests[@]};
+for i in ${!errors[@]};
 do
-	./a.out "${tests[$i]}"
+	echo "${errors[$i]}" | bash
+	$DIR/a.out "${errors[$i]}"
 	AOUT=$?
-	if [ $AOUT -ne 0 ]; then
+	if [ $AOUT -eq 0 ]; then
 		EXIT_CODE=1
 		printf "\e[31m%s\n\e[m" ">>  KO!"
 	else
