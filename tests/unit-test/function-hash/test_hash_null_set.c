@@ -37,7 +37,7 @@ int	main()
 	hash_setstr(t, "VAL6", NULL);
 
 	// getstrできるか
-	char *val0 = hash_getstr(t, "VAL7");
+	const char *val0 = hash_getstr(t, "VAL7");
 	if (val0 != NULL)
 		exit(1);
 	// NULLが格納されているかのチェック
@@ -68,7 +68,7 @@ int	main()
 	//もともとNULLのときに上書きできるかチェック
 	test_res_null(t, "VAL5");
 	hash_setstr(t, "VAL5", "aiueo");
-	char *val5 = hash_getstr(t, "VAL5");
+	const char *val5 = hash_getstr(t, "VAL5");
 	if (strcmp(val5, "aiueo"))
 		exit(1);
 
