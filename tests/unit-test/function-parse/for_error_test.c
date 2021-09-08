@@ -44,10 +44,11 @@ int	main(int argc, char *argv[])
 {
 	bool		result;
 
+	result = true;
 	/**
 	 * a |
 	 */
-	result |= test((t_tok *[]){
+	result &= test((t_tok *[]){
 		&(t_tok){.data = "a", .type = TOKEN},
 		&(t_tok){.data = "|", .type = CHAR_PIPE},
 		NULL
@@ -55,7 +56,7 @@ int	main(int argc, char *argv[])
 	/**
 	 * a | |
 	 */
-	result |= test((t_tok *[]){
+	result &= test((t_tok *[]){
 		&(t_tok){.data = "a", .type = TOKEN},
 		&(t_tok){.data = "|", .type = CHAR_PIPE},
 		&(t_tok){.data = "|'", .type = CHAR_PIPE},
@@ -64,7 +65,7 @@ int	main(int argc, char *argv[])
 	/**
 	 * a >
 	 */
-	result |= test((t_tok *[]){
+	result &= test((t_tok *[]){
 		&(t_tok){.data = "a", .type = TOKEN},
 		&(t_tok){.data = ">", .type = CHAR_GREATER},
 		NULL
@@ -72,7 +73,7 @@ int	main(int argc, char *argv[])
 	/**
 	 * a >> >
 	 */
-	result |= test((t_tok *[]){
+	result &= test((t_tok *[]){
 		&(t_tok){.data = "a", .type = TOKEN},
 		&(t_tok){.data = ">>", .type = CHAR_GREATER2},
 		&(t_tok){.data = ">", .type = CHAR_GREATER},
@@ -81,7 +82,7 @@ int	main(int argc, char *argv[])
 	/**
 	 * a ; ;;
 	 */
-	result |= test((t_tok *[]){
+	result &= test((t_tok *[]){
 		&(t_tok){.data = "a", .type = TOKEN},
 		&(t_tok){.data = ";", .type = ';'},
 		&(t_tok){.data = ";;", .type = ';' + 128},

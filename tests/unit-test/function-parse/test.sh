@@ -39,7 +39,7 @@ AOUT=$?
 
 diff $DIR/out $DIR/error_case_expect > /dev/null
 
-if [ $? -ne 0 ] && [ $AOUT -ne 0 ]; then
+if [ $? -ne 0 ] || [ $AOUT -ne 0 ]; then
 	EXIT_CODE=1
 	diff -y $DIR/out $DIR/error_case_expect
 	printf "\e[31m%s\n\e[m" ">>  KO!"
