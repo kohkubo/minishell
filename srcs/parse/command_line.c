@@ -42,10 +42,7 @@ t_astree	*cmdline1(t_list **toks, bool *has_error)
 		return (astree_delete_node(job_node));
 	cmdline_node = cmdline(toks, has_error);
 	if (cmdline_node == NULL)
-	{
-		*has_error = true;
 		return (astree_delete_node(job_node));
-	}
 	return (astree_create_node(NODE_SEQ, NULL, job_node, cmdline_node));
 }
 
