@@ -56,6 +56,7 @@ src =\
 	./execute/exec_job.c \
 	./execute/exec_cmd.c \
 	./execute/exec_simplecmd.c \
+	./expand/expand.c \
 
 # ***********************************
 
