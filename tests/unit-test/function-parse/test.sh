@@ -29,19 +29,6 @@ fi
 rm -f $DIR/a.out leaksout
 
 
-errors=(
-	"a |"
-	"a ||"
-	"a | |"
-	"cat >"
-	"cat >> >"
-
-	### never support
-	# "cat < ;"
-	# "echo a;;"
-	# "echo a;; ;"
-)
-
 echo "--- error_test ---"
 gcc -g $INCLUDES \
 -o $DIR/a.out \
@@ -50,18 +37,15 @@ $(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/parse/ -type f -name "*.c" -not -name 'parse.c') \
 $SHARED_LIB $LIBS -lft -lex -lreadline || exit 1
 
-for i in ${!errors[@]};
-do
-	echo "${errors[$i]}" | bash
-	$DIR/a.out "${errors[$i]}"
-	AOUT=$?
-	if [ $AOUT -eq 0 ]; then
-		EXIT_CODE=1
-		printf "\e[31m%s\n\e[m" ">>  KO!"
-	else
-		printf "\e[32m%s\n\e[m" ">>  OK!"
-	fi
-done
+$DIR/a.out
+AOUT=$?
+
+if [ $AOUT -ne 0 ]; then
+	EXIT_CODE=1
+	printf "\e[31m%s\n\e[m" ">>  KO!"
+else
+	printf "\e[32m%s\n\e[m" ">>  OK!"
+fi
 
 rm -f a.out leaksout
 

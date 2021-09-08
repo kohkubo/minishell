@@ -1,16 +1,89 @@
 #include <stdio.h>
 #include "shell.h"
 #include "lex.h"
+#include "logging.h"
 
-int main(int argc, char *argv[])
+t_tok	*new_token(char *data, t_token_type	type)
+{
+	t_tok	*ret;
+
+	ret = malloc(sizeof(t_tok));
+	if (data)
+		ret->data = ft_strdup(data);
+	else
+		ret->data = NULL;
+	ret->type = type;
+	return (ret);
+}
+
+void	test(t_tok **toks)
 {
 	t_lexer		*lex;
 	t_astree	*tree;
 	bool		isSuccess;
+	char		*str;
 
-	minishell_lexer(argv[1], &lex);
+	lex = lexer_init();
+	str = ft_strdup("");
+	while (*toks)
+	{
+		ft_lstadd_back(&lex->listtok, ft_lstnew(new_token((*toks)->data, (*toks)->type)));
+		free_set((void **)&str, ft_strjoin(str, (*toks)->data));
+		free_set((void **)&str, ft_strjoin(str, " "));
+		toks++;
+	}
 	isSuccess = parse_v2(lex, &tree);
 	lexer_free(&lex);
 	tree = astree_delete_node(tree);
-	return (!isSuccess);
+	printf("%s%s\n", str, !isSuccess ? GREEN"✓"END : RED"×"END);
+	free(str);
+}
+
+int main(int argc, char *argv[])
+{
+	bool		success;
+
+	/**
+	 * a |
+	 */
+	test((t_tok *[]){
+		&(t_tok){.data = "a", .type = TOKEN},
+		&(t_tok){.data = "|", .type = CHAR_PIPE},
+		NULL
+	});
+	/**
+	 * a | |
+	 */
+	test((t_tok *[]){
+		&(t_tok){.data = "a", .type = TOKEN},
+		&(t_tok){.data = "|", .type = CHAR_PIPE},
+		&(t_tok){.data = "|'", .type = CHAR_PIPE},
+		NULL
+	});
+	/**
+	 * a >
+	 */
+	test((t_tok *[]){
+		&(t_tok){.data = "a", .type = TOKEN},
+		&(t_tok){.data = ">", .type = CHAR_GREATER},
+		NULL
+	});
+	/**
+	 * a >> >
+	 */
+	test((t_tok *[]){
+		&(t_tok){.data = "a", .type = TOKEN},
+		&(t_tok){.data = ">>", .type = CHAR_GREATER2},
+		&(t_tok){.data = ">", .type = CHAR_GREATER},
+		NULL
+	});
+	/**
+	 * a ; ;;
+	 */
+	test((t_tok *[]){
+		&(t_tok){.data = "a", .type = TOKEN},
+		&(t_tok){.data = ";", .type = ';'},
+		&(t_tok){.data = ";;", .type = ';' + 128},
+		NULL
+	});
 }
