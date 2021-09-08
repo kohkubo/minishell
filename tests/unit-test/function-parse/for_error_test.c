@@ -16,7 +16,7 @@ t_tok	*new_token(char *data, t_token_type	type)
 	return (ret);
 }
 
-void	test(t_tok **toks)
+bool	test(t_tok **toks)
 {
 	t_lexer		*lex;
 	t_astree	*tree;
@@ -37,16 +37,17 @@ void	test(t_tok **toks)
 	tree = astree_delete_node(tree);
 	printf("%s%s\n", str, !isSuccess ? GREEN"✓"END : RED"×"END);
 	free(str);
+	return (!isSuccess);
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	bool		success;
+	bool		result;
 
 	/**
 	 * a |
 	 */
-	test((t_tok *[]){
+	result |= test((t_tok *[]){
 		&(t_tok){.data = "a", .type = TOKEN},
 		&(t_tok){.data = "|", .type = CHAR_PIPE},
 		NULL
@@ -54,7 +55,7 @@ int main(int argc, char *argv[])
 	/**
 	 * a | |
 	 */
-	test((t_tok *[]){
+	result |= test((t_tok *[]){
 		&(t_tok){.data = "a", .type = TOKEN},
 		&(t_tok){.data = "|", .type = CHAR_PIPE},
 		&(t_tok){.data = "|'", .type = CHAR_PIPE},
@@ -63,7 +64,7 @@ int main(int argc, char *argv[])
 	/**
 	 * a >
 	 */
-	test((t_tok *[]){
+	result |= test((t_tok *[]){
 		&(t_tok){.data = "a", .type = TOKEN},
 		&(t_tok){.data = ">", .type = CHAR_GREATER},
 		NULL
@@ -71,7 +72,7 @@ int main(int argc, char *argv[])
 	/**
 	 * a >> >
 	 */
-	test((t_tok *[]){
+	result |= test((t_tok *[]){
 		&(t_tok){.data = "a", .type = TOKEN},
 		&(t_tok){.data = ">>", .type = CHAR_GREATER2},
 		&(t_tok){.data = ">", .type = CHAR_GREATER},
@@ -80,10 +81,11 @@ int main(int argc, char *argv[])
 	/**
 	 * a ; ;;
 	 */
-	test((t_tok *[]){
+	result |= test((t_tok *[]){
 		&(t_tok){.data = "a", .type = TOKEN},
 		&(t_tok){.data = ";", .type = ';'},
 		&(t_tok){.data = ";;", .type = ';' + 128},
 		NULL
 	});
+	return (!result);
 }

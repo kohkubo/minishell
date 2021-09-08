@@ -26,9 +26,6 @@ else
 	printf "\e[32m%s\n\e[m" ">>  OK!"
 fi
 
-rm -f $DIR/a.out leaksout
-
-
 echo "--- error_test ---"
 gcc -g $INCLUDES \
 -o $DIR/a.out \
@@ -47,6 +44,7 @@ else
 	printf "\e[32m%s\n\e[m" ">>  OK!"
 fi
 
-rm -f a.out leaksout
+rm -f $DIR/a.out leaksout
+rm -rf $DIR/a.out.dSYM
 
 exit $EXIT_CODE
