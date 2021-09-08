@@ -2,13 +2,14 @@
 #include <stdio.h>
 #include <unistd.h>
 
-__attribute__((destructor))
+void	destructor(void)__attribute__((destructor));
+
 void	destructor(void)
 {
 	int		status;
 	char	buf[50];
 
-	snprintf(buf, 50, "leaks %d &> leaksout", getpid());
+	snprintf(buf, 50, "leaks -q %d &> leaksout", getpid());
 	status = system(buf);
 	if (status)
 	{
