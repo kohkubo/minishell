@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   data.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 16:06:41 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:06:41 by kohkubo          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "lex.h"
 #include "shell.h"
 
@@ -28,8 +16,8 @@ char	*heredoc_readline(char *heredoc, char *tok)
 			return (tok);
 		}
 		if (flg > 0 || (flg == 0 && *tmp == 0))
-			free_set((void **)&tok, ft_strjoin(tok, "\n"));
-		free_set((void **)&tok, ft_strjoin(tok, tmp));
+			free_set((void **)&tok, ft_xstrjoin(tok, "\n"));
+		free_set((void **)&tok, ft_xstrjoin(tok, tmp));
 		free_set((void **)&tmp, NULL);
 		flg++;
 	}

@@ -27,7 +27,7 @@ char *minishell_expand(char *arg)
 	{
 		if (arg[1] == '\0')
 		{
-			free_set((void **)&ret, ft_strjoin(ret, "$"));
+			free_set((void **)&ret, ft_xstrjoin(ret, "$"));
 			break ;
 		}
 		ptr = ft_strchr(arg + 1, '$');
@@ -36,14 +36,14 @@ char *minishell_expand(char *arg)
 			tmp = (char *)hash_getstr(g_shell.env, &arg[1]);
 			if (tmp == NULL)
 				tmp = "";
-			free_set((void **)&ret, ft_strjoin(ret, tmp));
+			free_set((void **)&ret, ft_xstrjoin(ret, tmp));
 			break ;
 		}
 		*ptr = '\0';
 		tmp = (char *)hash_getstr(g_shell.env, &arg[1]);
 		if (tmp == NULL)
 			tmp = "";
-		free_set((void **)&ret, ft_strjoin(ret, tmp));
+		free_set((void **)&ret, ft_xstrjoin(ret, tmp));
 		arg += ptr - arg;
 	}
 	return (ret);
