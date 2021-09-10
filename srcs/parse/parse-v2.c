@@ -27,8 +27,8 @@ bool	allocate_data_if_is_token(t_list **current, char **buf_ptr)
 }
 
 /**
-<command line>		::= <job> ';' <command line>
-					  | <job> ';'
+<command line>		::= <job> ';' <command line>	// not make
+					  | <job> ';'					// not make
 					  | <job> '&' <command line>	// not make
 					  | <job> '&'					// not make
 					  | <job>
