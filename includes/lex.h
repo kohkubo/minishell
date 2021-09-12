@@ -23,6 +23,7 @@ typedef enum e_token_type
 	CHAR_GREATER2		= '>' + PAD,
 	CHAR_LESSER			= '<',
 	CHAR_LESSER2		= '<' + PAD,
+	CHAR_DOL			= '$',
 	CHAR_NULL			= 0,
 	TOKEN				= -1,
 }	t_token_type;

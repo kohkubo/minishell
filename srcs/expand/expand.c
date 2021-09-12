@@ -1,63 +1,58 @@
 #include "shell.h"
 
-static char	*wrapper_hash_getstr(t_hash_table *h, char *key)
+static void	separate_to_list(char *arg, t_list **list)
 {
-	char	*tmp;
+	char	*start;
+	char	*end;
 
-	tmp = (char *)hash_getstr(h, key);
-	if (tmp == NULL)
-		return ("");
-	return (tmp);
+	while (*arg != '\0')
+	{
+		start = ft_strchr(arg, CHAR_DOL);
+		if (start == NULL)
+		{
+			ft_lstadd_back(list, ft_lstnew(ft_xstrdup(arg)));
+			break ;
+		}
+		if (start != arg)
+			ft_lstadd_back(list, ft_xlstnew(ft_xsubstr(arg, 0, start - arg)));
+		end = start + 1;
+		while (ft_strchr("$", *end) == NULL)
+			end++;
+		ft_lstadd_back(list, ft_xlstnew(ft_xsubstr(start, 0, end - start)));
+		arg = end;
+	}
 }
 
-static char	*minishell_expand2(char *arg, char *ret, char *ptr)
+static void	expand_var(t_list *separated)
 {
+	char	*content;
 	char	*tmp;
 
-	while (1)
+	while (separated)
 	{
-		if (arg[1] == '\0')
+		content = (char *)separated->content;
+		if (content[0] == CHAR_DOL && content[1] != '\0')
 		{
-			free_set((void **)&ret, ft_xstrjoin(ret, "$"));
-			break ;
+			tmp = wrapper_hash_getstr(g_shell.env, content + 1);
+			free_set(&separated->content, ft_xstrdup(tmp));
 		}
-		ptr = ft_strchr(arg + 1, '$');
-		if (ptr == NULL)
-		{
-			tmp = wrapper_hash_getstr(g_shell.env, &arg[1]);
-			free_set((void **)&ret, ft_xstrjoin(ret, tmp));
-			break ;
-		}
-		*ptr = '\0';
-		tmp = wrapper_hash_getstr(g_shell.env, &arg[1]);
-		free_set((void **)&ret, ft_xstrjoin(ret, tmp));
-		arg += ptr - arg;
+		separated = separated->next;
 	}
-	return (ret);
 }
 
 char	*minishell_expand(char *arg)
 {
+	t_list	*separated;
 	char	*ret;
-	char	*ptr;
 
-	ptr = NULL;
 	if (arg == NULL)
 		ft_fatal("minishell_expand : Invalid argument");
-	if (ft_strchr(arg, '$') == NULL)
+	if (ft_strchr(arg, CHAR_DOL) == NULL)
 		return (ft_xstrdup(arg));
-	if (arg[0] == '$' && arg[1] == '\0')
-		return (ft_xstrdup("$"));
-	ret = NULL;
-	if (arg[0] == '$')
-		ret = ft_xstrdup("");
-	else
-	{
-		ptr = ft_strchr(arg, '$');
-		*ptr = '\0';
-		ret = ft_xstrdup(arg);
-		arg += ptr - arg;
-		*ptr = '$';
-	}
-	return (minishell_expand2(arg, ret, ptr));
+	separated = NULL;
+	separate_to_list(arg, &separated);
+	expand_var(separated);
+	ret = lst_to_string(separated);
+	ft_lstclear(&separated, free);
+	return (ret);
 }
