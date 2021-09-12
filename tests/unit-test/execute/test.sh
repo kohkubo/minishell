@@ -8,15 +8,24 @@ gcc -g $INCLUDES \
 $(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/parse/ -type f -name "*.c" -not -name 'parse.c') \
 $(find $REPO_ROOT/srcs/execute/ -type f -name "*.c") \
+$(find $REPO_ROOT/srcs/built-in/ -type f -name "*.c") \
 $REPO_ROOT/srcs/env/env.c \
 $LIBS -lft -lex -lhash -lreadline $SHARED_LIB
 
 tests=(
+	# exec_with_path 経路のテスト
 	"ls"
 	"ls ."
 	"cat Makefile"
+
+	# 直exec 経路のテスト
 	"$DIR/tester.py"
 	"$DIR/tester.py arg1 arg2"
+
+	# built-in 経路のテスト(command not foundじゃないことの確認)
+	"unset"
+	"exit"
+
 	# "ls | cat | cat"
 )
 

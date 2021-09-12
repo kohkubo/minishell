@@ -49,6 +49,35 @@ void	exec_with_path(char *cmd, char **args, char **envp)
 	exit(1);
 }
 
+typedef int			(*t_builtIn_func)(char **arg);
+
+/**
+ * @return true if builtin was run, false otherwise.
+ */
+bool	run_if_builtin(char *cmd, char **args, int *status)
+{
+	char			**builtIn_names;
+	t_builtIn_func	*builtIn_funcs;
+	int				i;
+
+	builtIn_names = (char *[]){
+		"echo", "cd", "pwd", "export", "unset", "env", "exit", NULL};
+	i = contain(builtIn_names, cmd);
+	if (i < 0)
+		return (false);
+	builtIn_funcs = (t_builtIn_func []){
+		ft_echo, NULL, ft_pwd, ft_export, ft_unset, ft_env, ft_exit, NULL};
+	if (builtIn_funcs[i] != NULL)
+		*status = builtIn_funcs[i](&args[1]);
+	else
+	{
+		ft_putstr_fd(cmd, 2);
+		ft_putendl_fd(" is not implemented yet", 2);
+		exit(1);
+	}
+	return (true);
+}
+
 char	**tree_to_argv(t_astree *tree)
 {
 	t_astree	*tmp;
@@ -84,16 +113,19 @@ void	execute_simplecmd(t_astree *tree, int *status)
 	pid_t	pid;
 
 	args = tree_to_argv(tree);
-	pid = catch_error(fork(), "fork");
-	if (pid == CHILD)
+	if (run_if_builtin(tree->data, args, status) == false)
 	{
-		envp = hash_getall(g_shell.env, NULL);
-		if (!ft_strchr(tree->data, '/'))
-			exec_with_path(tree->data, args, envp);
-		else
-			exit(catch_error(execve(tree->data, args, envp), tree->data));
+		pid = catch_error(fork(), "fork");
+		if (pid == CHILD)
+		{
+			envp = hash_getall(g_shell.env, NULL);
+			if (!ft_strchr(tree->data, '/'))
+				exec_with_path(tree->data, args, envp);
+			else
+				exit(catch_error(execve(tree->data, args, envp), tree->data));
+		}
+		catch_error(waitpid(pid, status, 0), "waitpid");
 	}
 	if (args)
 		args = free_string_array(args);
-	catch_error(waitpid(pid, status, 0), "waitpid");
 }
