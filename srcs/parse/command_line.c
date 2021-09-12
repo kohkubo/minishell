@@ -4,31 +4,19 @@ t_astree	*cmdline2(t_list **toks, bool *has_error); // <job> ';'
 t_astree	*cmdline3(t_list **toks, bool *has_error); // <job>
 
 /*
-** <command line>	::= <job> ';' <command line>
-**					  | <job> ';'
+** <command line>	::= <job> ';' <command line>	// not make
+**					  | <job> ';'					// not make
 **					  | <job> '&' <command line>	// not make
 **					  | <job> '&'					// not make
 **					  | <job>
 */
 t_astree	*cmdline(t_list **toks, bool *has_error)
 {
-	t_list		*save;
-	t_astree	*result;
-
-	save = *toks;
-	result = cmdline1(toks, has_error);
-	if (result != NULL || *has_error)
-		return (result);
-	*toks = save;
-	result = cmdline2(toks, has_error);
-	if (result != NULL || *has_error)
-		return (result);
-	*toks = save;
 	return (cmdline3(toks, has_error));
 }
 
 /*
-** @brief <command line> ::= <job> ';' <command line>
+** <command line> ::= <job> ';' <command line>
 */
 t_astree	*cmdline1(t_list **toks, bool *has_error)
 {
@@ -47,7 +35,7 @@ t_astree	*cmdline1(t_list **toks, bool *has_error)
 }
 
 /*
-** @brief <command line> ::= <job> ';'
+** <command line> ::= <job> ';'
 */
 t_astree	*cmdline2(t_list **toks, bool *has_error)
 {
@@ -62,7 +50,7 @@ t_astree	*cmdline2(t_list **toks, bool *has_error)
 }
 
 /*
-** @brief <command line> ::= <job>
+** <command line> ::= <job>
 */
 t_astree	*cmdline3(t_list **toks, bool *has_error)
 {
