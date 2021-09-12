@@ -28,25 +28,22 @@ static void	separate_to_list(char *arg, t_list **list)
 	free(buf);
 }
 
-static t_state_type	free_set_return_state(t_list *separated, t_state_type state)
-{
-	free_set(&separated->content, ft_xstrdup(""));
-	return (state);
-}
-
 static t_list	*expand_env(t_list *separated)
 {
 	char	*content;
 	char	*tmp;
 
-	if (separated->next == NULL)
+	if (separated->next == NULL
+		|| ft_isspace(((char *)separated->next->content)[0]))
 		free_set(&separated->content, ft_xstrdup("$"));
 	else
 	{
-		free_set(&separated->content, ft_xstrdup(""));
+		free_set(&separated->content, NULL);
 		separated = separated->next;
 		content = (char *)separated->content;
-		tmp = wrapper_hash_getstr(g_shell.env, content);
+		tmp = (char *)hash_getstr(g_shell.env, content);
+		if (tmp == NULL)
+			tmp = "";
 		free_set(&separated->content, ft_xstrdup(tmp));
 	}
 	return (separated);
@@ -62,13 +59,13 @@ static void	expand_var(t_list *separated)
 	{
 		content = (char *)separated->content;
 		if (ft_strcmp(content, "\'") == 0 && state == STATE_GENERAL)
-			state = free_set_return_state(separated, STATE_IN_QUOTE);
+			free_set(&separated->content, NULL), state = STATE_IN_QUOTE;
 		else if (ft_strcmp(content, "\'") == 0 && state == STATE_IN_QUOTE)
-			state = free_set_return_state(separated, STATE_GENERAL);
+			free_set(&separated->content, NULL), state = STATE_GENERAL;
 		else if (ft_strcmp(content, "\"") == 0 && state == STATE_GENERAL)
-			state = free_set_return_state(separated, STATE_IN_DQUOTE);
+			free_set(&separated->content, NULL), state = STATE_IN_DQUOTE;
 		else if (ft_strcmp(content, "\"") == 0 && state == STATE_IN_DQUOTE)
-			state = free_set_return_state(separated, STATE_GENERAL);
+			free_set(&separated->content, NULL), state = STATE_GENERAL;
 		else if (ft_strcmp(content, "$") == 0 && state != STATE_IN_QUOTE)
 			separated = expand_env(separated);
 		separated = separated->next;
