@@ -5,7 +5,6 @@ gcc -g $INCLUDES \
 -o "$DIR/a.out" \
 "$DIR/test.c" \
 "$REPO_ROOT/srcs/error.c" \
-"$REPO_ROOT/srcs/util.c" \
 $(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/parse/ -type f -name "*.c" -not -name 'parse.c') \
 $(find $REPO_ROOT/srcs/execute/ -type f -name "*.c") \
