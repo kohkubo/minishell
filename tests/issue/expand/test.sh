@@ -9,7 +9,7 @@ echo $PWD
 for file in $(ls *.txt); do
 	echo "Testing $file"
 	./minishell < $file >> output 2>&1
-	bash < $file >> expect 2>&1
+	zsh < $file >> expect 2>&1
 	diff expect output
 	if [ $? -ne 0 ]; then
 		echo "FAIL: $file"

@@ -9,7 +9,7 @@ echo $PWD
 for file in $(ls *.txt); do
 	echo "--Testing $file"
 	./minishell < $file > output 2>&1
-	bash < $file > expect 2>&1
+	zsh < $file > expect 2>&1
 	# cat $file
 	# diff -y expect output
 	diff expect output
