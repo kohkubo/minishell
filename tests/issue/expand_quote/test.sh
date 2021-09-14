@@ -6,15 +6,17 @@ cd "$(dirname "$0")" || exit
 
 echo $PWD
 
+rm -rf output expect
+
 for file in $(ls *.txt); do
 	echo "--Testing $file"
 	./minishell < $file > output 2>&1
 	zsh < $file > expect 2>&1
-	# cat $file
-	# diff -y expect output
-	diff expect output
+	diff expect output &> /dev/null
 	if [ $? -ne 0 ]; then
 		echo "FAIL: $file"
+		cat $file
+		diff -y expect output
 		RES=1
 	fi
 	rm -rf output expect
