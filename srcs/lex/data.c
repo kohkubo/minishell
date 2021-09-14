@@ -11,6 +11,16 @@ t_tok	*tok_init(char *s)
 	return (tok);
 }
 
+t_tok	*new_tok(t_token_type type, char *data)
+{
+	t_tok	*tok;
+
+	tok = ft_xmalloc(sizeof(t_tok));
+	tok->data = data;
+	tok->type = type;
+	return (tok);
+}
+
 t_lexer	*lexer_init(void)
 {
 	t_lexer	*lexer;
