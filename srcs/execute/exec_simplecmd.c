@@ -1,13 +1,9 @@
 #include "exec.h"
 
-#include <sys/wait.h>
-#include <unistd.h>
 #include "shell.h"
 #include "astree.h"
 #include "libft.h"
 #include "libex.h"
-
-#define CHILD (0)
 
 char	**get_fullpath(const char *path, char *cmd)
 {
@@ -54,7 +50,7 @@ typedef int			(*t_builtIn_func)(char **arg);
 /**
  * @return true if builtin was run, false otherwise.
  */
-bool	run_if_builtin(char *cmd, char **args, int *status)
+bool	run_if_builtin(char *cmd, char **args)
 {
 	char			**builtIn_names;
 	t_builtIn_func	*builtIn_funcs;
@@ -68,7 +64,7 @@ bool	run_if_builtin(char *cmd, char **args, int *status)
 	builtIn_funcs = (t_builtIn_func []){
 		ft_echo, NULL, ft_pwd, ft_export, ft_unset, ft_env, ft_exit, NULL};
 	if (builtIn_funcs[i] != NULL)
-		*status = builtIn_funcs[i](&args[1]);
+		exit(builtIn_funcs[i](&args[1]));
 	else
 	{
 		ft_putstr_fd(cmd, 2);
@@ -106,25 +102,19 @@ char	**tree_to_argv(t_astree *tree)
 /**
  * <simple command>::= <pathname> <token list>
  */
-void	execute_simplecmd(t_astree *tree, int *status)
+void	execute_simplecmd(t_astree *tree)
 {
 	char	**args;
 	char	**envp;
-	pid_t	pid;
 
 	args = tree_to_argv(tree);
-	if (run_if_builtin(tree->data, args, status) == false)
+	if (run_if_builtin(tree->data, args) == false)
 	{
-		pid = catch_error(fork(), "fork");
-		if (pid == CHILD)
-		{
-			envp = hash_getall(g_shell.env, NULL);
-			if (!ft_strchr(tree->data, '/'))
-				exec_with_path(tree->data, args, envp);
-			else
-				exit(catch_error(execve(tree->data, args, envp), tree->data));
-		}
-		catch_error(waitpid(pid, status, 0), "waitpid");
+		envp = hash_getall(g_shell.env, NULL);
+		if (!ft_strchr(tree->data, '/'))
+			exec_with_path(tree->data, args, envp);
+		else
+			exit(catch_error(execve(tree->data, args, envp), tree->data));
 	}
 	if (args)
 		args = free_string_array(args);
