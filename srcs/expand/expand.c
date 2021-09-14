@@ -1,5 +1,29 @@
 #include "shell.h"
 
+static t_list	*separate_to_lst(char *str, char *separator)
+{
+	t_list	*list;
+	char	*start;
+
+	list = NULL;
+	while (*str != '\0')
+	{
+		if (ft_strchr(separator, *str) != NULL)
+		{
+			ft_lstadd_back(&list, ft_lstnew(ft_xsubstr(str, 0, 1)));
+			str++;
+		}
+		else
+		{
+			start = str;
+			while (ft_strchr(separator, *str) == NULL)
+				str++;
+			ft_lstadd_back(&list, ft_lstnew(ft_xsubstr(start, 0, str - start)));
+		}
+	}
+	return (list);
+}
+
 static char	*expand_env(t_list *separated)
 {
 	char	*tmp;
@@ -46,9 +70,9 @@ char	*minishell_expand(char *arg)
 
 	if (arg == NULL)
 		ft_fatal("minishell_expand : Invalid argument");
-	separated = separate_to_list(arg, "\'\"\t\n\v\f\r $");
+	separated = separate_to_lst(arg, "\'\"\t\n\v\f\r $");
 	expand_handler(separated);
-	ret = lst_to_string(separated);
+	ret = lst_join_str(separated, "");
 	ft_lstclear(&separated, free);
 	return (ret);
 }
