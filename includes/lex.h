@@ -65,7 +65,6 @@ char			*heredoc_readline(char *heredoc, char *tok);
 char			*generate_heredoc(char *s);
 t_tok			*tok_init(char *s);
 t_lexer			*lexer_init(void);
-t_tok			*new_tok(t_token_type type, char *data);
 void			tok_free(void *content);
 void			lexer_free(t_lexer **lexer);
 t_state_type	heredoc(t_lexer **l, t_tok **tok, char **s, size_t *i);
