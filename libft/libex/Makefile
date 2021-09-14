@@ -29,10 +29,9 @@ src =\
 	./get_next_line.c \
 	./is_num_string.c \
 	./is_space_string.c \
-	./lst_to_string.c \
+	./lst_join_str.c \
 	./print_array.c \
 	./random_string.c \
-	./separate_to_list.c \
 	./spacelen.c \
 	./str_arraydup.c \
 	./strsort.c \
