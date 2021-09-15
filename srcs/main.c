@@ -23,7 +23,7 @@ int	main(void)
 		if (input == NULL || ft_strlen(input) == 0)
 		{
 			free_set((void **)&input, NULL);
-			break ;
+			continue ;
 		}
 		add_history(input);
 		lex = NULL;
