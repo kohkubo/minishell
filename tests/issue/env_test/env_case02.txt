@@ -1,1 +1,0 @@
-env TEST3=test3 TEST4=test4
