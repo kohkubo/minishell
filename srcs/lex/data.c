@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   data.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 16:06:41 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/09 16:06:41 by kohkubo          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "lex.h"
 
 t_tok	*tok_init(char *s)
@@ -29,6 +17,16 @@ t_lexer	*lexer_init(void)
 
 	lexer = ft_xcalloc(sizeof(t_lexer), 1);
 	return (lexer);
+}
+
+t_tok	*new_tok(t_token_type type, char *data)
+{
+	t_tok	*t;
+
+	t = (t_tok *)ft_xmalloc(sizeof(t_tok));
+	t->data = data;
+	t->type = type;
+	return (t);
 }
 
 void	tok_free(void *content)

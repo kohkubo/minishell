@@ -1,2 +1,2 @@
 echo "$"
-echo $"aaa"
+echo $"USER"

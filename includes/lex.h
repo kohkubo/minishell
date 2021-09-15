@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lex.h                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 16:06:12 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/25 11:52:25 by kohkubo          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef LEX_H
 # define LEX_H
 
@@ -35,6 +23,7 @@ typedef enum e_token_type
 	CHAR_GREATER2		= '>' + PAD,
 	CHAR_LESSER			= '<',
 	CHAR_LESSER2		= '<' + PAD,
+	CHAR_DOLLAR			= '$',
 	CHAR_NULL			= 0,
 	TOKEN				= -1,
 }	t_token_type;
@@ -75,6 +64,7 @@ char			*heredoc_readline(char *heredoc, char *tok);
 char			*generate_heredoc(char *s);
 t_tok			*tok_init(char *s);
 t_lexer			*lexer_init(void);
+t_tok			*new_tok(t_token_type type, char *data);
 void			tok_free(void *content);
 void			lexer_free(t_lexer **lexer);
 t_state_type	heredoc(t_lexer **l, t_tok **tok, char **s, size_t *i);

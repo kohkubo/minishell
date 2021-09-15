@@ -1,74 +1,95 @@
 #include "shell.h"
 
-// TODO: ft_lstnewのcatch_null
-static void	separate_to_list(char *arg, t_list **list)
+#include "logging.h"
+#include "lex.h"
+
+static void	pick(t_list **list, t_token_type type, char *start, char *end);
+
+static t_list	*separate_to_list(char *word, t_state_type type)
 {
-	char	*start;
+	t_list	*list;
+	char	*find;
 	char	*end;
 
-	while (*arg != '\0')
+	list = NULL;
+	while (*word != '\0')
 	{
-		start = ft_strchr(arg, '$');
-		if (start == NULL)
-		{
-			ft_lstadd_back(list, ft_lstnew(ft_xstrdup(arg)));
+		if (type == STATE_IN_DQUOTE)
+			find = ft_strchrset(word, "$\0", 2);
+		else
+			find = ft_strchrset(word, "$\'\"\0", 4);
+		if (word != find)
+			pick(&list, CHAR_GENERAL, word, find);
+		if (*find == '\0')
 			break ;
-		}
-		if (start != arg)
-			ft_lstadd_back(list, ft_lstnew(ft_xsubstr(arg, 0, start - arg)));
-		end = start + 1;
-		while (ft_strchr("$ \"\'\0", *end) == NULL)
-			end++;
-		ft_lstadd_back(list, ft_lstnew(ft_xsubstr(start, 0, end - start)));
-		arg = end;
+		else if (*find == '$')
+			end = ft_strchrset(find + 1, "\t\n\v\f\r \"\'$\0", 10) - 1;
+		else if (*find == '\"' || *find == '\'')
+			end = ft_strchr(find + 1, *find);
+		pick(&list, *find, find, end);
+		word = end + 1;
 	}
+	return (list);
 }
 
-static void	expand_var(t_list *separated)
+static void	pick(t_list **list, t_token_type type, char *start, char *end)
 {
-	char	*content;
-	char	*tmp;
+	char	*in_quote_str;
 
-	while (separated)
+	if (type == CHAR_DQUOTE)
 	{
-		content = (char *)separated->content;
-		if (content[0] == '$' && content[1] != '\0')
-		{
-			tmp = (char *)hash_getstr(g_shell.env, content + 1);
-			if (tmp == NULL)
-				tmp = "";
-			free_set(&separated->content, ft_xstrdup(tmp));
-		}
-		separated = separated->next;
+		in_quote_str = ft_xsubstr(start, 1, end - start - 1);
+		ft_lstadd_back(list, separate_to_list(in_quote_str, STATE_IN_DQUOTE));
+		free(in_quote_str);
 	}
+	else if (type == CHAR_DOLLAR)
+		ft_lstadd_back(list, ft_xlstnew(
+				new_tok(CHAR_DOLLAR, ft_xsubstr(start, 1, end - start))));
+	else if (type == CHAR_QUOTE)
+		ft_lstadd_back(list, ft_xlstnew(
+				new_tok(CHAR_GENERAL, ft_xsubstr(start, 1, end - start - 1))));
+	else
+		ft_lstadd_back(list, ft_xlstnew(
+				new_tok(type, ft_xsubstr(start, 0, end - start))));
 }
 
-static char	*join(t_list *separated)
+static void	*expand_for_map(void *content)
 {
-	char	*tmp;
+	t_tok	*tok;
+	char	*new_str;
 
-	tmp = ft_xstrdup("");
-	while (separated)
+	tok = (t_tok *)content;
+	if (tok->type == CHAR_DOLLAR)
 	{
-		free_set((void **)&tmp, ft_xstrjoin(tmp, separated->content));
-		separated = separated->next;
+		new_str = (char *)hash_getstr(g_shell.env, tok->data);
+		if (new_str == NULL)
+			new_str = "";
+		if (ft_strcmp(tok->data, "") == 0)
+			new_str = "$";
+		return (ft_xstrdup(new_str));
 	}
-	return (tmp);
+	return (ft_xstrdup(tok->data));
 }
 
-char	*minishell_expand(char *arg)
+// void	print(void *content)
+// {
+// 	ft_putstr_fd(YELLOW, 2);
+// 	ft_putendl_fd(((t_tok *)content)->data, 2);
+// 	ft_putstr_fd(END, 2);
+// }
+
+char	*minishell_expand(char *word)
 {
 	t_list	*separated;
+	t_list	*expanded;
 	char	*ret;
 
-	if (arg == NULL)
+	if (word == NULL)
 		ft_fatal("minishell_expand : Invalid argument");
-	if (ft_strchr(arg, '$') == NULL)
-		return (ft_xstrdup(arg));
-	separated = NULL;
-	separate_to_list(arg, &separated);
-	expand_var(separated);
-	ret = join(separated);
-	ft_lstclear(&separated, free);
+	separated = separate_to_list(word, 0);
+	expanded = ft_lstmap(separated, expand_for_map, free);
+	ret = lst_join_str(expanded, "");
+	ft_lstclear(&separated, tok_free);
+	ft_lstclear(&expanded, free);
 	return (ret);
 }
