@@ -23,8 +23,9 @@ obj			= $(src:%.c=$(src_dir)/%.o)
 # ***********************************
 
 CC 			= gcc
-LIBS		= -L./libft/libft -L./libft/libex -L./libft/libhash -lft -lex -lhash -lreadline
-CFLAGS		= -Wall -Wextra -Werror -O3 -g $(includes:%=-I%)
+LIBS		= -L./libft/libft -L./libft/libex -L./libft/libhash \
+				-lft -lex -lhash -lreadline -lhistory -L$(shell brew --prefix readline)/lib
+CFLAGS		= -Wall -Wextra -Werror -O3 -g $(includes:%=-I%) -I$(shell brew --prefix readline)/include
 
 # ***********************************
 
@@ -62,6 +63,7 @@ src =\
 	./execute/error.c \
 	./expand/expand.c \
 	./expand/expand_astree.c \
+	./signal/signal.c \
 
 # ***********************************
 

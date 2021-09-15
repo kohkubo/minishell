@@ -42,4 +42,6 @@ void			expand_handler_heredoc(t_list *lst);
 char			**get_fullpath(const char *path, char *cmd);
 void			expand_astree(t_astree *tree);
 
+void			signal_init(void);
+void			signal_handler_prompt(int sig);
 #endif

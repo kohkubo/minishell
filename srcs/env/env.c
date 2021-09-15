@@ -39,6 +39,7 @@ static void	env_init(void)
 void	minishell_init(void)
 {
 	errno = 0;
-	g_shell.env = hash_create_table(10);
+	g_shell.env = hash_create_table(1024);
+	signal_init();
 	env_init();
 }
