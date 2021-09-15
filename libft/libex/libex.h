@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   libex.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 16:01:50 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/09/06 16:39:23 by ywake            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef LIBEX_H
 # define LIBEX_H
 # include "../libft/libft.h"
@@ -17,28 +5,35 @@
 # include <stdio.h>
 # include <stdbool.h>
 
-void	strsort(char *str[], int n);
+bool	is_num_string(char *s);
+bool	is_space_string(char *s);
 char	**free_string_array(char **buf);
-int		get_next_line(int fd, char **line);
-size_t	ft_min_size_t(size_t a, size_t b);
-void	free_set(void **dst, void *src);
-void	*ft_xmalloc(size_t size);
-void	ft_fatal(const char *emsg);
-void	ft_error_exit(const char *emsg);
-void	*ft_xcalloc(size_t count, size_t size);
+char	**str_arraydup(char **array);
+char	*ft_strchrset(const char *s, char *charset);
 char	*ft_strndup(const char *s1, size_t n);
+char	*ft_xstrdup(const char *s1);
+char	*ft_xstrjoin(char const *s1, char const *s2);
+char	*ft_xsubstr(const char *s, unsigned int start, size_t len);
+char	*lst_join_str(t_list *lst, char *sep);
+char	*random_string(size_t size);
+int		arraylen(char **array);
+int		catch_error(int status, char *title);
 int		contain(char **array, char *word);
+int		debug_arraycmp(char **aa, char **bb);
 int		ft_isspace(int c);
 int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_xstrdup(const char *s1);
-bool	is_space_string(char *s);
-size_t	spacelen(char *s);
-int		arraylen(char **array);
-void	print_array(char **array);
-char	*random_string(size_t size);
-char	**str_arraydup(char **array);
-int		debug_arraycmp(char **aa, char **bb);
-bool	is_num_string(char *s);
+int		get_next_line(int fd, char **line);
 long	ft_atol(const char *s);
-
+size_t	ft_min_size_t(size_t a, size_t b);
+size_t	spacelen(char *s);
+t_list	*ft_xlstnew(void *content);
+void	*catch_null(void *ptr, char *title);
+void	*ft_xcalloc(size_t count, size_t size);
+void	*ft_xmalloc(size_t size);
+void	free_set(void **dst, void *src);
+void	ft_error_exit(const char *emsg);
+void	ft_fatal(const char *emsg);
+void	pexit(char *message);
+void	print_array(char **array);
+void	strsort(char *str[], int n);
 #endif
