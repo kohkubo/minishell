@@ -15,19 +15,22 @@ static void	qsort_strarray(char **array)
 
 static void	test_res_null(t_hash_table *t, char *key)
 {
-	t_dict_item *item = hash_search(t, key);
+	t_dict_item	*item;
 
+	item = hash_search(t, key);
 	if (!item && item->value != NULL)
 		exit(1);
 }
 
-int	main()
+// setのチェック、上書きのチェック
+// getstrできるか
+// NULLが格納されているかのチェック
+// getallのチェック
+void	test_hash_null_set(t_hash_table *t)
 {
-	t_hash_table *t;
+	char	**arr;
+	char	**ans;
 
-	t = hash_create_table(10);
-
-	// setのチェック、上書きのチェック
 	hash_setstr(t, "VAL0", NULL);
 	hash_setstr(t, "VAL0", NULL);
 	hash_setstr(t, "VAL2", NULL);
@@ -35,44 +38,36 @@ int	main()
 	hash_setstr(t, "VAL0", NULL);
 	hash_setstr(t, "VAL5", NULL);
 	hash_setstr(t, "VAL6", NULL);
-
-	// getstrできるか
-	const char *val0 = hash_getstr(t, "VAL7");
-	if (val0 != NULL)
+	if (hash_getstr(t, "VAL7") != NULL)
 		exit(1);
-	// NULLが格納されているかのチェック
 	test_res_null(t, "VAL0");
 	test_res_null(t, "VAL2");
 	test_res_null(t, "VAL5");
 	test_res_null(t, "VAL6");
-
-	// getallのチェック
-	char **arr = hash_getall(t, NULL);
+	arr = hash_getall(t, NULL);
 	qsort_strarray(arr);
-	char **ans = ft_split("VAL0 VAL2 VAL3=test VAL5 VAL6", ' ');
+	ans = ft_split("VAL0 VAL2 VAL3=test VAL5 VAL6", ' ');
 	if (debug_arraycmp(arr, ans) != -1)
 		exit(1);
 	free_string_array(arr);
 	free_string_array(ans);
+}
 
-	// 消去のチェック
+int	main(void)
+{
+	t_hash_table	*t;
+
+	t = hash_create_table(10);
+	test_hash_null_set(t);
 	hash_remove(t, "VAL2");
-	t_dict_item *item = hash_search(t, "VAL2");
-	if (item != NULL)
+	if (hash_search(t, "VAL2") != NULL)
 		exit(1);
-
-	// NULLで上書きされているか
 	hash_setstr(t, "VAL3", NULL);
 	test_res_null(t, "VAL3");
-
-	//もともとNULLのときに上書きできるかチェック
 	test_res_null(t, "VAL5");
 	hash_setstr(t, "VAL5", "aiueo");
-	const char *val5 = hash_getstr(t, "VAL5");
-	if (strcmp(val5, "aiueo"))
+	if (strcmp(hash_getstr(t, "VAL5"), "aiueo"))
 		exit(1);
-
 	hash_clear_table(&t);
-
-	return 0;
+	return (0);
 }

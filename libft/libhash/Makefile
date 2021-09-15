@@ -45,3 +45,6 @@ re: fclean all
 
 sani-debug: fclean
 	$(MAKE) CFLAGS="$(CFLAGS) -fsanitize=address"
+
+test:
+	bash ./tests-hash/test.sh

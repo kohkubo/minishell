@@ -3,9 +3,12 @@
 #include "libhash.h"
 #include <libc.h>
 
-int	main()
+int	catch_error(int state);
+
+int	main(void)
 {
-	t_hash_table *table;
+	t_hash_table	*table;
+	t_dict_item		*item;
 
 	table = hash_create_table(100);
 	hash_setstr(table, "ENV", "aaaaaaaa");
@@ -17,25 +20,13 @@ int	main()
 	hash_setstr(table, "", "kara");
 	hash_setstr(table, " ", "space");
 	hash_setstr(table, "  ", "space2");
-
-	t_dict_item *item = hash_search(table, "ENV");
-	if (!item && strcmp(item->value, "aaaaaaaa"))
-		exit(1);
-
+	item = hash_search(table, "ENV");
+	catch_error(!item && strcmp(item->value, "aaaaaaaa"));
 	item = hash_search(table, "");
-	if (!item && strcmp(item->value, "kara"))
-		exit(1);
+	catch_error(!item && strcmp(item->value, "kara"));
 	hash_remove(table, "");
-
-	if (hash_contains_key(table, ""))
-		exit(1);
-
-	if (hash_search(table, ""))
-		exit(1);
-
-	// エラーケース
-	// hash_search(table, NULL);
+	catch_error(hash_contains_key(table, ""));
+	catch_error(hash_search(table, "") != NULL);
 	hash_clear_table(&table);
-
-	return 0;
+	return (0);
 }
