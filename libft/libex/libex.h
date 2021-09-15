@@ -9,7 +9,7 @@ bool	is_num_string(char *s);
 bool	is_space_string(char *s);
 char	**free_string_array(char **buf);
 char	**str_arraydup(char **array);
-char	*ft_strchrset(const char *s, char *charset);
+char	*ft_strchrset(const char *s, char *chrset, size_t chrset_len);
 char	*ft_strndup(const char *s1, size_t n);
 char	*ft_xstrdup(const char *s1);
 char	*ft_xstrjoin(char const *s1, char const *s2);
