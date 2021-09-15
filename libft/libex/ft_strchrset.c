@@ -3,18 +3,21 @@
 char	*ft_strchrset(const char *s, char *chrset, size_t chrset_len)
 {
 	size_t	i;
-	char	*find;
+	size_t	j;
+	size_t	s_len;
 
-	while (*s)
+	s_len = ft_strlen(s);
+	i = 0;
+	while (i < s_len + 1)
 	{
-		i = 0;
-		while (i < chrset_len)
+		j = 0;
+		while (j < chrset_len)
 		{
-			find = ft_strchr(s++, chrset[i]);
-			if (find)
-				return (find);
-			i++;
+			if (chrset[j] == s[i])
+				return ((char *)&s[i]);
+			j++;
 		}
+		i++;
 	}
 	return (NULL);
 }
@@ -42,6 +45,7 @@ int	main(void)
 	flg &= test("test", "\0", 1, 4);
 	flg &= test("test", "as", 2, 2);
 	flg &= test("test", "a\0b", 3, 4);
+	flg &= test("abcde", "ed", 3, 3);
 	if (flg)
 		write(2, "OK!\n", 4);
 	else
