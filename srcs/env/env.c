@@ -17,7 +17,8 @@ void	store_shellenv(char **arr, t_hash_table *table)
 		}
 		else
 		{
-			hash_setstr(table, arr[i], NULL);
+			if (hash_getstr(table, arr[i]) == NULL)
+				hash_setstr(table, arr[i], NULL);
 		}
 		i++;
 	}
