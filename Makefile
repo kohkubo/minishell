@@ -116,8 +116,13 @@ test_unit	:
 test_issue	:
 	bash ./tests/all-test.sh ./tests/issue $(TARGET)
 
-leak		: $(obj) $(lib)
-	$(CC) $(CFLAGS) $(obj) $(LIBS) $(sharedlib) -o $(NAME)
+Darwin_leak: $(obj) $(lib) $(DSTRCTR)
+	$(CC) $(CFLAGS) $(obj) $(sharedlib) -o $(NAME) $(LIBS)
+
+Linux_leak: $(lib)
+	$(CC) $(CFLAGS) -fsanitize=address $(src:%.c=$(src_dir)/%.c) -o $(NAME) $(LIBS)
+
+leak: $(shell uname)_leak
 
 sani-debug	: fclean lib_sani-debug
 	$(MAKE) CFLAGS="$(CFLAGS) -fsanitize=address" $(lib)
