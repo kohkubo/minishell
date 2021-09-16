@@ -26,7 +26,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: Run Test.
-        run: make test
+        run: make -j8 test
 
   norm:
     # The type of runner that the job will run on
