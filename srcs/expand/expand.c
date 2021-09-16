@@ -24,14 +24,25 @@ static t_list	*separate_to_lst(char *str, char *separator)
 	return (list);
 }
 
-static char	*expand_env(t_list *separated)
+static t_list	*expand_dol(t_list *separated)
 {
+	char	*content;
 	char	*tmp;
 
-	tmp = (char *)hash_getstr(g_shell.env, (char *)separated->content);
-	if (tmp == NULL)
-		tmp = "";
-	return (ft_xstrdup(tmp));
+	if (separated->next == NULL || \
+ft_strchrset((char *)separated->next->content, " \t\n\v\f\r\"\'", 8) != NULL)
+		free_set(&separated->content, ft_xstrdup("$"));
+	else
+	{
+		free_set(&separated->content, NULL);
+		separated = separated->next;
+		content = (char *)separated->content;
+		tmp = (char *)hash_getstr(g_shell.env, content);
+		if (tmp == NULL)
+			tmp = "";
+		free_set(&separated->content, ft_xstrdup(tmp));
+	}
+	return (separated);
 }
 
 static void	expand_handler(t_list *separated)
@@ -51,14 +62,8 @@ static void	expand_handler(t_list *separated)
 			free_set(&separated->content, NULL), state = STATE_IN_DQUOTE;
 		else if (ft_strcmp(content, "\"") == 0 && state == STATE_IN_DQUOTE)
 			free_set(&separated->content, NULL), state = STATE_GENERAL;
-		else if (ft_strcmp(content, "$") == 0 && state != STATE_IN_QUOTE
-			&& separated->next != NULL && \
-	ft_strchrset((char *)separated->next->content, " \t\n\v\f\r\"\'") == NULL)
-		{
-			free_set(&separated->content, NULL);
-			separated = separated->next;
-			free_set(&separated->content, expand_env(separated));
-		}
+		else if (ft_strcmp(content, "$") == 0 && state != STATE_IN_QUOTE)
+			separated = expand_dol(separated);
 		separated = separated->next;
 	}
 }
