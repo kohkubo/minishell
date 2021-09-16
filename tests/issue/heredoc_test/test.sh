@@ -1,6 +1,6 @@
 #!/bin/bash
 
-make tests/issue/heredoc_test/main.c+leak > /dev/null
+make -j8 tests/issue/heredoc_test/main.c+leak > /dev/null
 
 cd "$(dirname "$0")" || exit
 

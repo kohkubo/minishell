@@ -142,13 +142,13 @@ prepush		: norm test
 # ***********************************
 
 $(libft): $(libft_dir)/*.c
-	$(MAKE) -C $(libft_dir)
+	$(MAKE) -j8 -C $(libft_dir)
 
 $(libex): $(libex_dir)/*.c
-	$(MAKE) -C $(libex_dir)
+	$(MAKE) -j8 -C $(libex_dir)
 
 $(libhash): $(libhash_dir)/*.c
-	$(MAKE) -C $(libhash_dir)
+	$(MAKE) -j8 -C $(libhash_dir)
 
 lib_make	:$(libft) $(libex) $(libhash)
 
@@ -164,8 +164,8 @@ lib_fclean	:
 
 lib_sani-debug	:
 	$(MAKE) -C $(libft_dir)
-	$(MAKE) sani-debug -C $(libex_dir)
-	$(MAKE) sani-debug -C $(libhash_dir)
+	$(MAKE) -j8 sani-debug -C $(libex_dir)
+	$(MAKE) -j8 sani-debug -C $(libhash_dir)
 
 FORCE:
 
