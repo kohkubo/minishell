@@ -15,7 +15,7 @@ FLG=0
 if [ "$2" == "" ]; then
 	make fclean > /dev/null
 fi
-make -j8 leak > /dev/null
+make leak > /dev/null
 
 for path in $(find $DIR -type f -name test.sh);
 do

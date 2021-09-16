@@ -2,7 +2,7 @@
 
 EXIT_CODE=0
 
-make -j8 tests/unit-test/function-lex/main.c+leak > /dev/null
+make tests/unit-test/function-lex/main.c+leak > /dev/null
 
 cd "$(dirname "$0")" || exit
 
@@ -16,7 +16,7 @@ if [ $? -ne 0 ]; then
 fi
 
 cd "$REPO_ROOT" || exit
-make -j8 tests/unit-test/function-lex/main.c+sani > /dev/null
+make tests/unit-test/function-lex/main.c+sani > /dev/null
 cd "$(dirname "$0")" || exit
 
 ./a.out > output
@@ -33,6 +33,6 @@ rm -rf ./a.out.dSYM
 
 cd "$REPO_ROOT" || exit
 make fclean >/dev/null
-make -j8 leak > /dev/null
+make leak > /dev/null
 
 exit $EXIT_CODE
