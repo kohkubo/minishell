@@ -23,7 +23,7 @@ obj			= $(src:%.c=$(src_dir)/%.o)
 # ***********************************
 
 CC 			= gcc
-LIBS		= -L./libft/libft -L./libft/libex -L./libft/libhash -lft -lex -lhash -lreadline
+LIBS		= -L./libft/libft -L./libft/libex -L./libft/libhash -lreadline -lhash -lex -lft
 CFLAGS		= -Wall -Wextra -Werror -O3 -g $(includes:%=-I%)
 
 # ***********************************

@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -O3 -g
+CFLAGS = -Wall -Wextra -Werror -O3 -g -Wno-unused-result
 NAME = libft.a
 
 src =\
