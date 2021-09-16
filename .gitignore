@@ -4,6 +4,7 @@
 !Makefile
 !*.c
 !*.h
+!*.sh
 
 # allowed dirs
 !srcs/

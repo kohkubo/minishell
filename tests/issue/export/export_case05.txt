@@ -1,1 +1,2 @@
 export AAA=aaa BBB=bbb CCC
+export

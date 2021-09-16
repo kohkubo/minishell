@@ -34,9 +34,13 @@ int				ft_unset(char **args);
 int				ft_pwd(char **args);
 bool			parse_v2(t_lexer *lex, t_astree **res_buf);
 int				minishell_execute(t_astree *tree);
+char			*minishell_expand(char *arg);
 
 void			pexit(char *message);
 int				catch_error(int status, char *title);
 void			*catch_null(void *ptr, char *title);
+
+char			*ft_xsubstr(const char *s, unsigned int start, size_t len);
+t_list			*ft_xlstnew(void *content);
 
 #endif

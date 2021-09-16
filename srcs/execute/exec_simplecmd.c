@@ -95,7 +95,7 @@ char	**tree_to_argv(t_astree *tree)
 	len = 0;
 	while (tree)
 	{
-		ret[len] = ft_xstrdup(tree->data);
+		ret[len] = minishell_expand(tree->data);
 		tree = tree->right;
 		len++;
 	}

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lex.h                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 16:06:12 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/25 11:52:25 by kohkubo          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef LEX_H
 # define LEX_H
 
@@ -35,6 +23,8 @@ typedef enum e_token_type
 	CHAR_GREATER2		= '>' + PAD,
 	CHAR_LESSER			= '<',
 	CHAR_LESSER2		= '<' + PAD,
+	CHAR_DOL			= '$',
+	CHAR_ENV			= '$' + PAD,
 	CHAR_NULL			= 0,
 	TOKEN				= -1,
 }	t_token_type;
