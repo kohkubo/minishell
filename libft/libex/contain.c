@@ -6,7 +6,7 @@
 /*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:51:38 by ywake             #+#    #+#             */
-/*   Updated: 2021/08/09 15:51:39 by ywake            ###   ########.fr       */
+/*   Updated: 2021/09/16 18:27:52 by ywake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	contain(char **array, char *word)
 	i = 0;
 	while (array[i])
 	{
-		if (ft_strncmp(array[i], word, SIZE_MAX) == 0)
+		if (ft_strncmp(array[i], word, -1) == 0)
 			return (i);
 		i++;
 	}

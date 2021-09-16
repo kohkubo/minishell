@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash_getall.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: ywake <ywake@student.42tokyo.jp>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:07:51 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/30 17:54:38 by kohkubo          ###   ########.fr       */
+/*   Updated: 2021/09/16 18:27:51 by ywake            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*dict_fmt_value_null(char *key)
 	char	*s;
 
 	s = ft_xmalloc(ft_strlen(key) + 1);
-	ft_strlcpy(s, key, SIZE_MAX);
+	ft_strlcpy(s, key, -1);
 	return (s);
 }
 
@@ -28,9 +28,9 @@ static char	*dict_fmt(char *key, char *value)
 	if (value == NULL)
 		return (dict_fmt_value_null(key));
 	s = ft_xmalloc(ft_strlen(key) + ft_strlen(value) + 2);
-	ft_strlcpy(s, key, SIZE_MAX);
-	ft_strlcat(s, "=", SIZE_MAX);
-	ft_strlcat(s, value, SIZE_MAX);
+	ft_strlcpy(s, key, -1);
+	ft_strlcat(s, "=", -1);
+	ft_strlcat(s, value, -1);
 	return (s);
 }
 

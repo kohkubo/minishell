@@ -17,9 +17,9 @@ int	ft_echo(char **args)
 	if (args == NULL)
 		return (1);
 	ft_echo_exit_check(args);
-	if (!ft_strncmp(*args, "-", SIZE_MAX))
+	if (!ft_strncmp(*args, "-", -1))
 		ft_echo_exit_check(++args);
-	else if (!ft_strncmp(*args, "-n", SIZE_MAX))
+	else if (!ft_strncmp(*args, "-n", -1))
 	{
 		op_flg = true;
 		if (*++args == NULL)
