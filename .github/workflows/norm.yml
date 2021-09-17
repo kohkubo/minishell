@@ -26,14 +26,14 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - name: Run Test.
-        run: make -j8 test_issue
+        run: make test_issue
 
   test_unit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run Test.
-        run: make -j8 test_unit
+        run: make test_unit
 
   norm:
     # The type of runner that the job will run on
