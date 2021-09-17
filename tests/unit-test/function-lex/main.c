@@ -3,7 +3,6 @@
 #include "libft.h"
 #include "libex.h"
 #include "libhash.h"
-#include <libc.h>
 
 t_shell	g_shell;
 

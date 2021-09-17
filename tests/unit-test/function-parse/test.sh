@@ -14,7 +14,7 @@ gcc -g $INCLUDES \
 $DIR/test.c \
 $(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/parse/ -type f -name "*.c" -not -name 'parse.c') \
-$SHARED_LIB $LIBS -lft -lex -lreadline || exit 1
+$SHARED_LIB $LIBS -lex -lft -lreadline || exit 1
 
 $DIR/a.out
 AOUT=$?
@@ -32,7 +32,7 @@ gcc -g $INCLUDES \
 "$DIR/for_error_test.c" \
 $(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/parse/ -type f -name "*.c" -not -name 'parse.c') \
-$SHARED_LIB $LIBS -lft -lex -lreadline || exit 1
+$SHARED_LIB $LIBS -lex -lft -lreadline || exit 1
 
 $DIR/a.out 2> $DIR/out
 AOUT=$?

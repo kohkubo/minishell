@@ -8,7 +8,11 @@ fi
 export REPO_ROOT="$PWD"
 export INCLUDES="-I./includes -I./libft/libft -I./libft/libex -I./libft/libhash"
 export LIBS="-L./libft/libft -L./libft/libex -L./libft/libhash"
-export SHARED_LIB="$PWD/tests/sharedlib.c"
+if [ uname == "Darwin" ];then
+	export SHARED_LIB="$PWD/tests/sharedlib.c"
+else
+	export SHARED_LIB="-fsanitize=address"
+fi
 
 FLG=0
 

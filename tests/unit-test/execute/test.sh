@@ -11,7 +11,7 @@ $(find $REPO_ROOT/srcs/execute/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/built-in/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/expand/ -type f -name "*.c") \
 $REPO_ROOT/srcs/env/env.c \
-$LIBS -lft -lex -lhash -lreadline $SHARED_LIB
+$LIBS -lreadline -lhash -lex -lft $SHARED_LIB
 
 tests=(
 	# exec_with_path 経路のテスト

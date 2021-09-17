@@ -137,8 +137,14 @@ norm:
 tests/%/main.c: $(lib) FORCE
 	$(CC) $(CFLAGS) $@ $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) -o $(subst main.c,a.out,$@) $(LIBS)
 
-tests/%/main.c+leak: $(lib) $(sharedlib)
-	$(CC) $(CFLAGS) $(subst +leak,,$@) $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) $(sharedlib) -o $(subst main.c+leak,a.out,$@) $(LIBS)
+tests/%/main.c+leak:
+	$(MAKE) $@_$(shell uname)
+
+tests/%/main.c+leak_Darwin: $(lib) $(sharedlib)
+	$(CC) $(CFLAGS) $(subst +leak_Darwin,,$@) $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) $(sharedlib) -o $(subst main.c+leak_Darwin,a.out,$@) $(LIBS)
+
+tests/%/main.c+leak_Linux: $(lib)
+	$(CC) $(CFLAGS) $(subst +leak_Linux,,$@) $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) -fsanitize=address -o $(subst main.c+leak_Linux,a.out,$@) $(LIBS)
 
 tests/%/main.c+sani: $(lib)
 	$(CC) $(CFLAGS) -fsanitize=address $(subst +sani,,$@) $(filter-out srcs/./main.c,$(src:%.c=$(src_dir)/%.c)) -o $(subst main.c+sani,a.out,$@) $(LIBS)

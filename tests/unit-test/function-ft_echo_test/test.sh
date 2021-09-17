@@ -68,7 +68,7 @@ test_res_print $RES2
 
 echo "===================================="
 
-rm expect output output2 a.out leaksout
+rm -f expect output output2 a.out leaksout
 
 if [ $RES1 -eq 1 ] || [ $RES2 -eq 1 ]; then
 	exit 1

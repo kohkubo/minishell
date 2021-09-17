@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <libc.h>
 #include "shell.h"
 
 int main()
