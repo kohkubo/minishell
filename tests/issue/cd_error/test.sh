@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 cp ./minishell "$(dirname "$0")"
 
 cd "$(dirname "$0")" || exit
@@ -17,7 +16,7 @@ for file in $(ls *.txt); do
 	echo "bbb" > ./testcd4/testcd5/testcd6/test01.txt
 	echo "ccc" > ./testcd4/testcd5/testcd6/test02.txt
 	echo "Testing $file"
-	bash < $file >> expect 2>&1
+	zsh < $file >> expect 2>&1
 	./minishell < $file >> output 2>&1
 	diff expect output &> /dev/null
 	if [ $? -ne 0 ]; then
