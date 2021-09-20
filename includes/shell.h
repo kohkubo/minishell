@@ -33,6 +33,7 @@ int				ft_env(char **args);
 int				ft_export(char **args);
 int				ft_unset(char **args);
 int				ft_pwd(char **args);
+int				ft_cd(char **args);
 bool			parse_v2(t_lexer *lex, t_astree **res_buf);
 int				minishell_execute(t_astree *tree);
 char			*minishell_expand(char *arg);

@@ -38,6 +38,7 @@ src =\
 	./built-in/ft_env.c \
 	./built-in/ft_export.c \
 	./built-in/ft_unset.c \
+	./built-in/ft_cd.c \
 	./built-in/ft_pwd.c \
 	./main.c \
 	./utils.c \
