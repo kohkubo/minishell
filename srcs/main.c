@@ -15,8 +15,7 @@ int	main(void)
 	t_lexer		*lex;
 	t_astree	*tree;
 
-	minishell_init();
-	input = NULL;
+	minishell_init(&input, &lex, &tree);
 	while (1)
 	{
 		input = readline(PROMPT);
@@ -28,7 +27,6 @@ int	main(void)
 			continue ;
 		}
 		add_history(input);
-		lex = NULL;
 		minishell_lexer(input, &lex);
 		tree = NULL;
 		if (parse_v2(lex, &tree))

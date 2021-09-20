@@ -36,9 +36,12 @@ static void	env_init(void)
 	g_shell.pwd = getcwd(NULL, 0);
 }
 
-void	minishell_init(void)
+void	minishell_init(char **input, t_lexer **lex, t_astree **tree)
 {
 	errno = 0;
+	*input = NULL;
+	*lex = NULL;
+	*tree = NULL;
 	g_shell.env = hash_create_table(1024);
 	signal_init();
 	env_init();
