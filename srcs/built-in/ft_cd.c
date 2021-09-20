@@ -1,10 +1,12 @@
 #include "shell.h"
 
-static bool	ft_cd_do(char *path, char *oldpwd)
+static bool	ft_cd_do(char *path, char *oldpwd, bool printflg)
 {
 	if (chdir(path) == -1)
 		return (false);
 	path = getcwd(NULL, 0);
+	if (printflg)
+		printf("%s\n", path);
 	hash_setstr(g_shell.env, "PWD", path);
 	hash_setstr(g_shell.env, "OLDPWD", oldpwd);
 	free_set((void **) &g_shell.pwd, path);
@@ -28,13 +30,13 @@ static int	ft_cd_cdpath(char *path, char *oldpwd, const char *cdpath)
 	int		i;
 
 	flg = false;
-	if (!ft_cd_do(path, oldpwd))
+	if (!ft_cd_do(path, oldpwd, false))
 	{
 		paths = get_fullpath(cdpath, path);
 		i = 0;
 		while (paths[i])
 		{
-			if (ft_cd_do(paths[i], oldpwd))
+			if (ft_cd_do(paths[i], oldpwd, true))
 			{
 				flg = true;
 				break ;
@@ -70,7 +72,7 @@ int	ft_cd(char **args)
 	if (cdpath != NULL && path[0] != '/')
 		return (ft_cd_cdpath(path, oldpwd, cdpath));
 	else
-		if (!ft_cd_do(path, oldpwd))
+		if (!ft_cd_do(path, oldpwd, false))
 			return (ft_cd_no_such_fild_or_dir(path, oldpwd));
 	return (0);
 }
