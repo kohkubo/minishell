@@ -1,0 +1,6 @@
+cd testcd1
+pwd
+echo $PWD
+echo $OLDPWD
+echo $CDPATH
+

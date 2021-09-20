@@ -1,0 +1,12 @@
+export CDPATH='./testcd4/testcd5'
+cd testcd6
+ls
+pwd
+echo $PWD
+echo $OLDPWD
+echo $CDPATH
+cd ..
+pwd
+echo $PWD
+echo $OLDPWD
+echo $CDPATH
