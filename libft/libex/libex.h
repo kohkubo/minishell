@@ -8,6 +8,7 @@
 bool	is_num_string(char *s);
 bool	is_space_string(char *s);
 char	**free_string_array(char **buf);
+char	**ft_xsplit(char const *s, char c);
 char	**str_arraydup(char **array);
 char	*ft_strchrset(const char *s, char *chrset, size_t chrset_len);
 char	*ft_strndup(const char *s1, size_t n);
