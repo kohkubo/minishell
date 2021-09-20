@@ -20,7 +20,9 @@ int	main(void)
 	while (1)
 	{
 		input = readline(PROMPT);
-		if (input == NULL || ft_strlen(input) == 0)
+		if (input == NULL)
+			exit(0);
+		if (ft_strlen(input) == 0)
 		{
 			free_set((void **)&input, NULL);
 			continue ;
