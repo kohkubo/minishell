@@ -36,8 +36,6 @@ int				ft_pwd(char **args);
 bool			parse_v2(t_lexer *lex, t_astree **res_buf);
 int				minishell_execute(t_astree *tree);
 char			*minishell_expand(char *arg);
-
-char			*ft_xsubstr(const char *s, unsigned int start, size_t len);
-t_list			*ft_xlstnew(void *content);
+char			**get_fullpath(const char *path, char *cmd);
 
 #endif
