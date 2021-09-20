@@ -14,6 +14,6 @@ void	signal_handler_prompt(int sig)
 void	signal_init(void)
 {
 	if (signal(SIGINT, signal_handler_prompt) == SIG_ERR
-		|| signal(SIGQUIT, signal_handler_prompt) == SIG_ERR)
+		|| signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		ft_fatal("signal error: ");
 }
