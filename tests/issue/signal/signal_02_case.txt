@@ -1,0 +1,6 @@
+./minishell
+aiueo
+ctrl+\
+ctrl+c
+ctrl+c
+ctrl+d
