@@ -33,7 +33,7 @@ void	*ft_xmalloc(size_t size);
 void	free_set(void **dst, void *src);
 void	ft_error_exit(const char *emsg);
 void	ft_fatal(const char *emsg);
-void	pexit(char *message);
+void	pexit(char *message, int status);
 void	print_array(char **array);
 void	strsort(char *str[], int n);
 #endif
