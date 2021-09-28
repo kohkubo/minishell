@@ -22,8 +22,8 @@ int	main(void)
 		lex = NULL;
 		minishell_lexer(input, &lex);
 		tree = NULL;
-		parse_v2(lex, &tree);
-		minishell_execute(tree);
+		if (parse_v2(lex, &tree))
+			minishell_execute(tree);
 		lexer_free(&lex);
 		tree = astree_delete_node(tree);
 		free_set((void **)&input, NULL);

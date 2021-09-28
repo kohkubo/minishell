@@ -26,7 +26,7 @@ char	**get_fullpath(const char *path, char *cmd)
 	return (paths);
 }
 
-void	exec_with_path(char *cmd, char **args, char **envp)
+int	exec_with_path(char *cmd, char **args, char **envp)
 {
 	char	**fullpaths;
 	int		i;
@@ -36,42 +36,15 @@ void	exec_with_path(char *cmd, char **args, char **envp)
 	while (fullpaths && fullpaths[i])
 	{
 		if (access(fullpaths[i], X_OK) == 0)
-			exit(catch_error(execve(fullpaths[i], args, envp), cmd));
+			return (catch_error(execve(fullpaths[i], args, envp), cmd));
 		i++;
 	}
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putendl_fd(": command not found", 2);
-	exit(1);
-}
-
-typedef int			(*t_builtIn_func)(char **arg);
-
-/**
- * @return true if builtin was run, false otherwise.
- */
-bool	run_if_builtin(char *cmd, char **args)
-{
-	char			**builtIn_names;
-	t_builtIn_func	*builtIn_funcs;
-	int				i;
-
-	builtIn_names = (char *[]){
-		"echo", "cd", "pwd", "export", "unset", "env", "exit", NULL};
-	i = contain(builtIn_names, cmd);
-	if (i < 0)
-		return (false);
-	builtIn_funcs = (t_builtIn_func []){
-		ft_echo, NULL, ft_pwd, ft_export, ft_unset, ft_env, ft_exit, NULL};
-	if (builtIn_funcs[i] != NULL)
-		exit(builtIn_funcs[i](&args[1]));
+	if (errno == ENOENT)
+		return (command_not_found(cmd));
+	else if (errno == EACCES)
+		return (perror(cmd), 126);
 	else
-	{
-		ft_putstr_fd(cmd, 2);
-		ft_putendl_fd(" is not implemented yet", 2);
-		exit(1);
-	}
-	return (true);
+		return (perror(cmd), 126);
 }
 
 char	**tree_to_argv(t_astree *tree)
@@ -102,20 +75,24 @@ char	**tree_to_argv(t_astree *tree)
 /**
  * <simple command>::= <pathname> <token list>
  */
-void	execute_simplecmd(t_astree *tree)
+int	execute_simplecmd(t_astree *tree)
 {
 	char	**args;
 	char	**envp;
+	int		res;
 
 	args = tree_to_argv(tree);
-	if (run_if_builtin(tree->data, args) == false)
+	if (is_builtin(tree))
+		res = exec_builtin(tree->data, args);
+	else
 	{
 		envp = hash_getall(g_shell.env, NULL);
 		if (!ft_strchr(tree->data, '/'))
-			exec_with_path(tree->data, args, envp);
+			res = exec_with_path(tree->data, args, envp);
 		else
-			exit(catch_error(execve(tree->data, args, envp), tree->data));
+			res = catch_error(execve(tree->data, args, envp), tree->data);
 	}
 	if (args)
 		args = free_string_array(args);
+	return (res);
 }

@@ -1,6 +1,16 @@
 #include "exec.h"
 
 #include "astree.h"
+#include <sys/wait.h>
+#include <errno.h>
+#include "libex.h"
+
+enum e_mean
+{
+	_,
+	LAST,
+	LEN
+};
 
 /*
 ** <command line>	::= <job> ';' <command line>	// ignore
@@ -11,5 +21,18 @@
 */
 void	execute_cmdline(t_astree *tree, int *status)
 {
-	execute_job(tree, status);
+	pid_t	pid[2];
+	int		child_status;
+
+	pid[_] = 0;
+	pid[LAST] = -1;
+	execute_job(tree, status, &pid[LAST]);
+	while (pid[_] >= 0)
+	{
+		pid[_] = waitpid(-1, &child_status, 0);
+		if (pid[_] == pid[LAST])
+			*status = child_status;
+	}
+	if (errno != ECHILD)
+		pexit("minishell", 1);
 }
