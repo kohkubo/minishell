@@ -4,7 +4,6 @@ EXIT_CODE=0
 gcc -g $INCLUDES \
 -o "$DIR/a.out" \
 "$DIR/test.c" \
-"$REPO_ROOT/srcs/error.c" \
 $(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/parse/ -type f -name "*.c" -not -name 'parse.c') \
 $(find $REPO_ROOT/srcs/execute/ -type f -name "*.c") \
@@ -42,6 +41,7 @@ do
 		printf "\e[32m%s\n\e[m" ">>  OK!"
 	else
 		EXIT_CODE=1
+		echo "AOUT_EXIT_CODE: $AOUT"
 		diff -y "$DIR/out" "$DIR/expect"
 		printf "\e[31m%s\n\e[m" ">>  KO!"
 	fi
@@ -64,8 +64,8 @@ do
 	AOUT_EXIT_CODE=$?
 
 	diff <(cat "$DIR/out" | sed 's/minishell:/bash: line 1:/') "$DIR/expect" > /dev/null
-	# if [ $? -eq 0 ] && [ $AOUT_EXIT_CODE -eq $BASH_EXIT_CODE ]; then
-	if [ $? -eq 0 ] && [ $AOUT_EXIT_CODE -ne 0 ]; then
+	if [ $? -eq 0 ] && [ $AOUT_EXIT_CODE -eq $BASH_EXIT_CODE ]; then
+	# if [ $? -eq 0 ] && [ $AOUT_EXIT_CODE -ne 0 ]; then
 		printf "\e[32m%s\n\e[m" ">>  OK!"
 	else
 		EXIT_CODE=1

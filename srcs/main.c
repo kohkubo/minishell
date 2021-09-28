@@ -28,5 +28,5 @@ int	main(void)
 		tree = astree_delete_node(tree);
 		free_set((void **)&input, NULL);
 	}
-	return (0);
+	minishell_destroy();
 }

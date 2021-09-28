@@ -12,5 +12,6 @@ int		execute_simplecmd(t_astree *tree);
 int		exec_builtin(char *cmd, char **args);
 bool	is_builtin(t_astree *tree);
 int		command_not_found(char *cmd);
+int		minishell_perror(char *cmd, int status);
 
 #endif

@@ -39,3 +39,8 @@ void	minishell_init(void)
 	g_shell.env = hash_create_table(10);
 	env_init();
 }
+
+void	minishell_destroy(void)
+{
+	hash_clear_table(&g_shell.env);
+}

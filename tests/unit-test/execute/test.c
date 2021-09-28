@@ -14,5 +14,6 @@ int main(int argc, char *argv[])
 	status = minishell_execute(tree);
 	lexer_free(&lex);
 	tree = astree_delete_node(tree);
+	minishell_destroy();
 	return (status);
 }

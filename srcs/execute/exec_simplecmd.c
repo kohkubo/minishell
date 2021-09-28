@@ -30,21 +30,26 @@ int	exec_with_path(char *cmd, char **args, char **envp)
 {
 	char	**fullpaths;
 	int		i;
+	int		res;
 
 	fullpaths = get_fullpath(hash_getstr(g_shell.env, "PATH"), cmd);
+	res = -1;
 	i = 0;
 	while (fullpaths && fullpaths[i])
 	{
 		if (access(fullpaths[i], X_OK) == 0)
-			return (catch_error(execve(fullpaths[i], args, envp), cmd));
+			res = catch_error(execve(fullpaths[i], args, envp), cmd);
 		i++;
 	}
-	if (errno == ENOENT)
-		return (command_not_found(cmd));
-	else if (errno == EACCES)
-		return (perror(cmd), 126);
-	else
-		return (perror(cmd), 126);
+	if (res < 0 && errno == ENOENT)
+		res = command_not_found(cmd);
+	else if (res < 0 && errno == EACCES)
+		res = minishell_perror(cmd, 126);
+	else if (res < 0)
+		res = minishell_perror(cmd, 1);
+	if (fullpaths)
+		free_string_array(fullpaths);
+	return (res);
 }
 
 char	**tree_to_argv(t_astree *tree)
@@ -89,8 +94,15 @@ int	execute_simplecmd(t_astree *tree)
 		envp = hash_getall(g_shell.env, NULL);
 		if (!ft_strchr(tree->data, '/'))
 			res = exec_with_path(tree->data, args, envp);
-		else
+		else if (access(tree->data, X_OK) == 0)
 			res = catch_error(execve(tree->data, args, envp), tree->data);
+		else if (errno == ENOENT)
+			res = minishell_perror(tree->data, 127);
+		else if (errno == EACCES)
+			res = minishell_perror(tree->data, 126);
+		else
+			res = minishell_perror(tree->data, 1);
+		free_string_array(envp);
 	}
 	if (args)
 		args = free_string_array(args);
