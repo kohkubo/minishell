@@ -29,6 +29,7 @@ void	execute_cmdline(t_astree *tree, int *status)
 	pid[LAST] = NO_PIPE;
 	pid[STDIN_BACKUP] = catch_error(dup(STDIN_FILENO), "dup");
 	execute_job(tree, status, &pid[LAST]);
+	dup2(pid[STDIN_BACKUP], STDIN_FILENO);
 	while (pid[_] >= 0)
 	{
 		pid[_] = waitpid(-1, &child_status, 0);
@@ -37,5 +38,4 @@ void	execute_cmdline(t_astree *tree, int *status)
 	}
 	if (errno != ECHILD)
 		pexit("minishell", 1);
-	dup2(pid[STDIN_BACKUP], STDIN_FILENO);
 }

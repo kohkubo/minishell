@@ -39,9 +39,6 @@ void	execute_job(t_astree *tree, int *status, pid_t *pid)
 			return ((void)(*status = execute_cmd(tree)));
 		*pid = catch_error(fork(), "fork");
 		if (*pid == CHILD)
-		{
 			exit(execute_cmd(tree));
-			catch_error(close(STDIN_FILENO), "close");
-		}
 	}
 }
