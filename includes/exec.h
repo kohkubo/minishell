@@ -2,10 +2,8 @@
 # define EXEC_H
 
 # include <stdbool.h>
-# include <sys/wait.h>
+# include <sys/types.h>
 # include "astree.h"
-
-# define NO_PIPE (-999)
 
 void	execute_cmdline(t_astree *tree, int *status);
 void	execute_job(t_astree *tree, int *status, pid_t *pid);
