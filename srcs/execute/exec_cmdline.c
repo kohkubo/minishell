@@ -25,7 +25,7 @@ void	execute_cmdline(t_astree *tree, int *status)
 	int		child_status;
 
 	pid[_] = 0;
-	pid[LAST] = -1;
+	pid[LAST] = NO_PIPE;
 	execute_job(tree, status, &pid[LAST]);
 	while (pid[_] >= 0)
 	{

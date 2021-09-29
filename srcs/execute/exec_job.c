@@ -36,7 +36,7 @@ void	execute_job(t_astree *tree, int *status, pid_t *pid)
 	}
 	else
 	{
-		if (*pid == -1 && is_builtin(tree))
+		if (*pid == NO_PIPE && is_builtin(tree))
 			return ((void)(*status = execute_cmd(tree)));
 		*pid = catch_error(fork(), "fork");
 		if (*pid == CHILD)
