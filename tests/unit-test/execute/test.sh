@@ -68,21 +68,21 @@ errors=(
 for i in ${!errors[@]};
 do
 	echo "./a.out ${errors[$i]}"
-	echo "${errors[$i]}" | bash &> $DIR/expect
+	echo "${errors[$i]}" | bash &> /dev/stdout | sort > $DIR/expect
 	BASH_EXIT_CODE=$?
-	"$DIR/a.out" "${errors[$i]}" &> $DIR/out
+	"$DIR/a.out" "${errors[$i]}" &> /dev/stdout \
+		| sed 's/minishell:/bash: line 1:/' \
+		| sort > $DIR/out
 	AOUT_EXIT_CODE=$?
 
-	echo "AOUT_EXIT_CODE: $AOUT_EXIT_CODE, BASH_EXIT_CODE: $BASH_EXIT_CODE"
-
-	diff <(cat "$DIR/out" | sed 's/minishell:/bash: line 1:/') "$DIR/expect" > /dev/null
+	diff "$DIR/out" "$DIR/expect" > /dev/null
 	if [ $? -eq 0 ] && [ $AOUT_EXIT_CODE -eq $BASH_EXIT_CODE ]; then
 	# if [ $? -eq 0 ] && [ $AOUT_EXIT_CODE -ne 0 ]; then
 		printf "\e[32m%s\n\e[m" ">>  OK!"
 	else
 		EXIT_CODE=1
 		echo "AOUT_EXIT_CODE: $AOUT_EXIT_CODE, BASH_EXIT_CODE: $BASH_EXIT_CODE"
-		diff <(cat "$DIR/out" | sed 's/minishell:/bash: line 1:/') "$DIR/expect" -y
+		diff "$DIR/out" "$DIR/expect" -y
 		printf "\e[31m%s\n\e[m" ">>  KO!"
 	fi
 done
