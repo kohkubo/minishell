@@ -13,7 +13,6 @@
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "error.h"
 
 typedef struct s_shell
 {

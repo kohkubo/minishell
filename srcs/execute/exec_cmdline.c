@@ -37,5 +37,5 @@ void	execute_cmdline(t_astree *tree, int *status)
 			*status = child_status;
 	}
 	if (errno != ECHILD)
-		pexit("minishell", 1);
+		pexit("minishell");
 }
