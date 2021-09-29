@@ -26,7 +26,10 @@ tests=(
 	"unset"
 	"exit"
 
-	# "ls | cat | cat"
+	# PIPEのテスト
+	"cat Makefile | grep a"
+	"echo aaaaaaaa | cat | cat | cat | cat | wc"
+	"export TEST=AAA | echo \$TEST"
 )
 
 for i in ${!tests[@]};
@@ -51,8 +54,15 @@ echo "--- error case ---"
 
 errors=(
 	"no_exist_command"
-	"./no_exist_file"
+	"./no_exist_exe"
 	"$DIR/no_perm.py"
+
+	# PIPEのテスト
+	"cat no_exists_file | cat | cat | cat | wc"
+	"$DIR/no_perm.py | cat | cat | cat | wc"
+	"cat no_exists_file | cat | cat | cat | no_exist_command"
+	"cat no_exists_file | cat | cat | cat | ./no_exist_exe"
+	"cat no_exists_file | cat | cat | cat | $DIR/no_perm.py"
 )
 
 for i in ${!errors[@]};
@@ -62,6 +72,8 @@ do
 	BASH_EXIT_CODE=$?
 	"$DIR/a.out" "${errors[$i]}" &> $DIR/out
 	AOUT_EXIT_CODE=$?
+
+	echo "AOUT_EXIT_CODE: $AOUT_EXIT_CODE, BASH_EXIT_CODE: $BASH_EXIT_CODE"
 
 	diff <(cat "$DIR/out" | sed 's/minishell:/bash: line 1:/') "$DIR/expect" > /dev/null
 	if [ $? -eq 0 ] && [ $AOUT_EXIT_CODE -eq $BASH_EXIT_CODE ]; then
