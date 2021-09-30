@@ -1,13 +1,9 @@
 #include "exec.h"
 
-#include <sys/wait.h>
-#include <unistd.h>
 #include "shell.h"
 #include "astree.h"
 #include "libft.h"
 #include "libex.h"
-
-#define CHILD (0)
 
 char	**get_fullpath(const char *path, char *cmd)
 {
@@ -30,52 +26,30 @@ char	**get_fullpath(const char *path, char *cmd)
 	return (paths);
 }
 
-void	exec_with_path(char *cmd, char **args, char **envp)
+int	exec_with_path(char *cmd, char **args, char **envp)
 {
 	char	**fullpaths;
 	int		i;
+	int		res;
 
 	fullpaths = get_fullpath(hash_getstr(g_shell.env, "PATH"), cmd);
+	res = -1;
 	i = 0;
 	while (fullpaths && fullpaths[i])
 	{
 		if (access(fullpaths[i], X_OK) == 0)
-			exit(catch_error(execve(fullpaths[i], args, envp), cmd));
+			res = catch_error(execve(fullpaths[i], args, envp), cmd);
 		i++;
 	}
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd, 2);
-	ft_putendl_fd(": command not found", 2);
-	exit(1);
-}
-
-typedef int			(*t_builtIn_func)(char **arg);
-
-/**
- * @return true if builtin was run, false otherwise.
- */
-bool	run_if_builtin(char *cmd, char **args, int *status)
-{
-	char			**builtIn_names;
-	t_builtIn_func	*builtIn_funcs;
-	int				i;
-
-	builtIn_names = (char *[]){
-		"echo", "cd", "pwd", "export", "unset", "env", "exit", NULL};
-	i = contain(builtIn_names, cmd);
-	if (i < 0)
-		return (false);
-	builtIn_funcs = (t_builtIn_func []){
-		ft_echo, NULL, ft_pwd, ft_export, ft_unset, ft_env, ft_exit, NULL};
-	if (builtIn_funcs[i] != NULL)
-		*status = builtIn_funcs[i](&args[1]);
-	else
-	{
-		ft_putstr_fd(cmd, 2);
-		ft_putendl_fd(" is not implemented yet", 2);
-		exit(1);
-	}
-	return (true);
+	if (res < 0 && errno == ENOENT)
+		res = command_not_found(cmd);
+	else if (res < 0 && errno == EACCES)
+		res = minishell_perror(cmd, 126);
+	else if (res < 0)
+		res = minishell_perror(cmd, 1);
+	if (fullpaths)
+		free_string_array(fullpaths);
+	return (res);
 }
 
 char	**tree_to_argv(t_astree *tree)
@@ -106,26 +80,31 @@ char	**tree_to_argv(t_astree *tree)
 /**
  * <simple command>::= <pathname> <token list>
  */
-void	execute_simplecmd(t_astree *tree, int *status)
+int	execute_simplecmd(t_astree *tree)
 {
 	char	**args;
 	char	**envp;
-	pid_t	pid;
+	int		res;
 
 	args = tree_to_argv(tree);
-	if (run_if_builtin(tree->data, args, status) == false)
+	if (is_builtin(tree))
+		res = exec_builtin(tree->data, args);
+	else
 	{
-		pid = catch_error(fork(), "fork");
-		if (pid == CHILD)
-		{
-			envp = hash_getall(g_shell.env, NULL);
-			if (!ft_strchr(tree->data, '/'))
-				exec_with_path(tree->data, args, envp);
-			else
-				exit(catch_error(execve(tree->data, args, envp), tree->data));
-		}
-		catch_error(waitpid(pid, status, 0), "waitpid");
+		envp = hash_getall(g_shell.env, NULL);
+		if (!ft_strchr(tree->data, '/'))
+			res = exec_with_path(tree->data, args, envp);
+		else if (access(tree->data, X_OK) == 0)
+			res = catch_error(execve(tree->data, args, envp), tree->data);
+		else if (errno == ENOENT)
+			res = minishell_perror(tree->data, 127);
+		else if (errno == EACCES)
+			res = minishell_perror(tree->data, 126);
+		else
+			res = minishell_perror(tree->data, 1);
+		free_string_array(envp);
 	}
 	if (args)
 		args = free_string_array(args);
+	return (res);
 }

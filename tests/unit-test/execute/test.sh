@@ -4,7 +4,6 @@ EXIT_CODE=0
 gcc -g $INCLUDES \
 -o "$DIR/a.out" \
 "$DIR/test.c" \
-"$REPO_ROOT/srcs/error.c" \
 $(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/parse/ -type f -name "*.c" -not -name 'parse.c') \
 $(find $REPO_ROOT/srcs/execute/ -type f -name "*.c") \
@@ -27,7 +26,10 @@ tests=(
 	"unset"
 	"exit"
 
-	# "ls | cat | cat"
+	# PIPEのテスト
+	"cat Makefile | grep a"
+	"echo aaaaaaaa | cat | cat | cat | cat | wc"
+	"export TEST=AAA | echo \$TEST"
 )
 
 for i in ${!tests[@]};
@@ -42,6 +44,7 @@ do
 		printf "\e[32m%s\n\e[m" ">>  OK!"
 	else
 		EXIT_CODE=1
+		echo "AOUT_EXIT_CODE: $AOUT"
 		diff -y "$DIR/out" "$DIR/expect"
 		printf "\e[31m%s\n\e[m" ">>  KO!"
 	fi
@@ -51,26 +54,35 @@ echo "--- error case ---"
 
 errors=(
 	"no_exist_command"
-	"./no_exist_file"
+	"./no_exist_exe"
 	"$DIR/no_perm.py"
+
+	# PIPEのテスト
+	"cat no_exists_file | cat | cat | cat | wc"
+	"$DIR/no_perm.py | cat | cat | cat | wc"
+	"cat no_exists_file | cat | cat | cat | no_exist_command"
+	"cat no_exists_file | cat | cat | cat | ./no_exist_exe"
+	"cat no_exists_file | cat | cat | cat | $DIR/no_perm.py"
 )
 
 for i in ${!errors[@]};
 do
 	echo "./a.out ${errors[$i]}"
-	echo "${errors[$i]}" | bash &> $DIR/expect
+	echo "${errors[$i]}" | bash &> /dev/stdout | sort > $DIR/expect
 	BASH_EXIT_CODE=$?
-	"$DIR/a.out" "${errors[$i]}" &> $DIR/out
+	"$DIR/a.out" "${errors[$i]}" &> /dev/stdout \
+		| sed 's/minishell:/bash: line 1:/' \
+		| sort > $DIR/out
 	AOUT_EXIT_CODE=$?
 
-	diff <(cat "$DIR/out" | sed 's/minishell:/bash: line 1:/') "$DIR/expect" > /dev/null
-	# if [ $? -eq 0 ] && [ $AOUT_EXIT_CODE -eq $BASH_EXIT_CODE ]; then
-	if [ $? -eq 0 ] && [ $AOUT_EXIT_CODE -ne 0 ]; then
+	diff "$DIR/out" "$DIR/expect" > /dev/null
+	if [ $? -eq 0 ] && [ $AOUT_EXIT_CODE -eq $BASH_EXIT_CODE ]; then
+	# if [ $? -eq 0 ] && [ $AOUT_EXIT_CODE -ne 0 ]; then
 		printf "\e[32m%s\n\e[m" ">>  OK!"
 	else
 		EXIT_CODE=1
 		echo "AOUT_EXIT_CODE: $AOUT_EXIT_CODE, BASH_EXIT_CODE: $BASH_EXIT_CODE"
-		diff <(cat "$DIR/out" | sed 's/minishell:/bash: line 1:/') "$DIR/expect" -y
+		diff "$DIR/out" "$DIR/expect" -y
 		printf "\e[31m%s\n\e[m" ">>  KO!"
 	fi
 done

@@ -7,17 +7,15 @@
  * <command>	::= <simple command> <redirection list>
  *				  | <simple command>
  */
-void	execute_cmd(t_astree *tree, int *status)
+int	execute_cmd(t_astree *tree)
 {
-	t_node_type	type;
-
-	type = tree->type & ~NODE_DATA;
-	if (type == NODE_REDIRECTION)
+	if (tree->type & NODE_REDIRECTION)
 	{
 		ft_putendl_fd("not support yet.", 1);
+		return (1);
 	}
 	else
 	{
-		execute_simplecmd(tree, status);
+		return (execute_simplecmd(tree));
 	}
 }

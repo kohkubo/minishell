@@ -40,7 +40,6 @@ src =\
 	./built-in/ft_unset.c \
 	./built-in/ft_pwd.c \
 	./main.c \
-	./error.c \
 	./env/env.c \
 	./parse/parse-v2.c \
 	./parse/astree.c \
@@ -56,6 +55,8 @@ src =\
 	./execute/exec_job.c \
 	./execute/exec_cmd.c \
 	./execute/exec_simplecmd.c \
+	./execute/exec_builtin.c \
+	./execute/error.c \
 	./expand/expand.c \
 
 # ***********************************
