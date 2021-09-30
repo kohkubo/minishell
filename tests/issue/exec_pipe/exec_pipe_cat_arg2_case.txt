@@ -1,0 +1,1 @@
+echo aa | cat exec_pipe_normal_case.txt exec_pipe_normal2_case.txt
