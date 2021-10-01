@@ -1,7 +1,6 @@
 #include "exec.h"
 
 #include "astree.h"
-#include "libft.h"
 
 /**
  * <command>	::= <simple command> <redirection list>
@@ -11,8 +10,8 @@ int	execute_cmd(t_astree *tree)
 {
 	if (tree->type & NODE_REDIRECTION)
 	{
-		ft_putendl_fd("not support yet.", 1);
-		return (1);
+		execute_redirection(tree->right);
+		return (execute_simplecmd(tree->left));
 	}
 	else
 	{

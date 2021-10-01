@@ -23,13 +23,16 @@ enum e_mean
 void	execute_cmdline(t_astree *tree, int *status)
 {
 	pid_t	pid[LEN];
+	int		backup_fd[2];
 	int		child_status;
 
 	pid[_] = 0;
 	pid[LAST] = -1;
-	pid[STDIN_BACKUP] = catch_error(dup(STDIN_FILENO), "dup");
+	backup_fd[STDIN_FILENO] = catch_error(dup(STDIN_FILENO), "dup");
+	backup_fd[STDOUT_FILENO] = catch_error(dup(STDOUT_FILENO), "dup");
 	execute_job(tree, status, &pid[LAST]);
-	dup2(pid[STDIN_BACKUP], STDIN_FILENO);
+	dup2(backup_fd[STDIN_FILENO], STDIN_FILENO);
+	dup2(backup_fd[STDOUT_FILENO], STDOUT_FILENO);
 	while (pid[_] >= 0)
 	{
 		pid[_] = waitpid(-1, &child_status, 0);
