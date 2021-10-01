@@ -27,9 +27,11 @@ void	redirect_out(char *filename, enum e_mode mode)
 	int	fd;
 	int	option;
 
-	option = O_RDWR | O_CREAT;
+	option = O_WRONLY | O_CREAT;
 	if (mode == OVERWRITE)
 		option |= O_TRUNC;
+	else if (mode == APPEND)
+		option |= O_APPEND;
 	fd = open(filename, option, 0644);
 	catch_error(fd, filename);
 	catch_error(dup2(fd, STDOUT_FILENO), "dup2");
