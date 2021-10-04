@@ -17,6 +17,7 @@
 typedef struct s_shell
 {
 	t_hash_table	*env;
+	int				exit_status;
 	char			*pwd;
 }	t_shell;
 
