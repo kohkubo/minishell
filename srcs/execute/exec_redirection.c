@@ -48,7 +48,7 @@ void	redirect_heredoc(char *data)
 	if (pid == 0)
 	{
 		connect_pipe(pipefd, STDOUT_FILENO);
-		catch_error(write(STDOUT_FILENO, data, ft_strlen(data) + 1), "write");
+		catch_error(write(STDOUT_FILENO, data, ft_strlen(data)), "write");
 		exit(0);
 	}
 	connect_pipe(pipefd, STDIN_FILENO);
