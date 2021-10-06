@@ -1,0 +1,2 @@
+echo aaaa > resources/no_write_perm
+cat resources/no_write_perm

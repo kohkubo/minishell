@@ -1,0 +1,4 @@
+echo prepare strings > redirect_out
+cat resources/normal_file >> redirect_out
+cat redirect_out
+rm redirect_out
