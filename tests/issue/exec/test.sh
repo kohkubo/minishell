@@ -7,11 +7,12 @@ cd "$(dirname "$0")" || exit
 echo $PWD
 
 rm -rf output expect
+chmod -r resources/no_read_perm
 
 for file in $(ls *.txt); do
 	echo -n "$file ... "
 	./minishell < $file > output 2>&1
-	bash < $file 2>&1 | sed 's/bash: line 1: //g' > expect
+	bash < $file 2>&1 | sed -e 's/bash: line .: /minishell: /g' > expect
 	diff expect output > /dev/null
 	if [ $? -ne 0 ]; then
 		printf "\e[31m%s\n\n\e[m" "×"

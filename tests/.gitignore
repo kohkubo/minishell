@@ -10,6 +10,7 @@
 !unit-test/function-ft_echo_test/expect2
 !unit-test/function-lex/expect
 !unit-test/function-parse/error_case_expect
+!issue/exec/resources/*
 !issue/heredoc_test/expect
 !issue/heredoc_test/*.txt
 !*case*.txt

@@ -1,0 +1,2 @@
+export TEST=aaaa < resources/normal_file < resources/no_read_perm
+echo $TEST

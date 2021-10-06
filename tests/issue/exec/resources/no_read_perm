@@ -1,0 +1,9 @@
+NoRead
+DDEESSCCRRIIPPTTIIOONN
+       BBaasshh  is  an  sshh-compatible  command language interpreter that executes
+       commands read from the standard input or from a file.  BBaasshh also incor-
+       porates useful features from the _K_o_r_n and _C shells (kksshh and ccsshh).
+
+       BBaasshh  is  intended  to  be a conformant implementation of the Shell and
+       Utilities portion  of  the  IEEE  POSIX  specification  (IEEE  Standard
+       1003.1).  BBaasshh can be configured to be POSIX-conformant by default.

@@ -1,0 +1,3 @@
+echo aaaa > redirect_out
+cat redirect_out
+rm redirect_out
