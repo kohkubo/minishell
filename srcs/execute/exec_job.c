@@ -2,15 +2,15 @@
 
 #include "astree.h"
 #include "libft.h"
-#include "libex.h"
+#include "error.h"
 
 #define CHILD	(0)
 
 void	connect_pipe(int pipefd[2], int fd)
 {
-	catch_error(dup2(pipefd[fd], fd), "dup2");
-	catch_error(close(pipefd[0]), "close");
-	catch_error(close(pipefd[1]), "close");
+	catch_err(dup2(pipefd[fd], fd), "dup2");
+	catch_err(close(pipefd[0]), "close");
+	catch_err(close(pipefd[1]), "close");
 }
 
 /*
@@ -23,8 +23,8 @@ void	execute_job(t_astree *tree, int *status, pid_t *pid)
 
 	if (tree->type & NODE_PIPE)
 	{
-		catch_error(pipe(pipefd), "pipe");
-		*pid = catch_error(fork(), "fork");
+		catch_err(pipe(pipefd), "pipe");
+		*pid = catch_err(fork(), "fork");
 		if (*pid == CHILD)
 		{
 			connect_pipe(pipefd, STDOUT_FILENO);
@@ -37,7 +37,7 @@ void	execute_job(t_astree *tree, int *status, pid_t *pid)
 	{
 		if (*pid == -1 && is_builtin(tree))
 			return ((void)(*status = execute_cmd(tree)));
-		*pid = catch_error(fork(), "fork");
+		*pid = catch_err(fork(), "fork");
 		if (*pid == CHILD)
 			exit(execute_cmd(tree));
 	}

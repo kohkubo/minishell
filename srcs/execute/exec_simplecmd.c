@@ -3,7 +3,7 @@
 #include "shell.h"
 #include "astree.h"
 #include "libft.h"
-#include "libex.h"
+#include "error.h"
 
 char	**get_fullpath(const char *path, char *cmd)
 {
@@ -12,15 +12,15 @@ char	**get_fullpath(const char *path, char *cmd)
 
 	if (path == NULL || cmd == NULL)
 		return (NULL);
-	paths = catch_null(ft_split(path, ':'), "split");
+	paths = catch_nul(ft_split(path, ':'), "split");
 	i = 0;
 	while (paths[i])
 	{
 		if (paths[i][ft_strlen(paths[i]) - 1] != '/')
 			free_set((void **)&paths[i],
-				catch_null(ft_strjoin(paths[i], "/"), "ft_strjoin"));
+				catch_nul(ft_strjoin(paths[i], "/"), "ft_strjoin"));
 		free_set((void **)&paths[i],
-			catch_null(ft_strjoin(paths[i], cmd), "ft_strjoin"));
+			catch_nul(ft_strjoin(paths[i], cmd), "ft_strjoin"));
 		i++;
 	}
 	return (paths);
@@ -38,7 +38,7 @@ int	exec_with_path(char *cmd, char **args, char **envp)
 	while (fullpaths && fullpaths[i])
 	{
 		if (access(fullpaths[i], X_OK) == 0)
-			res = catch_error(execve(fullpaths[i], args, envp), cmd);
+			res = catch_err(execve(fullpaths[i], args, envp), cmd);
 		i++;
 	}
 	if (res < 0 && errno == ENOENT)
@@ -95,7 +95,7 @@ int	execute_simplecmd(t_astree *tree)
 		if (!ft_strchr(tree->data, '/'))
 			res = exec_with_path(tree->data, args, envp);
 		else if (access(tree->data, X_OK) == 0)
-			res = catch_error(execve(tree->data, args, envp), tree->data);
+			res = catch_err(execve(tree->data, args, envp), tree->data);
 		else if (errno == ENOENT)
 			res = minishell_perror(tree->data, 127);
 		else if (errno == EACCES)

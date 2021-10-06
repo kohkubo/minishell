@@ -1,9 +1,10 @@
 #include "exec.h"
 
-#include "astree.h"
+#include <unistd.h>
 #include <sys/wait.h>
 #include <errno.h>
-#include "libex.h"
+#include "astree.h"
+#include "error.h"
 
 enum e_mean
 {
@@ -27,7 +28,7 @@ void	execute_cmdline(t_astree *tree, int *status)
 
 	pid[_] = 0;
 	pid[LAST] = -1;
-	pid[STDIN_BACKUP] = catch_error(dup(STDIN_FILENO), "dup");
+	pid[STDIN_BACKUP] = catch_err(dup(STDIN_FILENO), "dup");
 	execute_job(tree, status, &pid[LAST]);
 	dup2(pid[STDIN_BACKUP], STDIN_FILENO);
 	while (pid[_] >= 0)
@@ -37,5 +38,5 @@ void	execute_cmdline(t_astree *tree, int *status)
 			*status = child_status;
 	}
 	if (errno != ECHILD)
-		pexit("minishell");
+		minishell_pexit("");
 }

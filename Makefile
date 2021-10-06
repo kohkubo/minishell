@@ -40,6 +40,7 @@ src =\
 	./built-in/ft_unset.c \
 	./built-in/ft_pwd.c \
 	./main.c \
+	./error.c \
 	./env/env.c \
 	./parse/parse-v2.c \
 	./parse/astree.c \
