@@ -8,6 +8,7 @@ echo $PWD
 
 rm -rf output expect
 chmod -r resources/no_read_perm
+chmod -w resources/no_write_perm
 
 for file in $(ls *.txt); do
 	echo -n "$file ... "
