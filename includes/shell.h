@@ -38,5 +38,6 @@ bool			parse_v2(t_lexer *lex, t_astree **res_buf);
 int				minishell_execute(t_astree *tree);
 char			*minishell_expand(char *arg);
 char			**get_fullpath(const char *path, char *cmd);
+void			expand_astree(t_astree *tree);
 
 #endif

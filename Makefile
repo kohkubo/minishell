@@ -61,6 +61,7 @@ src =\
 	./execute/exec_builtin.c \
 	./execute/error.c \
 	./expand/expand.c \
+	./expand/expand_astree.c \
 
 # ***********************************
 

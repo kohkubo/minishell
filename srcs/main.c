@@ -2,6 +2,13 @@
 
 t_shell	g_shell = {};
 
+void	clear_line(char **input, t_lexer **lex, t_astree **tree)
+{
+	lexer_free(lex);
+	*tree = astree_delete_node(*tree);
+	free_set((void **)input, NULL);
+}
+
 int	main(void)
 {
 	char		*input;
@@ -23,10 +30,10 @@ int	main(void)
 		minishell_lexer(input, &lex);
 		tree = NULL;
 		if (parse_v2(lex, &tree))
+		{
+			expand_astree(tree);
 			g_shell.exit_status = minishell_execute(tree);
-		lexer_free(&lex);
-		tree = astree_delete_node(tree);
-		free_set((void **)&input, NULL);
+		}
+		clear_line(&input, &lex, &tree);
 	}
-	return (0);
 }
