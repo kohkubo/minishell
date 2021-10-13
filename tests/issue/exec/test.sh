@@ -17,9 +17,12 @@ for file in $(ls *.txt); do
 	diff expect output > /dev/null
 	if [ $? -ne 0 ]; then
 		printf "\e[31m%s\n\n\e[m" "×"
+		echo $file
 		cat -n $file
+		printf "\e[31m\e[1m%37s | %s\e[m\n" "expect" "actuary"
 		printf "\e[31m"
-		diff -y -W 80 expect output
+		python -c "print '-'*38 + '+' + '-'*38"
+		diff -y -W 79 expect output
 		printf "\e[m\n"
 		RES=1
 		exit $RES

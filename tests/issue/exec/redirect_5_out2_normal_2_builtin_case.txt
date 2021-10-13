@@ -1,4 +1,0 @@
-echo prepare string > redirect_out
-echo append string >> redirect_out
-cat redirect_out
-rm redirect_out

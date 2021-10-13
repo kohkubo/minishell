@@ -1,3 +1,0 @@
-echo aaaa >> no_exists
-cat no_exists
-rm no_exists
