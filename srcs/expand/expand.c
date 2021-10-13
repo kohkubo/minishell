@@ -37,10 +37,18 @@ ft_strchrset((char *)separated->next->content, " \t\n\v\f\r\"\'", 8) != NULL)
 		free_set(&separated->content, NULL);
 		separated = separated->next;
 		content = (char *)separated->content;
-		tmp = (char *)hash_getstr(g_shell.env, content);
-		if (tmp == NULL)
-			tmp = "";
-		free_set(&separated->content, ft_xstrdup(tmp));
+		if (!ft_strcmp(content, "?"))
+		{
+			tmp = ft_itoa(g_shell.exit_status);
+			free_set(&separated->content, tmp);
+		}
+		else
+		{
+			tmp = (char *)hash_getstr(g_shell.env, content);
+			if (tmp == NULL)
+				tmp = "";
+			free_set(&separated->content, ft_xstrdup(tmp));
+		}
 	}
 	return (separated);
 }
@@ -75,7 +83,7 @@ char	*minishell_expand(char *arg)
 
 	if (arg == NULL)
 		ft_fatal("minishell_expand : Invalid argument");
-	separated = separate_to_lst(arg, "\'\"\t\n\v\f\r $");
+	separated = separate_to_lst(arg, "\'\"\t\n\v\f\r\? $");
 	expand_handler(separated);
 	ret = lst_join_str(separated, "");
 	ft_lstclear(&separated, free);
