@@ -1,0 +1,5 @@
+cd aaa
+pwd
+echo $PWD
+echo $OLDPWD
+echo $CDPATH

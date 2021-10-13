@@ -1,0 +1,15 @@
+cd testcd1
+pwd
+echo $PWD
+echo $OLDPWD
+echo $CDPATH
+cd testcd2
+pwd
+echo $PWD
+echo $OLDPWD
+echo $CDPATH
+cd testcd3
+pwd
+echo $PWD
+echo $OLDPWD
+echo $CDPATH

@@ -36,7 +36,7 @@ int	exec_builtin(char *cmd, char **args)
 	if (i < 0)
 		return (command_not_found(cmd));
 	builtIn_funcs = (t_builtIn_func []){
-		ft_echo, NULL, ft_pwd, ft_export, ft_unset, ft_env, ft_exit, NULL};
+		ft_echo, ft_cd, ft_pwd, ft_export, ft_unset, ft_env, ft_exit, NULL};
 	if (builtIn_funcs[i] != NULL)
 		return (builtIn_funcs[i](&args[1]));
 	else

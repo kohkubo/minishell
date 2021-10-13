@@ -19,3 +19,8 @@ char	*ft_xstrjoin(char const *s1, char const *s2)
 {
 	return (catch_null(ft_strjoin(s1, s2), "ft_strjoin"));
 }
+
+char	**ft_xsplit(char const *s, char c)
+{
+	return (catch_null(ft_split(s, c), "ft_split"));
+}
