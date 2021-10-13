@@ -1,0 +1,11 @@
+cat << TEST
+"double quoted"
+TEST
+cat << TEST
+aaa"double quoted"bbb
+TEST
+cat << TEST
+aaa
+"$USER"
+bbb
+TEST
