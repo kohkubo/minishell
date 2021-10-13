@@ -7,8 +7,8 @@
 
 void	execute_cmdline(t_astree *tree, int *status);
 void	execute_job(t_astree *tree, int *status, pid_t *pid);
-int		execute_cmd(t_astree *tree, bool is_builtin);
-int		execute_redirection(t_astree *tree, bool is_builtin);
+int		execute_cmd(t_astree *tree, bool is_child);
+int		execute_redirection(t_astree *tree, bool is_child);
 int		execute_simplecmd(t_astree *tree);
 int		exec_builtin(char *cmd, char **args);
 bool	is_builtin(t_astree *tree);

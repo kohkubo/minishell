@@ -23,7 +23,7 @@ pid_t	pipexec(t_astree *tree)
 	if (pid == CHILD)
 	{
 		connect_pipe(pipefd, STDOUT_FILENO);
-		exit(execute_cmd(tree, false));
+		exit(execute_cmd(tree, true));
 	}
 	connect_pipe(pipefd, STDIN_FILENO);
 	return (pid);
@@ -43,12 +43,12 @@ void	execute_job(t_astree *tree, int *status, pid_t *pid)
 	else
 	{
 		if (*pid == -1 && is_builtin(tree))
-			*status = execute_cmd(tree, true);
+			*status = execute_cmd(tree, false);
 		else
 		{
 			*pid = catch_error(fork(), "fork");
 			if (*pid == CHILD)
-				exit(execute_cmd(tree, false));
+				exit(execute_cmd(tree, true));
 		}
 	}
 }
