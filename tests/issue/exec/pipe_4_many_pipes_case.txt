@@ -1,0 +1,1 @@
+echo aaa | cat - resources/normal_file | cat resources/normal_file - | wc 

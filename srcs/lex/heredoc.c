@@ -3,22 +3,21 @@
 
 char	*heredoc_readline(char *heredoc, char *tok)
 {
-	char	*tmp;
+	char	*read;
 	int		flg;
 
 	flg = 0;
 	while (1)
 	{
-		tmp = readline(HEREDOC_PROMPT);
-		if (ft_strcmp(tmp, heredoc) == 0)
+		read = readline(HEREDOC_PROMPT);
+		if (ft_strcmp(read, heredoc) == 0)
 		{
-			free_set((void **)&tmp, NULL);
+			free_set((void **)&read, NULL);
 			return (tok);
 		}
-		if (flg > 0 || (flg == 0 && *tmp == 0))
-			free_set((void **)&tok, ft_xstrjoin(tok, "\n"));
-		free_set((void **)&tok, ft_xstrjoin(tok, tmp));
-		free_set((void **)&tmp, NULL);
+		free_set((void **)&tok, ft_xstrjoin(tok, read));
+		free_set((void **)&tok, ft_xstrjoin(tok, "\n"));
+		free_set((void **)&read, NULL);
 		flg++;
 	}
 }

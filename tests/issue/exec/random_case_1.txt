@@ -1,0 +1,6 @@
+cat < resources/normal_file > out1 << TEST >> out1 < resources/normal_file
+aaaa
+bbbb
+cccc
+TEST
+cat out1

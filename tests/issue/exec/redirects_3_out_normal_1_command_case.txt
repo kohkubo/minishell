@@ -1,0 +1,6 @@
+cat resources/normal_file > redirect_out1 > redirect_out2
+cat redirect_out1
+wc redirect_out1
+cat redirect_out2
+wc redirect_out2
+rm redirect_out1 redirect_out2

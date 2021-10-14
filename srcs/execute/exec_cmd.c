@@ -1,18 +1,18 @@
 #include "exec.h"
 
 #include "astree.h"
-#include "libft.h"
 
 /**
  * <command>	::= <simple command> <redirection list>
  *				  | <simple command>
  */
-int	execute_cmd(t_astree *tree)
+int	execute_cmd(t_astree *tree, bool is_builtin)
 {
 	if (tree->type & NODE_REDIRECTION)
 	{
-		ft_putendl_fd("not support yet.", 1);
-		return (1);
+		if (execute_redirection(tree->right, is_builtin))
+			return (1);
+		return (execute_simplecmd(tree->left));
 	}
 	else
 	{

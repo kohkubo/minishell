@@ -56,6 +56,7 @@ src =\
 	./execute/exec_cmdline.c \
 	./execute/exec_job.c \
 	./execute/exec_cmd.c \
+	./execute/exec_redirection.c \
 	./execute/exec_simplecmd.c \
 	./execute/exec_builtin.c \
 	./execute/error.c \

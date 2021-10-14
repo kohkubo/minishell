@@ -1,0 +1,3 @@
+cat resources/normal_file > resources/no_write_perm
+wc resources/no_write_perm
+cat resources/no_write_perm
