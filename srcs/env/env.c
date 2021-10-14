@@ -1,5 +1,7 @@
 #include "shell.h"
 
+#include <errno.h>
+
 void	store_shellenv(char **arr, t_hash_table *table)
 {
 	char		*tmp;
@@ -36,6 +38,7 @@ static void	env_init(void)
 
 void	minishell_init(void)
 {
+	errno = 0;
 	g_shell.env = hash_create_table(10);
 	env_init();
 }
