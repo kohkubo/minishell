@@ -36,6 +36,7 @@ src =\
 	./str_arraydup.c \
 	./strsort.c \
 	./wrapper.c \
+	./lst_to_array.c \
 
 # ***********************************
 

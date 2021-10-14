@@ -37,4 +37,5 @@ void	ft_fatal(const char *emsg);
 void	pexit(char *message);
 void	print_array(char **array);
 void	strsort(char *str[], int n);
+char	**lst_to_array(t_list *lst);
 #endif
