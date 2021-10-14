@@ -39,7 +39,7 @@ char	**get_fullpath(const char *path, char *cmd)
 	char	*data;
 	char	**ret;
 
-	if (path == NULL || cmd == NULL)
+	if (path == NULL || cmd == NULL || ft_strlen(path) == 0)
 		return (NULL);
 	paths = split_path(path);
 	save = paths;

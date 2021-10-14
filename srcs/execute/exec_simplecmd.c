@@ -8,7 +8,7 @@
 
 int	access_error_handle(char *msg)
 {
-	if (errno == ENOENT || errno == -1)
+	if (errno == ENOENT)
 	{
 		if (!ft_strchr(msg, '/'))
 			return (command_not_found(msg));
@@ -28,11 +28,12 @@ int	exec_with_path(char *cmd, char **args, char **envp)
 	int			res;
 
 	path_str = hash_getstr(g_shell.env, "PATH");
-	fullpaths = NULL;
-	if (path_str == NULL)
-		errno = -1;
-	else
-		fullpaths = get_fullpath(path_str, cmd);
+	fullpaths = get_fullpath(path_str, cmd);
+	if (fullpaths == NULL)
+	{
+		errno = ENOENT;
+		return (minishell_perror(cmd, 127));
+	}
 	res = -1;
 	i = 0;
 	while (fullpaths && fullpaths[i])
