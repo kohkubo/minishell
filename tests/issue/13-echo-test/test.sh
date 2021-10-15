@@ -1,10 +1,11 @@
 #!/bin/bash
 
+
 cp ./minishell "$(dirname "$0")"
 cd "$(dirname "$0")" || exit
+rm -rf leaksout expect output 
 
 LEAKS=0
-
 echo "echo test test pwd echo" | ./minishell > output
 LEAKS=$(($LEAKS | $?))
 echo "echo test test pwd echo" | bash > expect
@@ -32,6 +33,10 @@ echo "echo" | bash >> expect
 echo "echo -n test test tset" | ./minishell >> output
 LEAKS=$(($LEAKS | $?))
 echo "echo -n test test tset" | bash >> expect
+echo "" >> output
+echo "" >> expect
+
+sed -i "" -e "s/test test tsetminishell> /test test tset/g" output
 
 echo "echo a" | ./minishell >> output
 LEAKS=$(($LEAKS | $?))
@@ -45,8 +50,10 @@ echo "echo あいう" | ./minishell >> output
 LEAKS=$(($LEAKS | $?))
 echo "echo あいう" | bash >> expect
 
+sed -i "" -e "/minishell> /d" output
 diff output expect
 RES=$?
+
 rm leaksout expect output ./minishell
 cd "$PWD" || exit
 

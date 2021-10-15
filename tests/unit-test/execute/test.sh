@@ -10,8 +10,9 @@ $(find $REPO_ROOT/srcs/parse/ -type f -name "*.c" -not -name 'parse.c') \
 $(find $REPO_ROOT/srcs/execute/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/built-in/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/expand/ -type f -name "*.c") \
+$(find $REPO_ROOT/srcs/signal/ -type f -name "*.c") \
 $REPO_ROOT/srcs/env/env.c \
-$LIBS -lft -lex -lhash -lreadline $SHARED_LIB
+$LIBS -lft -lex -lhash -lreadline -lhistory -L$(brew --prefix readline)/lib -I$(brew --prefix readline)/include $SHARED_LIB 
 
 tests=(
 	# exec_with_path 経路のテスト
@@ -48,6 +49,7 @@ do
 		echo "AOUT_EXIT_CODE: $AOUT"
 		diff -y "$DIR/out" "$DIR/expect"
 		printf "\e[31m%s\n\e[m" ">>  KO!"
+		exit
 	fi
 done
 

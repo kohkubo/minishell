@@ -13,6 +13,7 @@ chmod -w resources/no_write_perm
 for file in $(ls *.txt); do
 	echo -n "$file ... "
 	./minishell < $file > output 2>&1
+	sed -i "" -e "/minishell> /d" -e "/heredoc... /d" output
 	bash < $file 2>&1 | sed -e 's/bash: line .: /minishell: /g' > expect
 	diff expect output > /dev/null
 	if [ $? -ne 0 ]; then

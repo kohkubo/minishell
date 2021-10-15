@@ -12,9 +12,10 @@ EXIT_CODE=0
 gcc -g $INCLUDES \
 -o $DIR/a.out \
 $DIR/test.c \
-$(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
-$(find $REPO_ROOT/srcs/parse/ -type f -name "*.c" -not -name 'parse.c') \
-$SHARED_LIB $LIBS -lft -lex -lreadline || exit 1
+$(find $REPO_ROOT/srcs/lex -type f -name "*.c") \
+$(find $REPO_ROOT/srcs/signal -type f -name "*.c") \
+$(find $REPO_ROOT/srcs/parse -type f -name "*.c" -not -name 'parse.c') \
+$SHARED_LIB $LIBS -lft -lex -lreadline -lhistory -L$(brew --prefix readline)/lib -I$(brew --prefix readline)/include || exit 1
 
 $DIR/a.out
 AOUT=$?
@@ -22,6 +23,7 @@ AOUT=$?
 if [ $AOUT -ne 0 ]; then
 	EXIT_CODE=1
 	printf "\e[31m%s\n\e[m" ">>  KO!"
+	exit
 else
 	printf "\e[32m%s\n\e[m" ">>  OK!"
 fi
@@ -31,8 +33,9 @@ gcc -g $INCLUDES \
 -o $DIR/a.out \
 "$DIR/for_error_test.c" \
 $(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
+$(find $REPO_ROOT/srcs/signal -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/parse/ -type f -name "*.c" -not -name 'parse.c') \
-$SHARED_LIB $LIBS -lft -lex -lreadline || exit 1
+$SHARED_LIB $LIBS -lft -lex -lreadline -lhistory -L$(brew --prefix readline)/lib -I$(brew --prefix readline)/include || exit 1
 
 $DIR/a.out 2> $DIR/out
 AOUT=$?

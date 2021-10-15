@@ -19,6 +19,7 @@ for file in $(ls *.txt); do
 	echo "Testing $file"
 	bash < $file >> expect 2>&1
 	./minishell < $file >> output 2>&1
+	sed -i "" -e "/minishell> /d" output
 	diff expect output &> /dev/null
 	if [ $? -ne 0 ]; then
 		echo "FAIL: $file"

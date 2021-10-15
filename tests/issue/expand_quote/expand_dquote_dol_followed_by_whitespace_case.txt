@@ -2,7 +2,7 @@ echo "$ "
 echo "$ "aaa
 echo "$           "
 echo "$           "aaa
-echo "$	"
-echo "$	"aaa
-echo "$				"
-echo "$				"aaa
+echo "$  "
+echo "$ "aaa
+echo "$      "
+echo "$    "aaa
