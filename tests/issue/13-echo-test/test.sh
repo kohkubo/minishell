@@ -21,6 +21,14 @@ echo "echo -n" | ./minishell >> output
 LEAKS=$(($LEAKS | $?))
 echo "echo -n" | bash >> expect
 
+echo "echo -" | ./minishell >> output
+LEAKS=$(($LEAKS | $?))
+echo "echo -" | bash >> expect
+
+echo "echo" | ./minishell >> output
+LEAKS=$(($LEAKS | $?))
+echo "echo" | bash >> expect
+
 echo "echo -n test test tset" | ./minishell >> output
 LEAKS=$(($LEAKS | $?))
 echo "echo -n test test tset" | bash >> expect
