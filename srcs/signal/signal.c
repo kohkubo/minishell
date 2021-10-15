@@ -22,7 +22,6 @@ void	signal_init(void)
 void	signal_handler_exit(int sig)
 {
 	(void)sig;
-	g_shell.exit_status = 1;
 	g_shell.heredoc_status = 1;
 }
 
