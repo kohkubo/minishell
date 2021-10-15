@@ -3,11 +3,15 @@
 #include "libft.h"
 #include "libex.h"
 
-char	*get_data(const char *path, int start, int end)
+char	*dup_a_path(const char *path, int start, int end)
 {
+	char	*data;
+
 	if (end - start == 0)
-		return (ft_xstrdup("."));
-	return (ft_xsubstr(path, start, end - start));
+		data = ft_xstrdup(".");
+	else
+		data = ft_xsubstr(path, start, end - start);
+	return (data);
 }
 
 t_list	*split_path(const char *path)
@@ -23,12 +27,12 @@ t_list	*split_path(const char *path)
 	{
 		if (path[i] == ':')
 		{
-			ft_lstadd_back(&list, ft_xlstnew(get_data(path, start, i)));
+			ft_lstadd_back(&list, ft_xlstnew(dup_a_path(path, start, i)));
 			start = i + 1;
 		}
 		i++;
 	}
-	ft_lstadd_back(&list, ft_xlstnew(get_data(path, start, i)));
+	ft_lstadd_back(&list, ft_xlstnew(dup_a_path(path, start, i)));
 	return (list);
 }
 
@@ -49,6 +53,7 @@ char	**get_fullpath(const char *path, char *cmd)
 		if (data[ft_strlen(data) - 1] != '/')
 			free_set((void **)&data, ft_xstrjoin(data, "/"));
 		free_set((void **)&data, ft_xstrjoin(data, cmd));
+		paths->content = data;
 		paths = paths->next;
 	}
 	ret = lst_to_array(save);
