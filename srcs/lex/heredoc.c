@@ -13,7 +13,7 @@ char	*heredoc_readline(char *heredoc, char *tok)
 		read = readline(HEREDOC_PROMPT);
 		if (g_shell.heredoc_status == 1 || read == NULL)
 		{
-			tok = ft_strdup("");
+			free_set((void **)&tok, ft_strdup(""));
 			break ;
 		}
 		if (ft_strcmp(read, heredoc) == 0)
@@ -56,6 +56,7 @@ t_state_type	heredoc(t_lexer **l, t_tok **tok, char **s, size_t *i)
 		ft_putendl_fd(\
 			"minishell : syntax error near unexpected token `newline'", 2);
 		g_shell.exit_status = 1;
+		token_end(*l, tok, 0);
 		return (STATE_ERROR);
 	}
 	token_store2_and_create(*l, tok, s);

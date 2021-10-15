@@ -28,7 +28,7 @@ void	signal_handler_exit(int sig)
 
 static int	rl_event_hook_heredoc(void)
 {
-	if (g_shell.exit_status == 1)
+	if (g_shell.heredoc_status == 1)
 		rl_done = 1;
 	return (0);
 }

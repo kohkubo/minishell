@@ -83,8 +83,6 @@ static t_state_type	minishell_lexer_do(t_lexer **lexer, t_tok *tok, char *s)
 			state = store_char_and_check_state(tok, state, &s, &i);
 		if (*s == 0 && state != STATE_ERROR && state != STATE_GENERAL)
 		{
-			tok_free(tok);
-			lexer_free(lexer);
 			ft_error_exit("this pattern is not supported");
 			return (state);
 		}
