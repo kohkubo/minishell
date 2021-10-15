@@ -18,17 +18,18 @@ int	main(void)
 	minishell_init(&input, &lex, &tree);
 	while (1)
 	{
+		free_set((void **)&input, NULL);
 		input = readline(PROMPT);
 		if (input == NULL)
 			exit(0);
 		if (ft_strlen(input) == 0)
+			continue ;
+		add_history(input);
+		if (minishell_lexer(input, &lex) == STATE_ERROR)
 		{
-			free_set((void **)&input, NULL);
+			lexer_free(&lex);
 			continue ;
 		}
-		add_history(input);
-		minishell_lexer(input, &lex);
-		tree = NULL;
 		if (parse_v2(lex, &tree))
 		{
 			expand_astree(tree);

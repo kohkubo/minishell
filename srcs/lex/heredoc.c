@@ -7,19 +7,26 @@ char	*heredoc_readline(char *heredoc, char *tok)
 	int		flg;
 
 	flg = 0;
+	signal_heredoc();
 	while (1)
 	{
 		read = readline(HEREDOC_PROMPT);
-		if (ft_strcmp(read, heredoc) == 0)
+		if (g_shell.heredoc_status == 1 || read == NULL)
 		{
-			free_set((void **)&read, NULL);
-			return (tok);
+			tok = ft_strdup("");
+			break ;
 		}
+		if (ft_strcmp(read, heredoc) == 0)
+			break ;
 		free_set((void **)&tok, ft_xstrjoin(tok, read));
 		free_set((void **)&tok, ft_xstrjoin(tok, "\n"));
 		free_set((void **)&read, NULL);
 		flg++;
 	}
+	free_set((void **)&read, NULL);
+	g_shell.heredoc_status = 0;
+	signal_init();
+	return (tok);
 }
 
 char	*generate_heredoc(char *s)
@@ -46,8 +53,10 @@ t_state_type	heredoc(t_lexer **l, t_tok **tok, char **s, size_t *i)
 
 	if (*(*s + 2) == 0 || is_space_string(*s + 2))
 	{
-		ft_error_exit(\
-			"minishell : syntax error near unexpected token `newline'");
+		ft_putendl_fd(\
+			"minishell : syntax error near unexpected token `newline'", 2);
+		g_shell.exit_status = 1;
+		return (STATE_ERROR);
 	}
 	token_store2_and_create(*l, tok, s);
 	*s += 1;

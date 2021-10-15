@@ -18,6 +18,7 @@ typedef struct s_shell
 {
 	t_hash_table	*env;
 	int				exit_status;
+	int				heredoc_status;
 	char			*pwd;
 }	t_shell;
 
@@ -44,4 +45,6 @@ void			expand_astree(t_astree *tree);
 
 void			signal_init(void);
 void			signal_handler_prompt(int sig);
+void			signal_heredoc(void);
+void			signal_handler_exit(int sig);
 #endif
