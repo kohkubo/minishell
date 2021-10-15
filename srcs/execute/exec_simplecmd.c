@@ -66,7 +66,7 @@ char	**tree_to_argv(t_astree *tree)
 	len = 0;
 	while (tree)
 	{
-		ret[len] = minishell_expand(tree->data);
+		ret[len] = minishell_expand(tree->data, expand_handler);
 		tree = tree->right;
 		len++;
 	}
