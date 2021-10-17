@@ -78,7 +78,7 @@ void	expand_handler_heredoc(t_list *lst)
 	{
 		content = (char *)lst->content;
 		if (ft_strcmp(content, "$") == 0 && lst->next != NULL && \
-	ft_strchrset((char *)lst->next->content, " \t\n\v\f\r", 8) == NULL)
+	ft_strchrset((char *)lst->next->content, " \t\n\v\f\r", 6) == NULL)
 		{
 			free_set(&lst->content, NULL);
 			lst = lst->next;
