@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
 	minishell_init();
 	minishell_lexer(argv[1], &lex);
 	parse_v2(lex, &tree);
+	expand_astree(tree);
 	status = minishell_execute(tree);
 	lexer_free(&lex);
 	tree = astree_delete_node(tree);

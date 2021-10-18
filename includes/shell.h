@@ -40,5 +40,6 @@ char			*minishell_expand(char *arg, void (*handler)(t_list *));
 void			expand_handler(t_list *lst);
 void			expand_handler_heredoc(t_list *lst);
 char			**get_fullpath(const char *path, char *cmd);
+void			expand_astree(t_astree *tree);
 
 #endif

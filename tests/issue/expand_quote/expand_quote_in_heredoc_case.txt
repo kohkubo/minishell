@@ -1,0 +1,11 @@
+cat << TEST
+'single quoted'
+TEST
+cat << TEST
+aaa'single quoted'bbb
+TEST
+cat << TEST
+aaa
+'$USER'
+bbb
+TEST
