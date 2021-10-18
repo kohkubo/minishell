@@ -41,7 +41,7 @@ src =\
 	./built-in/ft_cd.c \
 	./built-in/ft_pwd.c \
 	./main.c \
-	./utils.c \
+	./utils/get_fullpath.c \
 	./env/env.c \
 	./parse/parse-v2.c \
 	./parse/astree.c \
