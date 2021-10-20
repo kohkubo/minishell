@@ -30,13 +30,13 @@ src =\
 	./is_num_string.c \
 	./is_space_string.c \
 	./lst_join_str.c \
+	./lst_to_array.c \
 	./print_array.c \
 	./random_string.c \
 	./spacelen.c \
 	./str_arraydup.c \
 	./strsort.c \
 	./wrapper.c \
-	./lst_to_array.c \
 
 # ***********************************
 
