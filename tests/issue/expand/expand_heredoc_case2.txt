@@ -1,0 +1,5 @@
+cat << TEST
+USER
+USER$USER
+USER
+TEST

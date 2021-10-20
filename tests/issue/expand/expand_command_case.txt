@@ -1,0 +1,2 @@
+export CMD=echo
+$CMD aaaaaaaa

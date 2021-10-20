@@ -15,8 +15,12 @@ for file in $(ls *.txt); do
 	diff expect output &> /dev/null
 	if [ $? -ne 0 ]; then
 		echo "FAIL: $file"
-		cat $file
-		diff -y expect output
+		cat -n $file
+		printf "\e[31m"
+		printf "%37s | %s\n" "expect" "output"
+		perl -e 'print "-" x 79, "\n"'
+		diff -y -W 79 expect output
+		printf "\e[m"
 		RES=1
 	fi
 	rm -rf output expect
