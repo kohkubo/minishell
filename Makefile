@@ -63,7 +63,7 @@ src =\
 	./execute/error.c \
 	./expand/expand.c \
 	./expand/expand_astree.c \
-	./signal/signal.c \
+	./signal/minishell_signal.c \
 
 # ***********************************
 

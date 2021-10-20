@@ -3,26 +3,13 @@
 # include "libft.h"
 # include "libex.h"
 # include "libhash.h"
-# define PROMPT "minishell> "
-# define QUOTE_PROMPT "quote... "
-# define DQUOTE_PROMPT "dquote... "
-# define HEREDOC_PROMPT "heredoc... "
+# include "minishell_readline.h"
+# include "minishell_signal.h"
+# include "minishell_global.h"
 # include "lex.h"
 # include "astree.h"
 # include <stdio.h>
 # include <stdbool.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-typedef struct s_shell
-{
-	t_hash_table	*env;
-	int				exit_status;
-	int				heredoc_status;
-	char			*pwd;
-}	t_shell;
-
-extern t_shell	g_shell;
 
 t_state_type	minishell_lexer(char *s, t_lexer **lexer);
 void			parse(char *input);
@@ -43,8 +30,4 @@ void			expand_handler_heredoc(t_list *lst);
 char			**get_fullpath(const char *path, char *cmd);
 void			expand_astree(t_astree *tree);
 
-void			signal_init(void);
-void			signal_handler_prompt(int sig);
-void			signal_heredoc(void);
-void			signal_handler_exit(int sig);
 #endif

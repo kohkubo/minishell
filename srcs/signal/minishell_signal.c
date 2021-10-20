@@ -1,4 +1,7 @@
-#include "shell.h"
+#include "minishell_signal.h"
+#include "minishell_global.h"
+#include "minishell_readline.h"
+#include "libex.h"
 #include <signal.h>
 #include <string.h>
 
@@ -11,15 +14,24 @@ void	signal_handler_prompt(int sig)
 	rl_redisplay();
 }
 
-void	signal_init(void)
+void	signal_child_process(int sig)
 {
-	if (signal(SIGINT, signal_handler_prompt) == SIG_ERR
-		|| signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+	(void)sig;
+	(void)sig;
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+}
+
+void	signal_init(void func1(int), void func2(int))
+{
+	if (signal(SIGINT, func1) == SIG_ERR
+		|| signal(SIGQUIT, func2) == SIG_ERR)
 		ft_fatal("signal error: ");
 	rl_event_hook = NULL;
 }
 
-void	signal_handler_exit(int sig)
+static void	signal_handler_heredoc(int sig)
 {
 	(void)sig;
 	g_shell.heredoc_status = 1;
@@ -35,7 +47,7 @@ static int	rl_event_hook_heredoc(void)
 void	signal_heredoc(void)
 {
 	rl_event_hook = rl_event_hook_heredoc;
-	if (signal(SIGINT, signal_handler_exit) == SIG_ERR
+	if (signal(SIGINT, signal_handler_heredoc) == SIG_ERR
 		|| signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		ft_fatal("signal error: ");
 }

@@ -25,7 +25,7 @@ char	*heredoc_readline(char *heredoc, char *tok)
 	}
 	free_set((void **)&read, NULL);
 	g_shell.heredoc_status = 0;
-	signal_init();
+	signal_init(signal_handler_prompt, SIG_IGN);
 	return (tok);
 }
 
