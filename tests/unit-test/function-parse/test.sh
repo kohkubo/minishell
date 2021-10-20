@@ -44,7 +44,7 @@ diff $DIR/out $DIR/error_case_expect > /dev/null
 
 if [ $? -ne 0 ] || [ $AOUT -ne 0 ]; then
 	EXIT_CODE=1
-	diff -y $DIR/out $DIR/error_case_expect
+	diff -y -W 80 $DIR/out $DIR/error_case_expect
 	printf "\e[31m%s\n\e[m" ">>  KO!"
 else
 	printf "\e[32m%s\n\e[m" ">>  OK!"

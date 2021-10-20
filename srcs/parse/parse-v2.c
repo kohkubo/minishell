@@ -36,18 +36,16 @@ bool	allocate_data_if_is_token(t_list **current, char **buf_ptr)
 <job>				::= <command> '|' <job>
 					  | <command>
 
-<command>			::= <simple command> <redirection list>
-					  | <simple command>
+<command>			::= <token list> <command>
+					  | <redirection list> <command>
+					  | (EMPTY)
 
 <redirection list>	::= <redirection> <redirection list>
 
-<redirection>		::= '<' <filename> <token list>
-					  | '>' <filename> <token list>
-					  | '<<' <filename> <token list>
-					  | '>>' <filename> <token list>
-// <token list> will be added after the arg of the previous <simple command>.
-
-<simple command>	::= <pathname> <token list>
+<redirection>		::= '<' <filename>
+					  | '>' <filename>
+					  | '<<' <filename>
+					  | '>>' <filename>
 
 <token list>		::= <token> <token list>
 					  | (EMPTY)

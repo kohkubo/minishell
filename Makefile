@@ -51,7 +51,6 @@ src =\
 	./parse/command.c \
 	./parse/redirection_list.c \
 	./parse/redirection.c \
-	./parse/simple_command.c \
 	./parse/token_list.c \
 	./execute/exec__main.c \
 	./execute/exec_cmdline.c \
