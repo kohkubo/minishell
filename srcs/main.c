@@ -18,7 +18,6 @@ int	main(void)
 	minishell_init(&input, &lex, &tree);
 	while (1)
 	{
-		free_set((void **)&input, NULL);
 		input = readline(PROMPT);
 		if (input == NULL)
 			exit(0);
