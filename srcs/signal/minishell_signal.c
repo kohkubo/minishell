@@ -23,31 +23,23 @@ void	signal_child_process(int sig)
 	rl_replace_line("", 0);
 }
 
-void	signal_init(void func1(int), void func2(int))
-{
-	if (signal(SIGINT, func1) == SIG_ERR
-		|| signal(SIGQUIT, func2) == SIG_ERR)
-		ft_fatal("signal error: ");
-	rl_event_hook = NULL;
-}
-
-static void	signal_handler_heredoc(int sig)
+void	signal_handler_heredoc(int sig)
 {
 	(void)sig;
 	g_shell.heredoc_status = 1;
 }
 
-static int	rl_event_hook_heredoc(void)
+int	rl_event_hook_heredoc(void)
 {
 	if (g_shell.heredoc_status == 1)
 		rl_done = 1;
 	return (0);
 }
 
-void	signal_heredoc(void)
+void	signal_init(void func1(int), void func2(int), int heredoc_hook(void))
 {
-	rl_event_hook = rl_event_hook_heredoc;
-	if (signal(SIGINT, signal_handler_heredoc) == SIG_ERR
-		|| signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+	rl_event_hook = heredoc_hook;
+	if (signal(SIGINT, func1) == SIG_ERR
+		|| signal(SIGQUIT, func2) == SIG_ERR)
 		ft_fatal("signal error: ");
 }

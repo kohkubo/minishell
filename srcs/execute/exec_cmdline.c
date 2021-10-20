@@ -31,7 +31,7 @@ void	execute_cmdline(t_astree *tree, int *status)
 	pid[LAST] = -1;
 	backup_fd[STDIN_FILENO] = catch_error(dup(STDIN_FILENO), "dup");
 	backup_fd[STDOUT_FILENO] = catch_error(dup(STDOUT_FILENO), "dup");
-	signal_init(signal_child_process, SIG_DFL);
+	signal_init(signal_child_process, SIG_DFL, NULL);
 	execute_job(tree, status, &pid[LAST]);
 	dup2(backup_fd[STDIN_FILENO], STDIN_FILENO);
 	dup2(backup_fd[STDOUT_FILENO], STDOUT_FILENO);
@@ -44,5 +44,5 @@ void	execute_cmdline(t_astree *tree, int *status)
 	if (errno != ECHILD)
 		pexit("minishell");
 	errno = 0;
-	signal_init(signal_handler_prompt, SIG_IGN);
+	signal_init(signal_handler_prompt, SIG_IGN, NULL);
 }

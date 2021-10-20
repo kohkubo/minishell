@@ -43,6 +43,6 @@ void	minishell_init(char **input, t_lexer **lex, t_astree **tree)
 	*lex = NULL;
 	*tree = NULL;
 	g_shell.env = hash_create_table(1024);
-	signal_init(signal_handler_prompt, SIG_IGN);
+	signal_init(signal_handler_prompt, SIG_IGN, NULL);
 	env_init();
 }

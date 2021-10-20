@@ -7,7 +7,7 @@ char	*heredoc_readline(char *heredoc, char *tok)
 	int		flg;
 
 	flg = 0;
-	signal_heredoc();
+	signal_init(signal_handler_heredoc, SIG_IGN, rl_event_hook_heredoc);
 	while (1)
 	{
 		read = readline(HEREDOC_PROMPT);
@@ -25,7 +25,7 @@ char	*heredoc_readline(char *heredoc, char *tok)
 	}
 	free_set((void **)&read, NULL);
 	g_shell.heredoc_status = 0;
-	signal_init(signal_handler_prompt, SIG_IGN);
+	signal_init(signal_handler_prompt, SIG_IGN, NULL);
 	return (tok);
 }
 
