@@ -13,7 +13,7 @@ char	*heredoc_readline(char *heredoc, char *tok)
 		read = readline(HEREDOC_PROMPT);
 		if (g_shell.heredoc_status == 1 || read == NULL)
 		{
-			free_set((void **)&tok, ft_strdup(""));
+			free_set((void **)&tok, ft_xstrdup(""));
 			break ;
 		}
 		if (ft_strcmp(read, heredoc) == 0)
