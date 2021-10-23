@@ -1,29 +1,5 @@
 #include "shell.h"
 
-static t_list	*separate_to_lst(char *str, char *separator)
-{
-	t_list	*lst;
-	char	*start;
-
-	lst = NULL;
-	while (*str != '\0')
-	{
-		if (ft_strchr(separator, *str) != NULL)
-		{
-			ft_lstadd_back(&lst, ft_lstnew(ft_xsubstr(str, 0, 1)));
-			str++;
-		}
-		else
-		{
-			start = str;
-			while (ft_strchr(separator, *str) == NULL)
-				str++;
-			ft_lstadd_back(&lst, ft_lstnew(ft_xsubstr(start, 0, str - start)));
-		}
-	}
-	return (lst);
-}
-
 static char	*expand_env(char *content)
 {
 	char	*tmp;
@@ -52,14 +28,14 @@ void	expand_handler(t_list *lst)
 	{
 		content = (char *)lst->content;
 		if (ft_strcmp(content, "\'") == 0 && state == STATE_GENERAL)
-			free_set(&lst->content, NULL), state = STATE_IN_QUOTE;
-		else if (ft_strcmp(content, "\'") == 0 && state == STATE_IN_QUOTE)
+			free_set(&lst->content, NULL), state = STATE_IN_SQUOTE;
+		else if (ft_strcmp(content, "\'") == 0 && state == STATE_IN_SQUOTE)
 			free_set(&lst->content, NULL), state = STATE_GENERAL;
 		else if (ft_strcmp(content, "\"") == 0 && state == STATE_GENERAL)
 			free_set(&lst->content, NULL), state = STATE_IN_DQUOTE;
 		else if (ft_strcmp(content, "\"") == 0 && state == STATE_IN_DQUOTE)
 			free_set(&lst->content, NULL), state = STATE_GENERAL;
-		else if (ft_strcmp(content, "$") == 0 && state != STATE_IN_QUOTE && \
+		else if (ft_strcmp(content, "$") == 0 && state != STATE_IN_SQUOTE && \
 			lst->next != NULL && \
 ft_strchrset((char *)lst->next->content, " \t\n\v\f\r\"\'", 8) == NULL)
 		{

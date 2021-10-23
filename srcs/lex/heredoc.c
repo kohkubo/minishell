@@ -1,12 +1,14 @@
 #include "lex.h"
 #include "shell.h"
 
-char	*heredoc_readline(char *heredoc, char *tok)
+char	*heredoc_readline(char *heredoc)
 {
 	char	*read;
 	int		flg;
+	char	*tok;
 
 	flg = 0;
+	tok = ft_xstrdup("");
 	signal_init(signal_handler_heredoc, SIG_IGN, rl_event_hook_heredoc);
 	while (1)
 	{
@@ -27,48 +29,4 @@ char	*heredoc_readline(char *heredoc, char *tok)
 	g_shell.heredoc_status = 0;
 	signal_init(signal_handler_prompt, SIG_IGN, NULL);
 	return (tok);
-}
-
-char	*generate_heredoc(char *s)
-{
-	char	*buf;
-	int		i;
-
-	buf = ft_xcalloc(1, ft_strlen(s) + 1);
-	i = 0;
-	while (s[i])
-	{
-		if (ft_isspace(s[i]))
-			break ;
-		buf[i] = s[i];
-		i++;
-	}
-	free_set((void **)&buf, ft_xstrdup(buf));
-	return (buf);
-}
-
-t_state_type	heredoc(t_lexer **l, t_tok **tok, char **s, size_t *i)
-{
-	char	*heredoc;
-
-	if (*(*s + 2) == 0 || is_space_string(*s + 2))
-	{
-		ft_putendl_fd(\
-			"minishell : syntax error near unexpected token `newline'", 2);
-		g_shell.exit_status = 1;
-		token_end(*l, tok, 0);
-		return (STATE_ERROR);
-	}
-	token_store2_and_create(*l, tok, s);
-	*s += 1;
-	*i = 0;
-	*s += spacelen(*s);
-	heredoc = generate_heredoc(*s);
-	(*tok)->data = heredoc_readline(heredoc, (*tok)->data);
-	(*tok)->type = TOKEN;
-	*s += ft_strlen(heredoc);
-	*s += spacelen(*s);
-	free_set((void **)&heredoc, NULL);
-	token_end_and_create(*l, tok, *s, NULL);
-	return (STATE_GENERAL);
 }

@@ -31,7 +31,6 @@ CFLAGS		= -Wall -Wextra -Werror -O3 -g $(includes:%=-I%) -I$(shell brew --prefix
 
 src =\
 	./lex/lex.c \
-	./lex/token.c \
 	./lex/heredoc.c \
 	./lex/data.c \
 	./built-in/ft_exit.c \

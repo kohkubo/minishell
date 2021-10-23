@@ -33,6 +33,7 @@ src =\
 	./lst_to_array.c \
 	./print_array.c \
 	./random_string.c \
+	./separate_to_lst.c \
 	./spacelen.c \
 	./str_arraydup.c \
 	./strsort.c \
