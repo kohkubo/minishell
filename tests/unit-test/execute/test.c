@@ -7,8 +7,9 @@ int main(int argc, char *argv[])
 	t_lexer		*lex;
 	t_astree	*tree;
 	int			status;
+	char		*input;
 
-	minishell_init();
+	minishell_init(&input, &lex, &tree);
 	minishell_lexer(argv[1], &lex);
 	parse_v2(lex, &tree);
 	expand_astree(tree);

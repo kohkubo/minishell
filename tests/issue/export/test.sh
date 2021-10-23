@@ -10,6 +10,7 @@ echo $PWD
 for file in $(ls *.txt); do
 	echo "Testing $file"
 	./minishell < $file >> output 2>&1
+	sed -i "" -e "/minishell> /d" output
 	bash < $file >> expect 2>&1
 	grep -v -e "SHLVL" -v -e "_=" -v -e "MAKEOVERRIDES" expect | sort --output=expect
 	grep -v -e "SHLVL" -v -e "_=" -v -e "MAKEOVERRIDES" output | sort --output=output

@@ -11,14 +11,13 @@ rm -rf expect output
 for file in $(ls *.txt); do
 	echo "Testing $file"
 	./minishell < $file >> output >&1
-	bash < $file >> expect >&1
-	
-	cat $file
+	sed -i "" -e "/minishell> /d" output
+	bash < $file >> expect >&1	
 	diff -y expect output
 	if [ $? -ne 0 ]; then
 		echo "FAIL: $file"
-		# cat $file
-		# diff expect output -y
+		cat $file
+		diff expect output -y
 		RES=1
 	fi
 	rm -rf output expect

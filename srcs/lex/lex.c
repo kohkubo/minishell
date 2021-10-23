@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   lex.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kohkubo <kohkubo@student.42tokyo.jp>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/09 16:06:46 by kohkubo           #+#    #+#             */
-/*   Updated: 2021/08/19 18:53:55 by kohkubo          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "lex.h"
 #include "shell.h"
 
@@ -68,7 +56,9 @@ t_lexer **l, t_tok **tok, char **s, size_t *i)
 	}
 	else if (ft_strncmp(*s, "<<", 2) == 0)
 		state = heredoc(l, tok, s, i);
-	if (token_type(**s) == CHAR_GENERAL)
+	if (state == STATE_ERROR)
+		return (state);
+	else if (token_type(**s) == CHAR_GENERAL)
 	{
 		(*tok)->data[(*i)++] = **s;
 		(*tok)->type = TOKEN;
@@ -91,11 +81,9 @@ static t_state_type	minishell_lexer_do(t_lexer **lexer, t_tok *tok, char *s)
 			state = generate_token(lexer, &tok, &s, &i);
 		else
 			state = store_char_and_check_state(tok, state, &s, &i);
-		if (*s == 0 && (state != STATE_GENERAL))
+		if (*s == 0 && state != STATE_ERROR && state != STATE_GENERAL)
 		{
-			tok_free(tok);
-			lexer_free(lexer);
-			ft_error_exit("this pattern is not supported in the PDF");
+			ft_error_exit("this pattern is not supported");
 			return (state);
 		}
 		if (*s == 0)

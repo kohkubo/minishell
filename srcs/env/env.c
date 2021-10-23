@@ -12,7 +12,7 @@ void	store_shellenv(char **arr, t_hash_table *table)
 	{
 		if (ft_strchr(arr[i], '=') != NULL)
 		{
-			tmp = ft_strdup(arr[i]);
+			tmp = ft_xstrdup(arr[i]);
 			tmp[ft_strchr(tmp, '=') - tmp] = '\0';
 			hash_setstr(table, tmp, tmp + ft_strlen(tmp) + 1);
 			free_set((void **)&tmp, NULL);
@@ -36,9 +36,13 @@ static void	env_init(void)
 	g_shell.pwd = getcwd(NULL, 0);
 }
 
-void	minishell_init(void)
+void	minishell_init(char **input, t_lexer **lex, t_astree **tree)
 {
 	errno = 0;
-	g_shell.env = hash_create_table(10);
+	*input = NULL;
+	*lex = NULL;
+	*tree = NULL;
+	g_shell.env = hash_create_table(1024);
+	signal_init(signal_handler_prompt, SIG_IGN, NULL);
 	env_init();
 }

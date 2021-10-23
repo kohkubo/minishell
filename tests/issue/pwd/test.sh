@@ -9,6 +9,7 @@ echo $PWD
 for file in $(ls *.txt); do
 	echo "Testing $file"
 	./minishell < $file >> output 2>&1
+	sed -i "" -e "/minishell> /d" output
 	bash < $file >> expect 2>&1
 	diff expect output
 	if [ $? -ne 0 ]; then

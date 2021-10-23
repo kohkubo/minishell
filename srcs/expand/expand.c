@@ -37,7 +37,7 @@ static char	*expand_env(char *content)
 		tmp = (char *)hash_getstr(g_shell.env, content);
 		if (tmp == NULL)
 			tmp = "";
-		tmp = ft_strdup(tmp);
+		tmp = ft_xstrdup(tmp);
 	}
 	return (tmp);
 }
@@ -95,6 +95,10 @@ char	*minishell_expand(char *arg, void (*handler)(t_list *))
 
 	if (arg == NULL)
 		ft_fatal("minishell_expand : Invalid argument");
+	if (*arg == '\0')
+	{
+		return (ft_xstrdup(arg));
+	}
 	separated = separate_to_lst(arg, "\'\"\t\n\v\f\r\? $");
 	handler(separated);
 	ret = lst_join_str(separated, "");

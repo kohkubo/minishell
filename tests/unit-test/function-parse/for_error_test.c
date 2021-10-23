@@ -3,6 +3,8 @@
 #include "lex.h"
 #include "logging.h"
 
+t_shell	g_shell = {};
+
 t_tok	*new_token(char *data, t_token_type	type)
 {
 	t_tok	*ret;

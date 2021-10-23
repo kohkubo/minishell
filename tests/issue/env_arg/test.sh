@@ -9,6 +9,7 @@ echo $PWD
 for file in $(ls *.txt); do
 	echo "File: $file"
 	./minishell < $file >> output 2>&1
+	sed -i "" -e "/minishell> /d" output
 	bash -c env >> expect 2>&1
 	grep -v -e "SHLVL" -v -e "_=" expect | sort --output=expect
 	grep -v -e "SHLVL" -v -e "_=" output | sort --output=output

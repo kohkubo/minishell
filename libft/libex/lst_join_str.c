@@ -5,7 +5,7 @@ char	*lst_join_str(t_list *lst, char *sep)
 	char	*str;
 
 	if (lst == NULL)
-		ft_fatal("lst_to_string: Invalid argument");
+		ft_fatal("lst_join_str: Invalid argument");
 	if (sep == NULL)
 		sep = "";
 	if ((char *)lst->content != NULL)

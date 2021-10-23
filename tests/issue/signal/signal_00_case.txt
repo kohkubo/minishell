@@ -1,0 +1,5 @@
+./minishell
+ctrl+c
+ctrl+c
+ctrl+c
+ctrl+d

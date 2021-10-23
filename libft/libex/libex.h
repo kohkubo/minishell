@@ -9,6 +9,7 @@ bool	is_num_string(char *s);
 bool	is_space_string(char *s);
 char	**free_string_array(char **buf);
 char	**ft_xsplit(char const *s, char c);
+char	**lst_to_array(t_list *lst);
 char	**str_arraydup(char **array);
 char	*ft_strchrset(const char *s, char *chrset, size_t chrset_len);
 char	*ft_strndup(const char *s1, size_t n);
@@ -37,5 +38,4 @@ void	ft_fatal(const char *emsg);
 void	pexit(char *message);
 void	print_array(char **array);
 void	strsort(char *str[], int n);
-char	**lst_to_array(t_list *lst);
 #endif

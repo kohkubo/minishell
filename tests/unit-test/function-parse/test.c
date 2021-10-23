@@ -3,7 +3,10 @@
 #include "lex.h"
 #include "astree.h"
 #include "libft.h"
+#include "libex.h"
 #include "logging.h"
+
+t_shell	g_shell = {};
 
 void print_token(void *tok)
 {
