@@ -157,9 +157,9 @@ Testing heredoc_case10.txt
 --------------------------------
 <<
 --------------------------------
-minishell : syntax error near unexpected token `newline'
  === test ===
-lexer->len : 0
+lexer->len : 1
+<< : 316
 0
 --------------------------------
 
@@ -197,9 +197,9 @@ cat : -1
 AA
  : -1
 aa : -1
-minishell : syntax error near unexpected token `newline'
  === test ===
-lexer->len : 0
+lexer->len : 1
+<< : 316
 0
 --------------------------------
 
