@@ -12,7 +12,7 @@ void	store_shellenv(char **arr, t_hash_table *table)
 	{
 		if (ft_strchr(arr[i], '=') != NULL)
 		{
-			tmp = ft_strdup(arr[i]);
+			tmp = ft_xstrdup(arr[i]);
 			tmp[ft_strchr(tmp, '=') - tmp] = '\0';
 			hash_setstr(table, tmp, tmp + ft_strlen(tmp) + 1);
 			free_set((void **)&tmp, NULL);
