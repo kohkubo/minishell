@@ -5,6 +5,14 @@
 
 t_shell	g_shell = {};
 
+t_lexer	*lexer_init(void)
+{
+	t_lexer	*lexer;
+
+	lexer = ft_xcalloc(sizeof(t_lexer), 1);
+	return (lexer);
+}
+
 t_tok	*new_token(char *data, t_token_type	type)
 {
 	t_tok	*ret;
