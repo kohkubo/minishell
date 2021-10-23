@@ -64,6 +64,7 @@ bool	parse_v2(t_lexer *lex, t_astree **res_buf)
 	*res_buf = cmdline(&tokens, &has_error);
 	if (tokens != NULL || has_error)
 	{
+		g_shell.exit_status = 258;
 		ft_putstr_fd("syntax error near unexpected token `", 2);
 		if (tokens == NULL)
 			ft_putstr_fd("newline", 2);

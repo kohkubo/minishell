@@ -26,6 +26,7 @@ bool	test(t_tok **toks)
 	char		*str;
 
 	lex = lexer_init();
+	g_shell.exit_status = 0;
 	str = ft_strdup("");
 	while (*toks)
 	{
@@ -37,9 +38,9 @@ bool	test(t_tok **toks)
 	isSuccess = parse_v2(lex, &tree);
 	lexer_free(&lex);
 	tree = astree_delete_node(tree);
-	printf("%s%s\n", str, !isSuccess ? GREEN"✓"END : RED"×"END);
+	printf("%s(%d)%s\n", str, g_shell.exit_status, (!isSuccess && g_shell.exit_status == 258) ? GREEN"✓"END : RED"×"END);
 	free(str);
-	return (!isSuccess);
+	return (!isSuccess && g_shell.exit_status == 258);
 }
 
 int	main(int argc, char *argv[])
