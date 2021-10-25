@@ -118,6 +118,7 @@ bool	test(bool varbose, char *input, t_astree *expect_tree)
 		print_tree(res_tree, 0);
 	}
 	is_ok = compare(expect_tree, res_tree);
+	is_ok = is_ok && g_shell.exit_status == 0;
 	lexer_free(&lex);
 	res_tree = astree_delete_node(res_tree);
 	expect_tree = astree_delete_node(expect_tree);
@@ -131,6 +132,8 @@ bool	test(bool varbose, char *input, t_astree *expect_tree)
 		printf(RED" ×\n"END);
 		if (!res_flg)
 			fprintf(stderr, RED"return val is different.\n"END);
+		if (g_shell.exit_status != 0)
+			fprintf(stderr, RED"exit status is different.(%d)\n"END, g_shell.exit_status);
 		return (false);
 	}
 }
