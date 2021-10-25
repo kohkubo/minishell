@@ -147,8 +147,9 @@ int main(void) {
 	/*
 	 * <token list> ::= (EMPTY)
 	 */
-	printf("(no-length string)");
-	result &= test(varbose, "", NULL);
+	// lexerに空文字が入ってくることは本来起きないので、エラーケースとして弾くようにしたため、このケースはテストができなくなりました。
+	// printf("(no-length string)");
+	// result &= test(varbose, "", NULL);
 	printf("(white space only)");
 	result &= test(varbose, "    ", NULL);
 	/*
