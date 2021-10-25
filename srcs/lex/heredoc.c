@@ -21,8 +21,7 @@ char	*heredoc_readline(char *heredoc)
 		if (ft_strcmp(read, heredoc) == 0)
 			break ;
 		free_set((void **)&tok, ft_xstrjoin(tok, read));
-		free_set((void **)&tok, ft_xstrjoin(tok, "\n"));
-		free_set((void **)&read, NULL);
+		free_set((void **)&tok, ft_xstrjoin(tok, "\n")), free(read);
 		flg++;
 	}
 	free_set((void **)&read, NULL);
