@@ -33,6 +33,7 @@ src =\
 	./lex/lex.c \
 	./lex/heredoc.c \
 	./lex/data.c \
+	./lex/store.c \
 	./built-in/ft_exit.c \
 	./built-in/echo.c \
 	./built-in/ft_env.c \

@@ -37,16 +37,12 @@ typedef enum e_state_type{
 	STATE_ERROR			= -2,
 }	t_state_type;
 
-# define SQUOTE_TOKEN "\'"
-# define DQUOTE_TOKEN "\""
-# define PIPE_TOKEN "|"
-# define GREATER_TOKEN ">"
-# define GREATER2_TOKEN ">>"
-# define LESSER_TOKEN "<"
-# define LESSER2_TOKEN "<<"
-
+# define GREATER2 ">>"
+# define LESSER2 "<<"
 # define QUOTES "\'\""
-# define TOKEN_SEPARATOR "\t\n\v\f\r <>|"
+# define SEPARATOR "\t\n\v\f\r <>|"
+# define TOKEN_WSPACE "\t\n\v\f\r "
+# define TOKEN_WSPACE_QUOTES "\t\n\v\f\r \'\""
 
 /*
 ** Put in contents of t_list.
@@ -70,5 +66,8 @@ t_lexer			*lexer_new(t_list *listtok);
 void			tok_free(void *content);
 void			lexer_free(t_lexer **lexer);
 char			*heredoc_readline(char *heredoc);
+t_state_type	store_quote_token(t_list **lst, char **token, t_list **ret);
+void			store_general_token(t_list **lst, char **token, t_list **ret);
+t_state_type	store_heredoc_token(t_list **lst, char **token, t_list **ret);
 
 #endif
