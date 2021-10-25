@@ -16,6 +16,39 @@ void print_token(void *tok)
 	printf("[%3d] "YELLOW"%s"END"\n", token->type, token->data);
 }
 
+char	*get_typestr(t_node_type type)
+{
+	char	*str;
+
+	str = ft_xstrdup("");
+	if (type & NODE_PIPE)
+		free_set((void **)&str, ft_xstrjoin(str, " | NODE_PIPE"));
+	if (type & NODE_BCKGRND)
+		free_set((void **)&str, ft_xstrjoin(str, " | NODE_BCKGRND"));
+	if (type & NODE_SEQ)
+		free_set((void **)&str, ft_xstrjoin(str, " | NODE_SEQ"));
+	if (type & NODE_REDIRECT_IN)
+		free_set((void **)&str, ft_xstrjoin(str, " | NODE_REDIRECT_IN"));
+	if (type & NODE_REDIRECT_OUT)
+		free_set((void **)&str, ft_xstrjoin(str, " | NODE_REDIRECT_OUT"));
+	if (type & NODE_REDIRECT_IN2)
+		free_set((void **)&str, ft_xstrjoin(str, " | NODE_REDIRECT_IN2"));
+	if (type & NODE_REDIRECT_OUT2)
+		free_set((void **)&str, ft_xstrjoin(str, " | NODE_REDIRECT_OUT2"));
+	if (type & NODE_CMDPATH)
+		free_set((void **)&str, ft_xstrjoin(str, " | NODE_CMDPATH"));
+	if (type & NODE_ARGUMENT)
+		free_set((void **)&str, ft_xstrjoin(str, " | NODE_ARGUMENT"));
+	if (type & NODE_REDIRECT_LIST)
+		free_set((void **)&str, ft_xstrjoin(str, " | NODE_REDIRECT_LIST"));
+	if (type & NODE_REDIRECTION)
+		free_set((void **)&str, ft_xstrjoin(str, " | NODE_REDIRECTION"));
+	if (type & NODE_DATA)
+		free_set((void **)&str, ft_xstrjoin(str, " | NODE_DATA"));
+	free_set((void **)&str, ft_strtrim(str, "| "));
+	return (str);
+}
+
 void	print_tree(t_astree *node, int sp_num)
 {
 	char	*str;
@@ -70,21 +103,24 @@ bool	compare(t_astree *ex, t_astree *ac)
 	if ((ex == NULL && ac != NULL)
 		|| (ex != NULL && ac == NULL))
 	{
-		fprintf(stderr, RED"One is NULL.\n"END);
+		fprintf(stderr, RED"\nOne is NULL.\n"END);
 		fprintf(stderr, "expect: %p, actualy: %p\n", ex, ac);
 		return (false);
 	}
 	if (ex->type != ac->type)
 	{
-		fprintf(stderr, RED"type is different.\n"END);
-		fprintf(stderr, "expect: %d, actualy: %d\n", ex->type, ac->type);
+		fprintf(stderr, RED"\ntype is different.\n"END);
+		char *ex_type = get_typestr(ex->type);
+		char *ac_type = get_typestr(ac->type);
+		fprintf(stderr, "expect: %s, actualy: %s\n", ex_type, ac_type);
+		free(ex_type), free(ac_type);
 		return (false);
 	}
 	if (!(ex->data == NULL && ac->data == NULL))
 	{
 		if (strcmp(ex->data, ac->data))
 		{
-			fprintf(stderr, RED"data is different.\n"END);
+			fprintf(stderr, RED"\ndata is different.\n"END);
 			fprintf(stderr, "expect: %s, actualy: %s\n", ex->data, ac->data);
 			return (false);
 		}
@@ -189,6 +225,24 @@ int main(void) {
 	 * <redirection list>	::= <redirection> <redirection list>
 	 * <redirection>		::= '<' <filename> <token list>
 	 */
+	// <redirection list>
+	result &= test(varbose, "< in1",
+		astree_create_node(NODE_REDIRECT_LIST, NULL,
+			astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in1"),
+				NULL,
+				NULL),
+			NULL));
+	result &= test(varbose, "< in1 > out1",
+		astree_create_node(NODE_REDIRECT_LIST, NULL,
+			astree_create_node(NODE_REDIRECT_IN | NODE_DATA, strdup("in1"),
+				NULL,
+				NULL),
+			astree_create_node(NODE_REDIRECT_LIST, NULL,
+				astree_create_node(NODE_REDIRECT_OUT | NODE_DATA, strdup("out1"),
+					NULL,
+					NULL),
+				NULL)));
+
 	// <simple command> <redirection>
 	result &= test(varbose, "cat < in1",
 		astree_create_node(NODE_REDIRECTION, NULL,

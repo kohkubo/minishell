@@ -4,11 +4,10 @@ t_astree	*redirection1(
 				t_list **toks, t_token_type t, t_node_type n, bool *has_error);
 
 /**
-<redirection>		::= '<' <filename> <token list>
-					  | '>' <filename> <token list>
-					  | '<<' <filename> <token list>
-					  | '>>' <filename> <token list>
-// <token list> will be added after the arg of the previous <simple command>.
+<redirection>		::= '<' <filename>
+					  | '>' <filename>
+					  | '<<' <filename>
+					  | '>>' <filename>
 */
 t_astree	*redirection(t_list **toks, bool *has_error)
 {
@@ -34,7 +33,6 @@ t_astree	*redirection(t_list **toks, bool *has_error)
 t_astree	*redirection1(
 				t_list **toks, t_token_type t, t_node_type n, bool *has_error)
 {
-	t_astree	*tokenlist_node;
 	char		*filename;
 
 	if (!move_if_is_tokentype(t, toks))
@@ -44,6 +42,5 @@ t_astree	*redirection1(
 		*has_error = true;
 		return (NULL);
 	}
-	tokenlist_node = tokenlist(toks, has_error);
-	return (astree_create_node(n | NODE_DATA, filename, NULL, tokenlist_node));
+	return (astree_create_node(n | NODE_DATA, filename, NULL, NULL));
 }

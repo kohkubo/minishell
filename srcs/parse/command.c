@@ -1,13 +1,13 @@
 #include "parse.h"
 
-// <simple command> <redirection list>
-t_astree	*cmd1(t_list **toks, bool *has_error);
-t_astree	*cmd2(t_list **toks, bool *has_error); // <simple command>
-void		collect_args(t_astree *simplecmd_node, t_astree *redirlist_node);
+t_astree	*cmd_token(t_list **toks, bool *has_error);
+t_astree	*cmd_redirection(t_list **toks, bool *has_error);
+t_astree	*cmd_empty(t_list **toks, bool *has_error);
 
 /**
- * @brief <command>	::= <simple command> <redirection list>
- *					  | <simple command>
+ * <command>	::= <token list> <command>
+ * 				  | <redirection> <command>
+ * 				  | (EMPTY)
  */
 t_astree	*cmd(t_list **toks, bool *has_error)
 {
@@ -15,49 +15,74 @@ t_astree	*cmd(t_list **toks, bool *has_error)
 	t_astree	*result;
 
 	save = *toks;
-	result = cmd1(toks, has_error);
+	result = cmd_token(toks, has_error);
 	if (result != NULL || *has_error)
 		return (result);
 	*toks = save;
-	return (cmd2(toks, has_error));
+	result = cmd_redirection(toks, has_error);
+	if (result != NULL || *has_error)
+		return (result);
+	*toks = save;
+	return (cmd_empty(toks, has_error));
 }
 
-/**
- * <command> ::= <simple command> <redirection list>
- */
-t_astree	*cmd1(t_list **toks, bool *has_error)
+t_astree	*cmd_token(t_list **toks, bool *has_error)
 {
-	t_astree	*simplecmd_node;
-	t_astree	*redirlist_node;
+	t_astree	*token_node;
+	t_astree	*cmd_node;
+	t_astree	*tmp;
 
-	simplecmd_node = simplecmd(toks, has_error);
-	if (simplecmd_node == NULL)
+	token_node = tokenlist(toks, has_error);
+	if (token_node == NULL)
 		return (NULL);
-	redirlist_node = redirlist(toks, has_error);
-	if (redirlist_node == NULL)
-		return (astree_delete_node(simplecmd_node));
-	collect_args(simplecmd_node, redirlist_node);
-	return (astree_create_node(NODE_REDIRECTION, NULL,
-			simplecmd_node, redirlist_node));
-}
-
-/**
- * <command> ::= <simple command>
- */
-t_astree	*cmd2(t_list **toks, bool *has_error)
-{
-	return (simplecmd(toks, has_error));
-}
-
-void	collect_args(t_astree *simplecmd_node, t_astree *redirlist_node)
-{
-	t_astree	*args;
-
-	while (redirlist_node != NULL)
+	token_node->type = NODE_CMDPATH | NODE_DATA;
+	cmd_node = cmd(toks, has_error);
+	if (cmd_node == NULL)
+		return (token_node);
+	if (cmd_node->type & NODE_REDIRECTION)
 	{
-		args = redirlist_node->left->right;
-		astree_get_right_last(simplecmd_node)->right = args;
-		redirlist_node->left->right = NULL;
-		redirlist_node = redirlist_node->right;
+		cmd_node->left->type = NODE_ARGUMENT | NODE_DATA;
+		astree_get_right_last(token_node)->right = cmd_node->left;
+		cmd_node->left = NULL;
+		tmp = cmd_node->right;
+		cmd_node->right = NULL;
+		astree_delete_node(cmd_node);
+		cmd_node = tmp;
 	}
+	return (astree_create_node(NODE_REDIRECTION, NULL,
+			token_node, cmd_node));
+}
+
+t_astree	*cmd_redirection(t_list **toks, bool *has_error)
+{
+	t_astree	*redirection_node;
+	t_astree	*cmd_node;
+	t_astree	*tmp;
+
+	redirection_node = redirlist(toks, has_error);
+	if (redirection_node == NULL)
+		return (NULL);
+	cmd_node = cmd(toks, has_error);
+	if (cmd_node == NULL)
+		return (redirection_node);
+	if (cmd_node->type & NODE_REDIRECTION)
+	{
+		cmd_node->left->type = NODE_ARGUMENT | NODE_DATA;
+		astree_get_right_last(redirection_node)->right = cmd_node->right;
+		cmd_node->right = NULL;
+		tmp = cmd_node->left;
+		cmd_node->left = NULL;
+		astree_delete_node(cmd_node);
+		cmd_node = tmp;
+	}
+	cmd_node->type = NODE_CMDPATH | NODE_DATA;
+	return (astree_create_node(NODE_REDIRECTION, NULL,
+			cmd_node, redirection_node));
+}
+
+t_astree	*cmd_empty(t_list **toks, bool *has_error)
+{
+	(void)toks;
+	(void)has_error;
+	return (NULL);
 }
