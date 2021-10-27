@@ -22,11 +22,14 @@ test "echo aaaa"
 test "echo test test pwd echo"
 test "echo test*ttest"
 test "echo あいう"
+# test "echo aiueo\n" # 解釈しない
 test "echo -"
 test "echo -n"
 newline
 test "echo -n test test tset"
 newline
+# test "echo -n -n\n"
+# newline
 test "echo -n -n -n hello"
 newline
 test "echo -n -n -n"
@@ -36,7 +39,7 @@ newline
 test "echo hello -n -n"
 newline
 
-diff output expect
+diff -y output expect
 RES=$?
 
 rm leaksout expect output ./minishell
