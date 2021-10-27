@@ -31,6 +31,10 @@ test "echo -n -n -n hello"
 newline
 test "echo -n -n -n"
 newline
+test "echo -n -n hello -n"
+newline
+test "echo hello -n -n"
+newline
 
 diff output expect
 RES=$?

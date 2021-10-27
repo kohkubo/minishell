@@ -12,7 +12,7 @@ int	ft_echo(char **args)
 		ft_putstr_fd("\n", 1);
 		return (0);
 	}
-	if (!ft_strncmp(*args, "-n", SIZE_MAX))
+	while (!ft_strncmp(*args, "-n", SIZE_MAX))
 	{
 		op_flg = true;
 		if (*++args == NULL)
