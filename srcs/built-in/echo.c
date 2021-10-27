@@ -9,7 +9,7 @@ int	ft_echo(char **args)
 		return (1);
 	if (*args == NULL)
 	{
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 		return (0);
 	}
 	if (!ft_strncmp(*args, "-n", SIZE_MAX))
@@ -18,13 +18,13 @@ int	ft_echo(char **args)
 		if (*++args == NULL)
 			return (0);
 	}
-	printf("%s", *args++);
+	ft_putstr_fd(*args++, 1);
 	while (*args)
 	{
-		printf(" %s", *args);
-		args++;
+		ft_putstr_fd(" ", 1);
+		ft_putstr_fd(*args++, 1);
 	}
 	if (op_flg == false)
-		printf("\n");
+		ft_putstr_fd("\n", 1);
 	return (0);
 }
