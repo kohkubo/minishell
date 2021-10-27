@@ -1,14 +1,9 @@
 #!/bin/bash
 
 function test() {
-	echo $1 | ./minishell | sed '1d' | sed "s/minishell> //g" >> output
+	echo $1 | ./minishell | cat - <(echo "") | sed "1d" | sed "s/minishell> //g" >> output
 	LEAKS=$(($LEAKS | $?))
-	echo $1 | bash >> expect
-}
-
-function newline() {
-	echo "" >> output
-	echo "" >> expect
+	echo $1 | bash | cat - <(echo "") >> expect
 }
 
 cp ./minishell "$(dirname "$0")"
@@ -25,19 +20,12 @@ test "echo あいう"
 # test "echo aiueo\n" # 解釈しない
 test "echo -"
 test "echo -n"
-newline
 test "echo -n test test tset"
-newline
 # test "echo -n -n\n"
-# newline
 test "echo -n -n -n hello"
-newline
 test "echo -n -n -n"
-newline
 test "echo -n -n hello -n"
-newline
 test "echo hello -n -n"
-newline
 
 diff -y output expect
 RES=$?
