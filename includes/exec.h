@@ -18,5 +18,6 @@ int		minishell_perror(char *cmd, int status);
 int		minishell_pexit(char *cmd, int status);
 
 void	connect_pipe(int pipefd[2], int fd);
+int		get_status(int	status);
 
 #endif

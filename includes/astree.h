@@ -15,6 +15,8 @@ typedef enum e_node_type
 	NODE_DATA			= (1 << 9),
 	NODE_REDIRECT_LIST	= (1 << 10),
 	NODE_REDIRECTION	= (1 << 11),
+	NODE_AND			= (1 << 12),
+	NODE_OR				= (1 << 13),
 }	t_node_type;
 
 /*
