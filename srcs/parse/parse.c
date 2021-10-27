@@ -50,7 +50,7 @@ bool	allocate_data_if_is_token(t_list **current, char **buf_ptr)
 <token list>		::= <token> <token list>
 					  | (EMPTY)
 */
-bool	parse_v2(t_lexer *lex, t_astree **res_buf)
+bool	parse(t_lexer *lex, t_astree **res_buf)
 {
 	t_list	*tokens;
 	bool	has_error;

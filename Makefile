@@ -44,7 +44,7 @@ src =\
 	./main.c \
 	./utils/get_fullpath.c \
 	./env/env.c \
-	./parse/parse-v2.c \
+	./parse/parse.c \
 	./parse/astree.c \
 	./parse/command_line.c \
 	./parse/job.c \
