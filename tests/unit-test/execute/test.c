@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 
 	minishell_init(&input, &lex, &tree);
 	minishell_lexer(argv[1], &lex);
-	parse_v2(lex, &tree);
+	parse(lex, &tree);
 	expand_astree(tree);
 	status = minishell_execute(tree);
 	lexer_free(&lex);

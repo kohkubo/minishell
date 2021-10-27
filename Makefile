@@ -44,7 +44,7 @@ src =\
 	./main.c \
 	./utils/get_fullpath.c \
 	./env/env.c \
-	./parse/parse-v2.c \
+	./parse/parse.c \
 	./parse/astree.c \
 	./parse/command_line.c \
 	./parse/job.c \
@@ -52,13 +52,13 @@ src =\
 	./parse/redirection_list.c \
 	./parse/redirection.c \
 	./parse/token_list.c \
-	./execute/exec__main.c \
-	./execute/exec_cmdline.c \
-	./execute/exec_job.c \
-	./execute/exec_cmd.c \
-	./execute/exec_redirection.c \
-	./execute/exec_simplecmd.c \
-	./execute/exec_builtin.c \
+	./execute/exec.c \
+	./execute/cmdline.c \
+	./execute/job.c \
+	./execute/cmd.c \
+	./execute/redirection.c \
+	./execute/simplecmd.c \
+	./execute/builtin.c \
 	./execute/error.c \
 	./expand/expand.c \
 	./expand/expand_astree.c \

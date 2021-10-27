@@ -22,7 +22,7 @@ int	main(void)
 			lexer_free(&lex);
 			continue ;
 		}
-		if (parse_v2(lex, &tree))
+		if (parse(lex, &tree))
 		{
 			expand_astree(tree);
 			g_shell.exit_status = minishell_execute(tree);

@@ -145,7 +145,7 @@ bool	test(bool varbose, char *input, t_astree *expect_tree)
 	if (varbose)
 		ft_lstiter(lex->listtok, print_token);
 	res_tree = NULL;
-	res_flg = parse_v2(lex, &res_tree);
+	res_flg = parse(lex, &res_tree);
 	if (varbose)
 	{
 		printf("----- expect -----\n");

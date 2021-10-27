@@ -1,41 +1,75 @@
 #include "shell.h"
+#include "parse.h"
 
-typedef int			(*t_reserved_func)(char **arg);
-char				*g_reserved_words[] = {
-	"echo", "cd", "pwd", "export", "unset", "env", "exit", NULL
-};
-t_reserved_func		g_reserved_funcs[] = {
-	ft_echo, NULL, ft_pwd, ft_export, ft_unset, ft_env, ft_exit, NULL
-};
-
-static void	not_implemented(char *word)
+bool	move_if_is_tokentype(t_token_type type, t_list **current)
 {
-	ft_putstr_fd(word, 1);
-	ft_putendl_fd(" is not implemented yet", 1);
+	if (*current == NULL)
+		return (false);
+	if (((t_tok *)(*current)->content)->type == type)
+	{
+		*current = (*current)->next;
+		return (true);
+	}
+	return (false);
 }
 
-void	parse(char *input)
+bool	allocate_data_if_is_token(t_list **current, char **buf_ptr)
 {
-	char	**buf;
-	int		i;
+	if (*current == NULL)
+		return (false);
+	if (((t_tok *)(*current)->content)->type == TOKEN)
+	{
+		*buf_ptr = ft_xstrdup(((t_tok *)(*current)->content)->data);
+		*current = (*current)->next;
+		return (true);
+	}
+	return (false);
+}
 
-	buf = ft_split(input, ' ');
-	if (buf == NULL)
-		exit(1);
-	if (buf[0] != NULL)
-		i = contain(g_reserved_words, buf[0]);
-	if (buf[0] != NULL && i != -1)
+/**
+<command line>		::= <job> ';' <command line>	// not make
+					  | <job> ';'					// not make
+					  | <job> '&' <command line>	// not make
+					  | <job> '&'					// not make
+					  | <job>
+
+<job>				::= <command> '|' <job>
+					  | <command>
+
+<command>			::= <token list> <command>
+					  | <redirection list> <command>
+					  | (EMPTY)
+
+<redirection list>	::= <redirection> <redirection list>
+
+<redirection>		::= '<' <filename>
+					  | '>' <filename>
+					  | '<<' <filename>
+					  | '>>' <filename>
+
+<token list>		::= <token> <token list>
+					  | (EMPTY)
+*/
+bool	parse(t_lexer *lex, t_astree **res_buf)
+{
+	t_list	*tokens;
+	bool	has_error;
+
+	if (res_buf == NULL)
+		return (false);
+	has_error = false;
+	tokens = lex->listtok;
+	*res_buf = cmdline(&tokens, &has_error);
+	if (tokens != NULL || has_error)
 	{
-		if (g_reserved_funcs[i] != NULL)
-			g_reserved_funcs[i](&buf[1]);
+		g_shell.exit_status = 258;
+		ft_putstr_fd("syntax error near unexpected token `", 2);
+		if (tokens == NULL)
+			ft_putstr_fd("newline", 2);
 		else
-			not_implemented(buf[0]);
+			ft_putstr_fd(((t_tok *)tokens->content)->data, 2);
+		ft_putendl_fd("'", 2);
+		return (false);
 	}
-	else
-	{
-		i = 0;
-		while (buf[i])
-			ft_putendl_fd(buf[i++], 1);
-	}
-	buf = free_string_array(buf);
+	return (true);
 }

@@ -43,7 +43,7 @@ bool	test(t_tok **toks)
 		free_set((void **)&str, ft_strjoin(str, " "));
 		toks++;
 	}
-	isSuccess = parse_v2(lex, &tree);
+	isSuccess = parse(lex, &tree);
 	lexer_free(&lex);
 	tree = astree_delete_node(tree);
 	printf("%s(%d)%s\n", str, g_shell.exit_status, (!isSuccess && g_shell.exit_status == 258) ? GREEN"✓"END : RED"×"END);

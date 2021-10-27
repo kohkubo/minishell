@@ -14,7 +14,7 @@ gcc -g $INCLUDES \
 $DIR/test.c \
 $(find $REPO_ROOT/srcs/lex -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/signal -type f -name "*.c") \
-$(find $REPO_ROOT/srcs/parse -type f -name "*.c" -not -name 'parse.c') \
+$(find $REPO_ROOT/srcs/parse -type f -name "*.c") \
 $SHARED_LIB $LIBS -lft -lex -lreadline -lhistory -L$(brew --prefix readline)/lib -I$(brew --prefix readline)/include || exit 1
 
 $DIR/a.out
@@ -34,7 +34,7 @@ gcc -g $INCLUDES \
 "$DIR/for_error_test.c" \
 $(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/signal -type f -name "*.c") \
-$(find $REPO_ROOT/srcs/parse/ -type f -name "*.c" -not -name 'parse.c') \
+$(find $REPO_ROOT/srcs/parse/ -type f -name "*.c") \
 $SHARED_LIB $LIBS -lft -lex -lreadline -lhistory -L$(brew --prefix readline)/lib -I$(brew --prefix readline)/include || exit 1
 
 $DIR/a.out 2> $DIR/out
