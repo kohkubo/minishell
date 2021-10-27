@@ -11,9 +11,9 @@ static long	ft_atol_overflow(int neg)
 
 long	ft_atol(const char *s)
 {
-	long	n;
-	int		neg;
-	long	tmp;
+	unsigned long	n;
+	int				neg;
+	unsigned long	tmp;
 
 	n = 0;
 	neg = 1;
@@ -26,8 +26,8 @@ long	ft_atol(const char *s)
 	{
 		tmp = n;
 		n = n * 10 + *s++ - '0';
-		if (tmp >> 60 || n >> 63)
+		if (LONG_MAX < (n - (neg < 0)))
 			return (ft_atol_overflow(neg));
 	}
-	return ((n * neg));
+	return ((long)n * neg);
 }
