@@ -1,105 +1,75 @@
 #include "lex.h"
 #include "shell.h"
 
-static t_state_type	store_char_and_check_state(\
-t_tok *tok, t_state_type st, char **s, size_t *i)
+t_state_type	lexer_handler(t_list *lst, t_lexer **lexer)
 {
-	if (st == STATE_IN_DQUOTE)
-	{
-		tok->data[(*i)++] = **s;
-		if (**s == CHAR_DQUOTE)
-			return (STATE_GENERAL);
-	}
-	else if (st == STATE_IN_QUOTE)
-	{
-		tok->data[(*i)++] = **s;
-		if (**s == CHAR_QUOTE)
-			return (STATE_GENERAL);
-	}
-	return (st);
-}
+	t_list			*ret;
+	char			*c;
+	char			*token;
 
-static t_state_type	cut_off_token(t_lexer *l, t_tok **tok, char **s, size_t *i)
-{
-	if (ft_isspace(**s))
-		token_end_and_create(l, tok, *s, i);
-	else if (**s == CHAR_NULL)
-		token_end(l, tok, *i);
-	else if (ft_strncmp(*s, ">>", 2) == 0)
+	ret = NULL;
+	token = ft_xstrdup("");
+	while (lst)
 	{
-		token_end_and_create(l, tok, *s, i);
-		token_store2_and_create(l, tok, s);
+		c = (char *)lst->content;
+		if (ft_isspace(*c))
+			lst = lst->next;
+		else if (*c == CHAR_SQUOTE || *c == CHAR_DQUOTE)
+			store_quote_token(&lst, &token, &ret);
+		else if (ft_strcmp(c, LESSER2) == 0)
+			store_heredoc_token(&lst, &token, &ret);
+		else if (ft_strcmp(c, GREATER2) == 0)
+			ft_lstadd_back(&ret, ft_lstnew(tok_new(c, CHAR_GREATER2))),
+			lst = lst->next;
+		else if (*c == CHAR_LESSER || *c == CHAR_GREATER || *c == CHAR_PIPE)
+			ft_lstadd_back(&ret, ft_lstnew(tok_new(c, *c))), lst = lst->next;
+		else
+			store_general_token(&lst, &token, &ret);
 	}
-	else if (**s == CHAR_GREATER || **s == CHAR_LESSER || **s == CHAR_PIPE)
-	{
-		token_end_and_create(l, tok, *s, i);
-		token_store_and_create(l, tok, *s, **s);
-	}
+	free(token), *lexer = lexer_new(ret);
 	return (STATE_GENERAL);
 }
 
-static t_state_type	generate_token(\
-t_lexer **l, t_tok **tok, char **s, size_t *i)
+void	merge_double_token(t_list **lst, char c)
 {
-	t_state_type	state;
+	char	token[3];
+	t_list	*next;
 
-	state = STATE_GENERAL;
-	if (**s == '\'' || **s == '"')
+	if (*(char *)(*lst)->content == c && *(char *)(*lst)->next->content == c)
 	{
-		if (**s == '\'')
-			state = STATE_IN_QUOTE;
-		else
-			state = STATE_IN_DQUOTE;
-		(*tok)->data[(*i)++] = **s;
-		(*tok)->type = TOKEN;
-		return (state);
+		next = (*lst)->next->next;
+		token[0] = c;
+		token[1] = c;
+		token[2] = '\0';
+		free_set((void **)&(*lst)->content, ft_xstrdup(token));
+		free((*lst)->next->content);
+		free((*lst)->next);
+		(*lst)->next = next;
 	}
-	else if (ft_strncmp(*s, "<<", 2) == 0)
-		state = heredoc(l, tok, s, i);
-	if (state == STATE_ERROR)
-		return (state);
-	else if (token_type(**s) == CHAR_GENERAL)
-	{
-		(*tok)->data[(*i)++] = **s;
-		(*tok)->type = TOKEN;
-	}
-	else
-		state = cut_off_token(*l, tok, s, i);
-	return (state);
 }
 
-static t_state_type	minishell_lexer_do(t_lexer **lexer, t_tok *tok, char *s)
+void	merge_double_token_in_lst(t_list *lst)
 {
-	t_state_type	state;
-	size_t			i;
-
-	i = 0;
-	state = STATE_GENERAL;
-	while (1)
+	if (lst == NULL)
+		ft_fatal("token_organizer : Invalid argument");
+	while (lst && lst->next)
 	{
-		if (state == STATE_GENERAL)
-			state = generate_token(lexer, &tok, &s, &i);
-		else
-			state = store_char_and_check_state(tok, state, &s, &i);
-		if (*s == 0 && state != STATE_ERROR && state != STATE_GENERAL)
-		{
-			ft_error_exit("this pattern is not supported");
-			return (state);
-		}
-		if (*s == 0)
-			break ;
-		s++;
+		merge_double_token(&lst, CHAR_GREATER);
+		merge_double_token(&lst, CHAR_LESSER);
+		lst = lst->next;
 	}
-	return (state);
 }
 
 t_state_type	minishell_lexer(char *s, t_lexer **lexer)
 {
-	t_tok	*tok;
+	t_list			*separated;
+	t_state_type	state;
 
-	if (s == NULL)
+	if (s == NULL || lexer == NULL)
 		ft_fatal("minishell_lexer : Invalid argument");
-	*lexer = lexer_init();
-	tok = tok_init(s);
-	return (minishell_lexer_do(lexer, tok, s));
+	separated = separate_to_lst(s, "\'\"\t\n\v\f\r <>|");
+	merge_double_token_in_lst(separated);
+	state = lexer_handler(separated, lexer);
+	ft_lstclear(&separated, free);
+	return (state);
 }

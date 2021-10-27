@@ -6,6 +6,8 @@ make tests/unit-test/function-lex/main.c+leak > /dev/null
 
 cd "$(dirname "$0")" || exit
 
+rm -rf output leaksout
+
 ./a.out > output
 diff expect output
 

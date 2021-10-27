@@ -24,7 +24,7 @@ for file in $(ls *.txt); do
 		diff -y -W 79 expect output
 		printf "\e[m"
 		RES=1
-		exit
+		exit $RES
 	fi
 	rm -rf output expect
 done

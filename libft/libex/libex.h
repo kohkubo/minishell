@@ -29,6 +29,7 @@ long	ft_atol(const char *s);
 size_t	ft_min_size_t(size_t a, size_t b);
 size_t	spacelen(char *s);
 t_list	*ft_xlstnew(void *content);
+t_list	*separate_to_lst(char *str, char *separator);
 void	*catch_null(void *ptr, char *title);
 void	*ft_xcalloc(size_t count, size_t size);
 void	*ft_xmalloc(size_t size);

@@ -1,21 +1,22 @@
 #include "lex.h"
 
-t_tok	*tok_init(char *s)
+t_tok	*tok_new(char *data, t_token_type type)
 {
-	size_t	len;
 	t_tok	*tok;
 
-	tok = ft_xcalloc(sizeof(t_tok), 1);
-	len = ft_strlen(s) + 1;
-	tok->data = ft_xcalloc(len, 1);
+	tok = ft_xmalloc(sizeof(t_tok));
+	tok->data = ft_xstrdup(data);
+	tok->type = type;
 	return (tok);
 }
 
-t_lexer	*lexer_init(void)
+t_lexer	*lexer_new(t_list *listtok)
 {
 	t_lexer	*lexer;
 
 	lexer = ft_xcalloc(sizeof(t_lexer), 1);
+	lexer->len = ft_lstsize(listtok);
+	lexer->listtok = listtok;
 	return (lexer);
 }
 

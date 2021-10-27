@@ -21,7 +21,7 @@ for file in $(ls *.txt); do
 		cat $file
 		diff expect output -y
 		RES=1
-		exit
+		exit $RES
 	fi
 	rm -rf output expect
 done
