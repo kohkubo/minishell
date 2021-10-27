@@ -1,56 +1,37 @@
 #!/bin/bash
 
+function test() {
+	echo $1 | ./minishell | sed '1d' | sed "s/minishell> //g" >> output
+	LEAKS=$(($LEAKS | $?))
+	echo $1 | bash >> expect
+}
+
+function newline() {
+	echo "" >> output
+	echo "" >> expect
+}
 
 cp ./minishell "$(dirname "$0")"
 cd "$(dirname "$0")" || exit
-rm -rf leaksout expect output 
+rm -rf leaksout expect output
 
 LEAKS=0
-echo "echo test test pwd echo" | ./minishell > output
-LEAKS=$(($LEAKS | $?))
-echo "echo test test pwd echo" | bash > expect
+test "echo"
+test "echo a"
+test "echo aaaa"
+test "echo test test pwd echo"
+test "echo test*ttest"
+test "echo あいう"
+test "echo -"
+test "echo -n"
+newline
+test "echo -n test test tset"
+newline
+test "echo -n -n -n hello"
+newline
+test "echo -n -n -n"
+newline
 
-echo "echo" | ./minishell >> output
-LEAKS=$(($LEAKS | $?))
-echo "echo" | bash >> expect
-
-echo "echo aaaa" | ./minishell >> output
-LEAKS=$(($LEAKS | $?))
-echo "echo aaaa" | bash >> expect
-
-echo "echo -n" | ./minishell >> output
-LEAKS=$(($LEAKS | $?))
-echo "echo -n" | bash >> expect
-
-echo "echo -" | ./minishell >> output
-LEAKS=$(($LEAKS | $?))
-echo "echo -" | bash >> expect
-
-echo "echo" | ./minishell >> output
-LEAKS=$(($LEAKS | $?))
-echo "echo" | bash >> expect
-
-echo "echo -n test test tset" | ./minishell >> output
-LEAKS=$(($LEAKS | $?))
-echo "echo -n test test tset" | bash >> expect
-echo "" >> output
-echo "" >> expect
-
-sed -i "" -e "s/test test tsetminishell> /test test tset/g" output
-
-echo "echo a" | ./minishell >> output
-LEAKS=$(($LEAKS | $?))
-echo "echo a" | bash >> expect
-
-echo "echo test*ttest" | ./minishell >> output
-LEAKS=$(($LEAKS | $?))
-echo "echo test*ttest" | bash >> expect
-
-echo "echo あいう" | ./minishell >> output
-LEAKS=$(($LEAKS | $?))
-echo "echo あいう" | bash >> expect
-
-sed -i "" -e "/minishell> /d" output
 diff output expect
 RES=$?
 
