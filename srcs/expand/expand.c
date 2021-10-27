@@ -1,5 +1,28 @@
 #include "shell.h"
 
+char *space_trim(const char *str)
+{
+	char *tmp = ft_strdup(str);
+	char *p = tmp;
+	char *q = tmp;
+	int flg = 0;
+
+	while (*p)
+	{
+		if (*p == ' ' && flg == 0)
+		{
+			*q++ = *p++;
+		}
+		while (*p == ' ')
+		{
+			p++;
+		}
+		*q++ = *p++;
+	}
+	*q = '\0';
+	return tmp;
+}
+
 static char	*expand_env(char *content)
 {
 	char	*tmp;
@@ -13,7 +36,8 @@ static char	*expand_env(char *content)
 		tmp = (char *)hash_getstr(g_shell.env, content);
 		if (tmp == NULL)
 			tmp = "";
-		tmp = ft_xstrdup(tmp);
+		free_set((void **)&tmp, ft_strtrim(tmp, " "));
+		free_set((void **)&tmp, space_trim(tmp));
 	}
 	return (tmp);
 }
