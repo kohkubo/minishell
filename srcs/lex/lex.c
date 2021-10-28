@@ -67,6 +67,11 @@ t_state_type	minishell_lexer(char *s, t_lexer **lexer)
 
 	if (s == NULL || lexer == NULL)
 		ft_fatal("minishell_lexer : Invalid argument");
+	if (is_space_string(s))
+	{
+		*lexer = lexer_new(NULL);
+		return (STATE_SPACE);
+	}
 	separated = separate_to_lst(s, "\'\"\t\n\v\f\r <>|");
 	merge_double_token_in_lst(separated);
 	state = lexer_handler(separated, lexer);

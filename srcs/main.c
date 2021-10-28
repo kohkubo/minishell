@@ -17,7 +17,7 @@ int	main(void)
 		if (ft_strlen(input) == 0)
 			continue ;
 		add_history(input);
-		if (minishell_lexer(input, &lex) == STATE_ERROR)
+		if (minishell_lexer(input, &lex) != STATE_GENERAL)
 		{
 			lexer_free(&lex);
 			continue ;
