@@ -17,7 +17,6 @@ void	signal_handler_prompt(int sig)
 void	signal_child_process(int sig)
 {
 	(void)sig;
-	(void)sig;
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -26,12 +25,12 @@ void	signal_child_process(int sig)
 void	signal_handler_heredoc(int sig)
 {
 	(void)sig;
-	g_shell.heredoc_status = 1;
+	g_shell.heredoc_status = sig + 128;
 }
 
 int	rl_event_hook_heredoc(void)
 {
-	if (g_shell.heredoc_status == 1)
+	if (g_shell.heredoc_status != 0)
 		rl_done = 1;
 	return (0);
 }
