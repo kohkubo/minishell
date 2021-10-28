@@ -13,15 +13,16 @@ for file in $(ls *.txt); do
 	./minishell < $file >> output 2>&1
 	exit_status_minishell=$?
 	sed -i "" -e "/minishell> /d" output
-	zsh < $file >> expect 2>&1
-	exit_status_zsh=$?
-	if [ $exit_status_zsh -ne $exit_status_minishell ]; then
+	echo "exit" >> expect
+	bash < $file >> expect 2>&1
+	exit_status_bash=$?
+	if [ $exit_status_bash -ne $exit_status_minishell ]; then
 		echo "FAIL: $file"
 		echo "minishell $exit_status_minishell"
-		echo "zsh       $exit_status_zsh"
+		echo "bash      $exit_status_bash"
 		RES=1
 	fi
-	diff output expect
+	diff output <(sed "s/bash: line 1: /minishell: /g" expect)
 	if [ $? -ne 0 ]; then
 		echo "FAIL: $file"
 		RES=1
