@@ -33,6 +33,7 @@ typedef enum e_state_type{
 	STATE_IN_DQUOTE		= '"',
 	STATE_IN_SQUOTE		= '\'',
 	STATE_IN_HEREDOC	= '<' + PAD,
+	STATE_SPACE			= ' ',
 	STATE_GENERAL		= -1,
 	STATE_ERROR			= -2,
 }	t_state_type;
