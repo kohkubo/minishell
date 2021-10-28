@@ -6,7 +6,11 @@ static char	*expand_env(char *content)
 
 	if (!ft_strcmp(content, "?"))
 	{
-		tmp = ft_itoa(g_shell.exit_status);
+		if (g_shell.heredoc_status != 0)
+			tmp = ft_itoa(g_shell.heredoc_status + g_shell.exit_status);
+		else
+			tmp = ft_itoa(g_shell.exit_status);
+		g_shell.heredoc_status = 0;
 	}
 	else
 	{
