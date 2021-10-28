@@ -13,7 +13,7 @@ char	*heredoc_readline(char *heredoc)
 	while (1)
 	{
 		read = readline(HEREDOC_PROMPT);
-		if (g_shell.heredoc_status == 1 || read == NULL)
+		if (g_shell.heredoc_status != 0 || read == NULL)
 		{
 			free_set((void **)&tok, ft_xstrdup(""));
 			break ;
@@ -25,7 +25,6 @@ char	*heredoc_readline(char *heredoc)
 		flg++;
 	}
 	free_set((void **)&read, NULL);
-	g_shell.heredoc_status = 0;
 	signal_init(signal_handler_prompt, SIG_IGN, NULL);
 	return (tok);
 }
