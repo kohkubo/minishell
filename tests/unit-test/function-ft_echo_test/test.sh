@@ -62,7 +62,7 @@ gcc $DIR/test2.c \
 
 echo "========= test2 ========="
 ./a.out > output2
-diff $DIR/expect2 output2
+diff -y $DIR/expect2 output2
 RES2=$?
 test_res_print $RES2
 

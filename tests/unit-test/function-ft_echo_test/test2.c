@@ -8,9 +8,9 @@ int main()
 	int i = 0;
 
 	char *ss00[100] = {"1", "2", NULL};
-	char *ss01[100] = {"-n", "-n\n", NULL};
-	char *ss02[100] = {"-n", "-n", "aiueo\n", NULL};
-	char *ss03[100] = {"-n", "-n", "test", "-n\n", NULL};
+	// char *ss01[100] = {"-n", "-n\n", NULL}; // '\'は解釈しない
+	// char *ss02[100] = {"-n", "-n", "aiueo\n", NULL};
+	// char *ss03[100] = {"-n", "-n", "test", "-n\n", NULL};
 	char *ss04[100] = {"-na", "-n", "test", "-n", NULL};
 	char *ss05[100] = {"a-n", "-n", "test", "-n", NULL};
 	char *ss06[100] = {"-", "n", "test", "-n", NULL};
@@ -26,9 +26,9 @@ int main()
 	char *ss15[100] = {NULL, NULL};
 
 	ft_echo(ss00);
-	ft_echo(ss01);
-	ft_echo(ss02);
-	ft_echo(ss03);
+	// ft_echo(ss01);
+	// ft_echo(ss02);
+	// ft_echo(ss03);
 	ft_echo(ss04);
 	ft_echo(ss05);
 	ft_echo(ss06);
