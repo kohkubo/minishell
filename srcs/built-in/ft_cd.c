@@ -7,7 +7,9 @@ static bool	ft_cd_do(char *path, char *oldpwd, bool printflg)
 	path = getcwd(NULL, 0);
 	if (path == NULL)
 	{
-		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n", 2);
+		ft_putstr_fd("cd: error retrieving current directory: \
+		getcwd: cannot access parent directories: \
+		No such file or directory\n", 2);
 		path = ft_strjoin(oldpwd, "/.");
 	}
 	if (printflg)
