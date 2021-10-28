@@ -34,6 +34,7 @@ static void	env_init(void)
 	hash_remove(g_shell.env, "OLDPWD");
 	hash_setstr(g_shell.env, "OLDPWD", NULL);
 	g_shell.pwd = getcwd(NULL, 0);
+	hash_setstr(g_shell.env, "PWD", g_shell.pwd);
 }
 
 void	minishell_init(char **input, t_lexer **lex, t_astree **tree)
