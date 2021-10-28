@@ -13,11 +13,11 @@ int	main(void)
 	{
 		free_set((void **)&input, NULL), input = readline(PROMPT);
 		if (input == NULL)
-			exit(0);
+			exit(g_shell.exit_status);
 		if (ft_strlen(input) == 0)
 			continue ;
 		add_history(input);
-		if (minishell_lexer(input, &lex) == STATE_ERROR)
+		if (minishell_lexer(input, &lex) != STATE_GENERAL)
 		{
 			lexer_free(&lex);
 			continue ;
