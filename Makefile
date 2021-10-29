@@ -15,12 +15,12 @@
 # ***********************************
 
 NAME		= minishell
-NAME_BONUS	= minishell_bonus
 includes	= ./includes ./libft/libft ./libft/libex ./libft/libhash
 src_dir		= srcs
 obj_dir		= objs
 obj			= $(src:%.c=$(src_dir)/%.o)
 obj_bonus	= $(src_bonus:%.c=$(src_dir)/%.o)
+BONUS_FLG	= .bonus_flg
 
 # ***********************************
 
@@ -129,19 +129,22 @@ libhash		= $(libhash_dir)/libhash.a
 
 # ***********************************
 
-all			: $(NAME)
+all					: $(NAME)
 
-bonus	: $(obj_bonus) $(lib)
-	$(CC) $(CFLAGS) $(obj_bonus) -o $(NAME_BONUS) $(LIBS)
-
-$(NAME)		: $(obj) $(lib)
+$(NAME)				: $(obj) $(lib)
 	$(CC) $(CFLAGS) $(obj) -o $(NAME) $(LIBS)
 
-clean		: lib_clean
+bonus			: $(BONUS_FLG)
+
+$(BONUS_FLG)	: $(obj_bonus) $(lib)
+	$(CC) $(CFLAGS) $(obj_bonus) -o $(NAME) $(LIBS)
+	@touch $(BONUS_FLG)
+
+clean			: lib_clean
 	$(RM) $(obj)
 	/bin/rm -rf $(NAME).dSYM
 
-fclean		: lib_fclean
+fclean			: lib_fclean
 	$(RM) $(obj)
 	$(RM) $(NAME)
 
