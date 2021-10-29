@@ -37,8 +37,4 @@ fi
 rm -rf ./a.out output leaksout
 rm -rf ./a.out.dSYM
 
-cd "$REPO_ROOT" || exit
-make fclean >/dev/null
-make leak > /dev/null
-
 exit $EXIT_CODE
