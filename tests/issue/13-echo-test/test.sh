@@ -30,7 +30,7 @@ test "echo hello -n -n"
 diff -y output expect
 RES=$?
 
-rm leaksout expect output ./minishell
+rm -rf leaksout expect output ./minishell
 cd "$PWD" || exit
 
 exit $(($RES | $LEAKS))
