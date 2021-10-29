@@ -1,0 +1,1 @@
+echo aaa | cat resources/normal_file resources/normal_file

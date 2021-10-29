@@ -1,0 +1,5 @@
+wc no_exists
+cat resources/normal_file >> no_exists
+wc no_exists
+cat no_exists
+rm no_exists
