@@ -10,7 +10,7 @@ static bool	ft_cd_do(char *path, char *oldpwd, bool printflg)
 		ft_putstr_fd("cd: error retrieving current directory: \
 		getcwd: cannot access parent directories: \
 		No such file or directory\n", 2);
-		path = ft_strjoin(oldpwd, "/.");
+		path = ft_xstrjoin(oldpwd, "/.");
 	}
 	if (printflg)
 		printf("%s\n", path);
@@ -74,7 +74,7 @@ int	ft_cd(char **args)
 	}
 	else
 		path = args[0];
-	oldpwd = ft_strdup((char *)hash_getstr(g_shell.env, "PWD"));
+	oldpwd = ft_xstrdup((char *)hash_getstr(g_shell.env, "PWD"));
 	cdpath = hash_getstr(g_shell.env, "CDPATH");
 	if (cdpath != NULL && path[0] != '/')
 		return (ft_cd_cdpath(path, oldpwd, cdpath));
