@@ -1,0 +1,2 @@
+cat < resources/normal_file < resources/no_read_perm
+cat < resources/no_read_perm < resources/normal_file
