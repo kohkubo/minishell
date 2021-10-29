@@ -143,7 +143,7 @@ $(BONUS_FLG)	: $(obj_bonus) $(lib)
 
 clean			: lib_clean
 	$(RM) $(obj)
-	$(RM) $(NAME).dSYM
+	$(RM) -r $(NAME).dSYM
 	$(RM) leaksout
 
 fclean			: clean lib_fclean

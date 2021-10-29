@@ -22,7 +22,7 @@ $REPO_ROOT/srcs/env/env.c \
 $LIBS -lft -lex -lhash -lreadline -lhistory -L$(brew --prefix readline)/lib -I$(brew --prefix readline)/include $SHARED_LIB || exit
 
 
-rm -rf $DIR/output $DIR/leaksout
+rm -rf $DIR/output leaksout
 
 $DIR/a.out > $DIR/output
 diff $DIR/expect $DIR/output
@@ -33,7 +33,7 @@ if [ $? -ne 0 ]; then
 	printf "\e[31m%s\n\e[m" ">> leak KO!"
 fi
 
-rm -rf $DIR/a.out $DIR/output $DIR/leaksout
+rm -rf $DIR/a.out $DIR/output leaksout
 rm -rf $DIR/a.out.dSYM
 
 exit $EXIT_CODE
