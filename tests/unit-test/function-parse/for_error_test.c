@@ -99,5 +99,21 @@ int	main(int argc, char *argv[])
 		&(t_tok){.data = ";;", .type = ';' + 128},
 		NULL
 	});
+	/**
+	 * a &&
+	 */
+	result &= test((t_tok *[]){
+		&(t_tok){.data = "a", .type = TOKEN},
+		&(t_tok){.data = "&&", .type = CHAR_AMPERSAND2},
+		NULL
+	});
+	/**
+	 * a ||
+	 */
+	result &= test((t_tok *[]){
+		&(t_tok){.data = "a", .type = TOKEN},
+		&(t_tok){.data = "||", .type = CHAR_PIPE2},
+		NULL
+	});
 	return (!result);
 }

@@ -23,7 +23,7 @@ AOUT=$?
 if [ $AOUT -ne 0 ]; then
 	EXIT_CODE=1
 	printf "\e[31m%s\n\e[m" ">>  KO!"
-	exit
+	exit 1
 else
 	printf "\e[32m%s\n\e[m" ">>  OK!"
 fi
