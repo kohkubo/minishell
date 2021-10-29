@@ -133,6 +133,7 @@ all					: $(NAME)
 
 $(NAME)				: $(obj) $(lib)
 	$(CC) $(CFLAGS) $(obj) -o $(NAME) $(LIBS)
+	@$(RM) $(BONUS_FLG)
 
 bonus			: $(BONUS_FLG)
 
@@ -147,6 +148,7 @@ clean			: lib_clean
 fclean			: lib_fclean
 	$(RM) $(obj)
 	$(RM) $(NAME)
+	@$(RM) $(BONUS_FLG)
 
 re			: fclean all
 
