@@ -43,6 +43,10 @@ char	*get_typestr(t_node_type type)
 		free_set((void **)&str, ft_xstrjoin(str, " | NODE_REDIRECT_LIST"));
 	if (type & NODE_REDIRECTION)
 		free_set((void **)&str, ft_xstrjoin(str, " | NODE_REDIRECTION"));
+	if (type & NODE_AND)
+		free_set((void **)&str, ft_xstrjoin(str, " | NODE_AND"));
+	if (type & NODE_OR)
+		free_set((void **)&str, ft_xstrjoin(str, " | NODE_OR"));
 	if (type & NODE_DATA)
 		free_set((void **)&str, ft_xstrjoin(str, " | NODE_DATA"));
 	free_set((void **)&str, ft_strtrim(str, "| "));
@@ -82,6 +86,10 @@ void	print_tree(t_astree *node, int sp_num)
 		str = "REDIRECT_LIST";
 	else if (node->type & NODE_REDIRECTION)
 		str = "REDIRECTION";
+	else if (node->type & NODE_AND)
+		str = "AND";
+	else if (node->type & NODE_OR)
+		str = "OR";
 	else
 		str = BOLD RED"NOT FOUND"END;
 	if (node->type & NODE_DATA)
@@ -144,6 +152,50 @@ bool	test(bool varbose, char *input, t_astree *expect_tree)
 	minishell_lexer(input, &lex);
 	if (varbose)
 		ft_lstiter(lex->listtok, print_token);
+	res_tree = NULL;
+	res_flg = parse(lex, &res_tree);
+	if (varbose)
+	{
+		printf("----- expect -----\n");
+		print_tree(expect_tree, 0);
+		printf("----- actualy -----\n");
+		print_tree(res_tree, 0);
+	}
+	is_ok = compare(expect_tree, res_tree);
+	is_ok = is_ok && g_shell.exit_status == 0;
+	lexer_free(&lex);
+	res_tree = astree_delete_node(res_tree);
+	expect_tree = astree_delete_node(expect_tree);
+	if (res_flg && is_ok)
+	{
+		printf(GREEN" ✓\n"END);
+		return (true);
+	}
+	else
+	{
+		printf(RED" ×\n"END);
+		if (!res_flg)
+			fprintf(stderr, RED"return val is different.\n"END);
+		if (g_shell.exit_status != 0)
+			fprintf(stderr, RED"exit status is different.(%d)\n"END, g_shell.exit_status);
+		return (false);
+	}
+}
+
+bool	test_no_depend(bool varbose, char *input, t_list *input_lst, t_astree *expect_tree)
+{
+	t_lexer		*lex;
+	t_astree	*res_tree;
+	bool		res_flg;
+	bool		is_ok;
+
+	if (varbose)
+		printf(BOLD"%s\n"END, input);
+	else
+		printf("%s", input);
+	lex = lexer_new(input_lst);
+	if (varbose)
+		ft_lstiter(input_lst, print_token);
 	res_tree = NULL;
 	res_flg = parse(lex, &res_tree);
 	if (varbose)
@@ -589,6 +641,133 @@ int main(void) {
 				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("c"),
 					NULL,
 					NULL))));
+	/*
+	 * <command line> ::= <job> && <command line>
+	 * <command line> ::= <job> || <command line>
+	 */
+	t_list	*input;
+	input = NULL;
+	ft_lstadd_back(&input, ft_lstnew(tok_new("pwd", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("&&", CHAR_AMPERSAND2)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("ls", TOKEN)));
+	result &= test_no_depend(varbose, "pwd && ls", input,
+		astree_create_node(NODE_AND, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("pwd"),
+				NULL,
+				NULL),
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("ls"),
+					NULL,
+					NULL)));
+	input = NULL;
+	ft_lstadd_back(&input, ft_lstnew(tok_new("pwd", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("&&", CHAR_AMPERSAND2)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("ls", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("&&", CHAR_AMPERSAND2)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("echo", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("aaa", TOKEN)));
+	result &= test_no_depend(varbose, "pwd && ls && echo aaa", input,
+		astree_create_node(NODE_AND, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("pwd"),
+				NULL,
+				NULL),
+			astree_create_node(NODE_AND, NULL,
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("ls"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("echo"),
+						NULL,
+						astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("aaa"),
+							NULL,
+							NULL)))));
+	input = NULL;
+	ft_lstadd_back(&input, ft_lstnew(tok_new("pwd", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("||", CHAR_PIPE2)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("ls", TOKEN)));
+	result &= test_no_depend(varbose, "pwd || ls", input,
+		astree_create_node(NODE_OR, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("pwd"),
+				NULL,
+				NULL),
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("ls"),
+					NULL,
+					NULL)));
+	input = NULL;
+	ft_lstadd_back(&input, ft_lstnew(tok_new("pwd", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("||", CHAR_PIPE2)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("ls", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("||", CHAR_PIPE2)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("echo", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("aaa", TOKEN)));
+	result &= test_no_depend(varbose, "pwd || ls || echo aaa", input,
+		astree_create_node(NODE_OR, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("pwd"),
+				NULL,
+				NULL),
+			astree_create_node(NODE_OR, NULL,
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("ls"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("echo"),
+						NULL,
+						astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("aaa"),
+							NULL,
+							NULL)))));
+	input = NULL;
+	ft_lstadd_back(&input, ft_lstnew(tok_new("pwd", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("||", CHAR_PIPE2)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("ls", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("&&", CHAR_AMPERSAND2)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("echo", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("aaa", TOKEN)));
+	result &= test_no_depend(varbose, "pwd || ls && echo aaa", input,
+		astree_create_node(NODE_OR, NULL,
+			astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("pwd"),
+				NULL,
+				NULL),
+			astree_create_node(NODE_AND, NULL,
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("ls"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("echo"),
+						NULL,
+						astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("aaa"),
+							NULL,
+							NULL)))));
+	input = NULL;
+	ft_lstadd_back(&input, ft_lstnew(tok_new("pwd", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("|", CHAR_PIPE)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("wc", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new(">", CHAR_GREATER)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("out1", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("||", CHAR_PIPE2)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("ls", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("&&", CHAR_AMPERSAND2)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("echo", TOKEN)));
+	ft_lstadd_back(&input, ft_lstnew(tok_new("aaa", TOKEN)));
+	result &= test_no_depend(varbose, "pwd | wc > out1 || ls && echo aaa", input,
+		astree_create_node(NODE_OR, NULL,
+			astree_create_node(NODE_PIPE, NULL, 
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("pwd"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_REDIRECTION, NULL, 
+					astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("wc"),
+						NULL,
+						NULL),
+					astree_create_node(NODE_REDIRECT_LIST, NULL,
+						astree_create_node(NODE_REDIRECT_OUT | NODE_DATA, strdup("out1"),
+							NULL,
+							NULL),
+						NULL))),
+			astree_create_node(NODE_AND, NULL,
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("ls"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("echo"),
+						NULL,
+						astree_create_node(NODE_ARGUMENT | NODE_DATA, strdup("aaa"),
+							NULL,
+							NULL)))));
 	// 	//error
 	// 	test("a |"); // '|'
 	// /*
@@ -600,9 +779,6 @@ int main(void) {
 	// 	//error
 	// 	test("echo a;;"); // ';;'
 	// 	test("echo a;; ;"); // ';;'
-	// /*
 	//  * <command line> ::= <job> & // not make
-	//  * <command line> ::= <job> & <command line> // not make
-	//  */
 	return (!result);
 }
