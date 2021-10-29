@@ -15,6 +15,7 @@
 # ***********************************
 
 NAME		= minishell
+NAME_BONUS	= minishell_bonus
 includes	= ./includes ./libft/libft ./libft/libex ./libft/libhash
 src_dir		= srcs
 obj_dir		= objs
@@ -131,7 +132,7 @@ libhash		= $(libhash_dir)/libhash.a
 all			: $(NAME)
 
 bonus	: $(obj_bonus) $(lib)
-	$(CC) $(CFLAGS) $(obj_bonus) -o $(NAME) $(LIBS)
+	$(CC) $(CFLAGS) $(obj_bonus) -o $(NAME_BONUS) $(LIBS)
 
 $(NAME)		: $(obj) $(lib)
 	$(CC) $(CFLAGS) $(obj) -o $(NAME) $(LIBS)
