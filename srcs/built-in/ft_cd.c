@@ -2,22 +2,24 @@
 
 static bool	ft_cd_do(char *path, char *oldpwd, bool printflg)
 {
+	char	*cwd;
+
 	if (chdir(path) == -1)
 		return (false);
-	path = getcwd(NULL, 0);
-	if (path == NULL)
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
 	{
 		ft_putstr_fd("cd: error retrieving current directory: \
 		getcwd: cannot access parent directories: \
 		No such file or directory\n", 2);
 		free_set((void **)&oldpwd, ft_xstrjoin(oldpwd, "/"));
-		path = ft_xstrjoin(oldpwd, path);
+		cwd = ft_xstrjoin(oldpwd, path);
 	}
 	if (printflg)
-		printf("%s\n", path);
-	hash_setstr(g_shell.env, "PWD", path);
+		printf("%s\n", cwd);
+	hash_setstr(g_shell.env, "PWD", cwd);
 	hash_setstr(g_shell.env, "OLDPWD", oldpwd);
-	free_set((void **) &g_shell.pwd, path);
+	free_set((void **) &g_shell.pwd, cwd);
 	free_set((void **) &oldpwd, NULL);
 	return (true);
 }
