@@ -37,7 +37,7 @@ done
 rm -f a.out leaksout minishell
 rm -rf a.out.dSYM
 
-cd "$(dirname "$0")" || exit
+cd "$REPO_ROOT" || exit
 
 make re
 

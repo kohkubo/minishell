@@ -1,0 +1,8 @@
+echo aaa||echo bbb
+echo aaa ||echo bbb
+echo aaa|| echo bbb
+echo aaa || echo bbb
+echo aaa&&echo bbb
+echo aaa &&echo bbb
+echo aaa&& echo bbb
+echo aaa && echo bbb
