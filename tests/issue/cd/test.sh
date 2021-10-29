@@ -21,8 +21,8 @@ for file in $(ls *.txt); do
 	./minishell < $file >> output 2>&1
 	sed -i "" -e "/minishell> /d" output
 	sed -i "" -e "/cd: error /d" output
-	diff expect output &> /dev/null
 	sed -i "" -e "/cd: error /d" expect
+	diff expect output &> /dev/null
 	if [ $? -ne 0 ]; then
 		echo "FAIL: $file"
 		cat $file
