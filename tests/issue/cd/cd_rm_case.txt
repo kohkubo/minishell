@@ -1,0 +1,9 @@
+mkdir dir
+cd dir
+rmdir ../dir
+pwd
+echo $OLDPWD
+cd .
+echo $?
+pwd
+cd $REPO_ROOT
