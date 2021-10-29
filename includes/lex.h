@@ -10,7 +10,9 @@ typedef enum e_token_type
 	CHAR_GENERAL		= -1,
 	CHAR_SPACE			= ' ',
 	CHAR_PIPE			= '|',
+	CHAR_PIPE2			= '|' + PAD,
 	CHAR_AMPERSAND		= '&',
+	CHAR_AMPERSAND2		= '&' + PAD,
 	CHAR_SQUOTE			= '\'',
 	CHAR_DQUOTE			= '\"',
 	CHAR_SEMICOLON		= ';',
@@ -40,8 +42,11 @@ typedef enum e_state_type{
 
 # define GREATER2 ">>"
 # define LESSER2 "<<"
+# define PIPE2 "||"
+# define AMPERSAND2 "&&"
 # define QUOTES "\'\""
-# define SEPARATOR "\t\n\v\f\r <>|"
+# define SPECIAL_CAHRS "\'\"\t\n\v\f\r <>|&"
+# define SEPARATOR "\t\n\v\f\r <>|&"
 # define TOKEN_WSPACE "\t\n\v\f\r "
 # define TOKEN_WSPACE_QUOTES "\t\n\v\f\r \'\""
 
