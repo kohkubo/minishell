@@ -74,7 +74,7 @@ void	execute_job(t_astree *tree, int *status)
 	pid[LAST] = -1;
 	backup_fd[STDIN_FILENO] = catch_error(dup(STDIN_FILENO), "dup");
 	backup_fd[STDOUT_FILENO] = catch_error(dup(STDOUT_FILENO), "dup");
-	signal_init(signal_child_process, SIG_DFL, NULL);
+	signal_init(signal_child_process, signal_child_process, NULL);
 	do_job(tree, status, &pid[LAST]);
 	dup2(backup_fd[STDIN_FILENO], STDIN_FILENO);
 	dup2(backup_fd[STDOUT_FILENO], STDOUT_FILENO);
