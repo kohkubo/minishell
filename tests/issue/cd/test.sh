@@ -20,7 +20,9 @@ for file in $(ls *.txt); do
 	bash < $file >> expect 2>&1
 	./minishell < $file >> output 2>&1
 	sed -i "" -e "/minishell> /d" output
+	sed -i "" -e "/cd: error /d" output
 	diff expect output &> /dev/null
+	sed -i "" -e "/cd: error /d" expect
 	if [ $? -ne 0 ]; then
 		echo "FAIL: $file"
 		cat $file
