@@ -5,7 +5,7 @@ gcc -g $INCLUDES \
 -o "$DIR/a.out" \
 "$DIR/test.c" \
 "$REPO_ROOT/srcs/utils/get_fullpath.c" \
-$(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
+$(find $REPO_ROOT/srcs/lex -type f -name "*.c" -not -name '*_bonus.c') \
 $(find $REPO_ROOT/srcs/parse/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/execute/ -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/built-in/ -type f -name "*.c") \
