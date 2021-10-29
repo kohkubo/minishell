@@ -143,8 +143,8 @@ int main(int argc, char *argv[])
 					NULL,
 					NULL),
 				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("whoami"),
-						NULL,
-						NULL));
+					NULL,
+					NULL));
 	isSuccess &= test("whoami && whoami", &input);
 
 	input = astree_create_node(NODE_OR, NULL,
@@ -152,8 +152,8 @@ int main(int argc, char *argv[])
 					NULL,
 					NULL),
 				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("whoami"),
-						NULL,
-						NULL));
+					NULL,
+					NULL));
 	isSuccess &= test("whoami || whoami", &input);
 
 	/*
@@ -164,8 +164,8 @@ int main(int argc, char *argv[])
 					NULL,
 					NULL),
 				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("whoami"),
-						NULL,
-						NULL));
+					NULL,
+					NULL));
 	isSuccess &= test("gcc && whoami", &input);
 
 	input = astree_create_node(NODE_OR, NULL,
@@ -173,9 +173,67 @@ int main(int argc, char *argv[])
 					NULL,
 					NULL),
 				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("whoami"),
-						NULL,
-						NULL));
+					NULL,
+					NULL));
 	isSuccess &= test("gcc || whoami", &input);
+
+	/*
+	** triple success success
+	*/
+	input = astree_create_node(NODE_AND, NULL,
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("whoami"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_AND, NULL,
+					astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("whoami"),
+						NULL,
+						NULL),
+					astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("whoami"),
+						NULL,
+						NULL)));
+	isSuccess &= test("whoami && whoami && whoami", &input);
+	
+	input = astree_create_node(NODE_AND, NULL,
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("whoami"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_OR, NULL,
+					astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("whoami"),
+						NULL,
+						NULL),
+					astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("whoami"),
+						NULL,
+						NULL)));
+	isSuccess &= test("whoami && whoami || whoami", &input);
+
+	/*
+	** triple success failure
+	*/
+	input = astree_create_node(NODE_AND, NULL,
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("whoami"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_AND, NULL,
+					astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("gcc"),
+						NULL,
+						NULL),
+					astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("whoami"),
+						NULL,
+						NULL)));
+	isSuccess &= test("whoami && gcc && whoami", &input);
+	
+	input = astree_create_node(NODE_AND, NULL,
+				astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("whoami"),
+					NULL,
+					NULL),
+				astree_create_node(NODE_OR, NULL,
+					astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("gcc"),
+						NULL,
+						NULL),
+					astree_create_node(NODE_CMDPATH | NODE_DATA, strdup("whoami"),
+						NULL,
+						NULL)));
+	isSuccess &= test("whoami && gcc || whoami", &input);
 
 	return (!isSuccess);
 }

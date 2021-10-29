@@ -25,12 +25,12 @@ void	execute_cmdline(t_astree *tree, int *status)
 	{
 		execute_job(tree->left, status);
 		if (get_status(*status) == 0)
-			execute_job(tree->right, status);
+			execute_cmdline(tree->right, status);
 	}
 	else if (tree->type & NODE_OR)
 	{
 		execute_job(tree->left, status);
 		if (get_status(*status) != 0)
-			execute_job(tree->right, status);
+			execute_cmdline(tree->right, status);
 	}
 }
