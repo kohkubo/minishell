@@ -143,14 +143,21 @@ $(BONUS_FLG)	: $(obj_bonus) $(lib)
 
 clean			: lib_clean
 	$(RM) $(obj)
-	/bin/rm -rf $(NAME).dSYM
+	$(RM) $(NAME).dSYM
+	$(RM) leaksout
 
-fclean			: lib_fclean
+fclean			: clean lib_fclean
 	$(RM) $(obj)
 	$(RM) $(NAME)
 	@$(RM) $(BONUS_FLG)
 
 re			: fclean all
+
+brew		:
+	curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh | zsh
+
+readline	:
+	brew install readline
 
 # ***********************************
 
