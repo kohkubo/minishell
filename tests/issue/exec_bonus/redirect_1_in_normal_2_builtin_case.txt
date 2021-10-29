@@ -1,0 +1,2 @@
+export TEST=aaaa < resources/normal_file
+echo $TEST

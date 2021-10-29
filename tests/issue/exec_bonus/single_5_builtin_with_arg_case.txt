@@ -1,0 +1,5 @@
+echo aaaa
+export TEST=exportest
+echo $TEST
+unset TEST
+echo $TEST
