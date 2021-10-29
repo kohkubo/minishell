@@ -12,7 +12,7 @@ EXIT_CODE=0
 gcc -g $INCLUDES \
 -o $DIR/a.out \
 $DIR/test.c \
-$(find $REPO_ROOT/srcs/lex -type f -name "*.c") \
+$(find $REPO_ROOT/srcs/lex -type f -name "*.c" -not -name '*_bonus.c') \
 $(find $REPO_ROOT/srcs/signal -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/parse -type f -name "*.c") \
 $SHARED_LIB $LIBS -lft -lex -lreadline -lhistory -L$(brew --prefix readline)/lib -I$(brew --prefix readline)/include || exit 1
@@ -32,7 +32,7 @@ echo "--- error_test ---"
 gcc -g $INCLUDES \
 -o $DIR/a.out \
 "$DIR/for_error_test.c" \
-$(find $REPO_ROOT/srcs/lex/ -type f -name "*.c") \
+$(find $REPO_ROOT/srcs/lex/ -type f -name "*.c" -not -name '*_bonus.c') \
 $(find $REPO_ROOT/srcs/signal -type f -name "*.c") \
 $(find $REPO_ROOT/srcs/parse/ -type f -name "*.c") \
 $SHARED_LIB $LIBS -lft -lex -lreadline -lhistory -L$(brew --prefix readline)/lib -I$(brew --prefix readline)/include || exit 1

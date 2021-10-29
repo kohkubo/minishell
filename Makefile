@@ -15,10 +15,12 @@
 # ***********************************
 
 NAME		= minishell
+NAME_BONUS	= minishell_bonus
 includes	= ./includes ./libft/libft ./libft/libex ./libft/libhash
 src_dir		= srcs
 obj_dir		= objs
 obj			= $(src:%.c=$(src_dir)/%.o)
+obj_bonus	= $(src_bonus:%.c=$(src_dir)/%.o)
 
 # ***********************************
 
@@ -34,6 +36,43 @@ src =\
 	./lex/heredoc.c \
 	./lex/data.c \
 	./lex/store.c \
+	./built-in/ft_exit.c \
+	./built-in/echo.c \
+	./built-in/ft_env.c \
+	./built-in/ft_export.c \
+	./built-in/ft_unset.c \
+	./built-in/ft_cd.c \
+	./built-in/ft_pwd.c \
+	./main.c \
+	./utils/get_fullpath.c \
+	./env/env.c \
+	./parse/parse.c \
+	./parse/astree.c \
+	./parse/command_line.c \
+	./parse/job.c \
+	./parse/command.c \
+	./parse/redirection_list.c \
+	./parse/redirection.c \
+	./parse/token_list.c \
+	./execute/exec.c \
+	./execute/cmdline.c \
+	./execute/job.c \
+	./execute/cmd.c \
+	./execute/redirection.c \
+	./execute/simplecmd.c \
+	./execute/builtin.c \
+	./execute/error.c \
+	./expand/expand.c \
+	./expand/expand_astree.c \
+	./signal/minishell_signal.c \
+
+# ***********************************
+
+src_bonus =\
+	./lex/lex_bonus.c \
+	./lex/heredoc.c \
+	./lex/data.c \
+	./lex/store_bonus.c \
 	./built-in/ft_exit.c \
 	./built-in/echo.c \
 	./built-in/ft_env.c \
@@ -91,6 +130,9 @@ libhash		= $(libhash_dir)/libhash.a
 # ***********************************
 
 all			: $(NAME)
+
+bonus	: $(obj_bonus) $(lib)
+	$(CC) $(CFLAGS) $(obj_bonus) -o $(NAME_BONUS) $(LIBS)
 
 $(NAME)		: $(obj) $(lib)
 	$(CC) $(CFLAGS) $(obj) -o $(NAME) $(LIBS)

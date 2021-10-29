@@ -1,0 +1,469 @@
+
+&& && &&
+ === test ===
+s : echo aaa && echo bbb
+lexer->len : 5
+echo : -1
+aaa : -1
+&& : 294
+echo : -1
+bbb : -1
+ === test ===
+s : echo aaa &&
+lexer->len : 3
+echo : -1
+aaa : -1
+&& : 294
+ === test ===
+s : && echo aaa
+lexer->len : 3
+&& : 294
+echo : -1
+aaa : -1
+ === test ===
+s : &&
+lexer->len : 1
+&& : 294
+ === test ===
+s :  &&
+lexer->len : 1
+&& : 294
+ === test ===
+s : && 
+lexer->len : 1
+&& : 294
+ === test ===
+s :  && 
+lexer->len : 1
+&& : 294
+ === test ===
+s : && &&
+lexer->len : 2
+&& : 294
+&& : 294
+ === test ===
+s : && && &&
+lexer->len : 3
+&& : 294
+&& : 294
+&& : 294
+ === test ===
+s : &&&
+lexer->len : 2
+&& : 294
+& : -1
+ === test ===
+s : &&&&
+lexer->len : 2
+&& : 294
+&& : 294
+ === test ===
+s : ls&&ls
+lexer->len : 3
+ls : -1
+&& : 294
+ls : -1
+ === test ===
+s : ls&&ls&&
+lexer->len : 4
+ls : -1
+&& : 294
+ls : -1
+&& : 294
+ === test ===
+s : &&ls&&ls
+lexer->len : 4
+&& : 294
+ls : -1
+&& : 294
+ls : -1
+ === test ===
+s : &ls&
+lexer->len : 1
+&ls& : -1
+ === test ===
+s : &
+lexer->len : 1
+& : -1
+ === test ===
+s : &ls
+lexer->len : 1
+&ls : -1
+ === test ===
+s : & ls
+lexer->len : 2
+& : -1
+ls : -1
+ === test ===
+s : ls&
+lexer->len : 1
+ls& : -1
+ === test ===
+s : ls               &                       &ls
+lexer->len : 3
+ls : -1
+& : -1
+&ls : -1
+
+|| || ||
+ === test ===
+s : echo aaa || echo bbb
+lexer->len : 5
+echo : -1
+aaa : -1
+|| : 380
+echo : -1
+bbb : -1
+ === test ===
+s : echo aaa ||
+lexer->len : 3
+echo : -1
+aaa : -1
+|| : 380
+ === test ===
+s : || echo aaa
+lexer->len : 3
+|| : 380
+echo : -1
+aaa : -1
+ === test ===
+s : ||
+lexer->len : 1
+|| : 380
+ === test ===
+s :  ||
+lexer->len : 1
+|| : 380
+ === test ===
+s : || 
+lexer->len : 1
+|| : 380
+ === test ===
+s :  || 
+lexer->len : 1
+|| : 380
+ === test ===
+s : || ||
+lexer->len : 2
+|| : 380
+|| : 380
+ === test ===
+s : || || ||
+lexer->len : 3
+|| : 380
+|| : 380
+|| : 380
+ === test ===
+s : |||
+lexer->len : 2
+|| : 380
+| : 124
+ === test ===
+s : ||||
+lexer->len : 2
+|| : 380
+|| : 380
+ === test ===
+s : ls||ls
+lexer->len : 3
+ls : -1
+|| : 380
+ls : -1
+ === test ===
+s : ls||ls||
+lexer->len : 4
+ls : -1
+|| : 380
+ls : -1
+|| : 380
+ === test ===
+s : ||ls||ls
+lexer->len : 4
+|| : 380
+ls : -1
+|| : 380
+ls : -1
+ === test ===
+s : echo test aiueo
+lexer->len : 3
+echo : -1
+test : -1
+aiueo : -1
+ === test ===
+s :       echo     test      aiueo    
+lexer->len : 3
+echo : -1
+test : -1
+aiueo : -1
+ === test ===
+s :    echo test aiueo
+lexer->len : 3
+echo : -1
+test : -1
+aiueo : -1
+ === test ===
+s : echo test aiueo  
+lexer->len : 3
+echo : -1
+test : -1
+aiueo : -1
+
+| | |
+ === test ===
+s : echo test|aiueo
+lexer->len : 4
+echo : -1
+test : -1
+| : 124
+aiueo : -1
+ === test ===
+s : echo test| aiueo
+lexer->len : 4
+echo : -1
+test : -1
+| : 124
+aiueo : -1
+ === test ===
+s : echo test |aiueo
+lexer->len : 4
+echo : -1
+test : -1
+| : 124
+aiueo : -1
+ === test ===
+s : echo test | aiueo
+lexer->len : 4
+echo : -1
+test : -1
+| : 124
+aiueo : -1
+ === test ===
+s : echo test|
+lexer->len : 3
+echo : -1
+test : -1
+| : 124
+ === test ===
+s : echo test |
+lexer->len : 3
+echo : -1
+test : -1
+| : 124
+ === test ===
+s : echo test| 
+lexer->len : 3
+echo : -1
+test : -1
+| : 124
+
+> > >
+ === test ===
+s : echo test>aiueo
+lexer->len : 4
+echo : -1
+test : -1
+> : 62
+aiueo : -1
+ === test ===
+s : echo test> aiueo
+lexer->len : 4
+echo : -1
+test : -1
+> : 62
+aiueo : -1
+ === test ===
+s : echo test >aiueo
+lexer->len : 4
+echo : -1
+test : -1
+> : 62
+aiueo : -1
+ === test ===
+s : echo test > aiueo
+lexer->len : 4
+echo : -1
+test : -1
+> : 62
+aiueo : -1
+ === test ===
+s : echo test>
+lexer->len : 3
+echo : -1
+test : -1
+> : 62
+ === test ===
+s : echo test >
+lexer->len : 3
+echo : -1
+test : -1
+> : 62
+ === test ===
+s : echo test> 
+lexer->len : 3
+echo : -1
+test : -1
+> : 62
+
+< < <
+ === test ===
+s : echo test<aiueo
+lexer->len : 4
+echo : -1
+test : -1
+< : 60
+aiueo : -1
+ === test ===
+s : echo test< aiueo
+lexer->len : 4
+echo : -1
+test : -1
+< : 60
+aiueo : -1
+ === test ===
+s : echo test <aiueo
+lexer->len : 4
+echo : -1
+test : -1
+< : 60
+aiueo : -1
+ === test ===
+s : echo test < aiueo
+lexer->len : 4
+echo : -1
+test : -1
+< : 60
+aiueo : -1
+ === test ===
+s : echo test<
+lexer->len : 3
+echo : -1
+test : -1
+< : 60
+ === test ===
+s : echo test <
+lexer->len : 3
+echo : -1
+test : -1
+< : 60
+ === test ===
+s : echo test< 
+lexer->len : 3
+echo : -1
+test : -1
+< : 60
+
+>> >> >>
+ === test ===
+s : echo test>>aiueo
+lexer->len : 4
+echo : -1
+test : -1
+>> : 318
+aiueo : -1
+ === test ===
+s : echo test>> aiueo
+lexer->len : 4
+echo : -1
+test : -1
+>> : 318
+aiueo : -1
+ === test ===
+s : echo test >>aiueo
+lexer->len : 4
+echo : -1
+test : -1
+>> : 318
+aiueo : -1
+ === test ===
+s : echo test >> aiueo
+lexer->len : 4
+echo : -1
+test : -1
+>> : 318
+aiueo : -1
+ === test ===
+s : echo test>>
+lexer->len : 3
+echo : -1
+test : -1
+>> : 318
+ === test ===
+s : echo test >>
+lexer->len : 3
+echo : -1
+test : -1
+>> : 318
+ === test ===
+s : echo test>> 
+lexer->len : 3
+echo : -1
+test : -1
+>> : 318
+
+' ' '
+ === test ===
+s : 'echo test << aiueo'
+lexer->len : 1
+'echo test << aiueo' : -1
+ === test ===
+s : echo 'echo test << aiueo'
+lexer->len : 2
+echo : -1
+'echo test << aiueo' : -1
+ === test ===
+s : 'echo test << test' eeee
+lexer->len : 2
+'echo test << test' : -1
+eeee : -1
+ === test ===
+s : aa 'echo test << test' eeee
+lexer->len : 3
+aa : -1
+'echo test << test' : -1
+eeee : -1
+ === test ===
+s : 'echo test << test''sssssssssssss'
+lexer->len : 1
+'echo test << test''sssssssssssss' : -1
+ === test ===
+s : 'echo "test"'
+lexer->len : 1
+'echo "test"' : -1
+ === test ===
+s : 'echo \' test
+lexer->len : 2
+'echo \' : -1
+test : -1
+ === test ===
+s : '\n'
+lexer->len : 1
+'\n' : -1
+
+" " "
+ === test ===
+s : "echo ssssss"
+lexer->len : 1
+"echo ssssss" : -1
+ === test ===
+s : "echo 'ssssss'"
+lexer->len : 1
+"echo 'ssssss'" : -1
+
+その他
+ === test ===
+s :  
+lexer->len : 0
+ === test ===
+s :            
+lexer->len : 0
+ === test ===
+s : echo -n
+lexer->len : 2
+echo : -1
+-n : -1
+ === test ===
+s : echo -n test
+lexer->len : 3
+echo : -1
+-n : -1
+test : -1

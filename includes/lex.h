@@ -42,8 +42,11 @@ typedef enum e_state_type{
 
 # define GREATER2 ">>"
 # define LESSER2 "<<"
+# define PIPE2 "||"
+# define AMPERSAND2 "&&"
 # define QUOTES "\'\""
-# define SEPARATOR "\t\n\v\f\r <>|"
+# define SPECIAL_CAHRS "\'\"\t\n\v\f\r <>|&"
+# define SEPARATOR "\t\n\v\f\r <>|&"
 # define TOKEN_WSPACE "\t\n\v\f\r "
 # define TOKEN_WSPACE_QUOTES "\t\n\v\f\r \'\""
 
