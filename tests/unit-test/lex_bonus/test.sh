@@ -21,7 +21,6 @@ $(find $REPO_ROOT/srcs/signal/ -type f -name "*.c") \
 $REPO_ROOT/srcs/env/env.c \
 $LIBS -lft -lex -lhash -lreadline -lhistory -L$(brew --prefix readline)/lib -I$(brew --prefix readline)/include $SHARED_LIB || exit
 
-cd "$(dirname "$0")" || exit
 
 rm -rf $DIR/output $DIR/leaksout
 
