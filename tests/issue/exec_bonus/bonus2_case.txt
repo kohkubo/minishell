@@ -1,1 +1,1 @@
-echo aaa && echo aaa && ls
+echo aaa && echo aaa && echo ccc
