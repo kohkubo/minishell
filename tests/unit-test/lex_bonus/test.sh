@@ -23,10 +23,10 @@ $LIBS -lft -lex -lhash -lreadline -lhistory -L$(brew --prefix readline)/lib -I$(
 
 cd "$(dirname "$0")" || exit
 
-rm -rf output leaksout
+rm -rf $DIR/output $DIR/leaksout
 
-./a.out > output
-diff expect output
+$DIR/a.out > $DIR/output
+diff $DIR/expect $DIR/output
 
 if [ $? -ne 0 ]; then
 	EXIT_CODE=1
@@ -34,7 +34,7 @@ if [ $? -ne 0 ]; then
 	printf "\e[31m%s\n\e[m" ">> leak KO!"
 fi
 
-rm -rf ./a.out output leaksout
-rm -rf ./a.out.dSYM
+rm -rf $DIR/a.out $DIR/output $DIR/leaksout
+rm -rf $DIR/a.out.dSYM
 
 exit $EXIT_CODE
