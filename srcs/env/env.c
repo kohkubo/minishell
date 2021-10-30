@@ -2,6 +2,25 @@
 
 #include <errno.h>
 
+static void	error_store_shellenv(const char *str)
+{
+	char	*tmp;
+
+	if (ft_strchr(str, '=') != NULL)
+	{
+		tmp = ft_xstrdup(str);
+		tmp[ft_strchr(tmp, '=') - tmp] = '\0';
+		ft_putstr_fd("export: not an identifier: ", 2);
+		ft_putendl_fd(tmp, 2);
+		free_set((void **)&tmp, NULL);
+	}
+	else
+	{
+		ft_putstr_fd("export: not an identifier: ", 2);
+		ft_putendl_fd((char *)str, 2);
+	}
+}
+
 void	store_shellenv(char **arr, t_hash_table *table)
 {
 	char		*tmp;
@@ -10,6 +29,11 @@ void	store_shellenv(char **arr, t_hash_table *table)
 	i = 0;
 	while (arr[i] != NULL)
 	{
+		if (ft_atoi(arr[i]) != 0)
+		{
+			error_store_shellenv(arr[i]);
+			return ;
+		}
 		if (ft_strchr(arr[i], '=') != NULL)
 		{
 			tmp = ft_xstrdup(arr[i]);
