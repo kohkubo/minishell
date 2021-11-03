@@ -7,6 +7,7 @@ char	*heredoc_readline(char *heredoc)
 	int		flg;
 	char	*tok;
 
+	g_shell.heredoc_status = 0;
 	flg = 0;
 	tok = ft_xstrdup("");
 	signal_init(signal_handler_heredoc, SIG_IGN, rl_event_hook_heredoc);
