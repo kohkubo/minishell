@@ -12,7 +12,7 @@ static void	error_store_shellenv(const char *str)
 		tmp[ft_strchr(tmp, '=') - tmp] = '\0';
 		ft_putstr_fd("export: not an identifier: ", 2);
 		ft_putendl_fd(tmp, 2);
-		free_set((void **)&tmp, NULL);
+		free_set(&tmp, NULL);
 	}
 	else
 	{
@@ -39,7 +39,7 @@ void	store_shellenv(char **arr, t_hash_table *table)
 			tmp = ft_xstrdup(arr[i]);
 			tmp[ft_strchr(tmp, '=') - tmp] = '\0';
 			hash_setstr(table, tmp, tmp + ft_strlen(tmp) + 1);
-			free_set((void **)&tmp, NULL);
+			free_set(&tmp, NULL);
 		}
 		else
 		{

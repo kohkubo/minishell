@@ -16,15 +16,15 @@
 
 static int	myabort(char *rdbuf, char **line, char **remain)
 {
-	free_set((void **)&rdbuf, NULL);
-	free_set((void **)line, NULL);
-	free_set((void **)remain, NULL);
+	free_set(&rdbuf, NULL);
+	free_set(line, NULL);
+	free_set(remain, NULL);
 	return (-1);
 }
 
 static int	ret(ssize_t rdrtn, char *rdbuf, char **line, char **remain)
 {
-	free_set((void **)&rdbuf, NULL);
+	free_set(&rdbuf, NULL);
 	if (rdrtn > 0)
 		rdrtn = 1;
 	if (*line == NULL || (*remain == NULL && rdrtn != 0))
@@ -67,12 +67,12 @@ int	get_next_line(int fd, char **line)
 	while (rtn >= 0)
 	{
 		rdbuf[rtn] = '\0';
-		free_set((void **)line, safe_strjoin(*line, (char *)rdbuf));
+		free_set(line, safe_strjoin(*line, (char *)rdbuf));
 		ptr = ft_strchr(*line, '\n');
 		if (ptr != NULL && *line != NULL)
 		{
 			*remain = ft_strndup(ptr + 1, -1);
-			free_set((void **)line, ft_strndup(*line, ptr - *line));
+			free_set(line, ft_strndup(*line, ptr - *line));
 			return (ret(1, rdbuf, line, remain));
 		}
 		if (rtn == 0 || *line == NULL)

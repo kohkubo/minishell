@@ -22,34 +22,34 @@ char	*get_typestr(t_node_type type)
 
 	str = ft_xstrdup("");
 	if (type & NODE_PIPE)
-		free_set((void **)&str, ft_xstrjoin(str, " | NODE_PIPE"));
+		free_set(&str, ft_xstrjoin(str, " | NODE_PIPE"));
 	if (type & NODE_BCKGRND)
-		free_set((void **)&str, ft_xstrjoin(str, " | NODE_BCKGRND"));
+		free_set(&str, ft_xstrjoin(str, " | NODE_BCKGRND"));
 	if (type & NODE_SEQ)
-		free_set((void **)&str, ft_xstrjoin(str, " | NODE_SEQ"));
+		free_set(&str, ft_xstrjoin(str, " | NODE_SEQ"));
 	if (type & NODE_REDIRECT_IN)
-		free_set((void **)&str, ft_xstrjoin(str, " | NODE_REDIRECT_IN"));
+		free_set(&str, ft_xstrjoin(str, " | NODE_REDIRECT_IN"));
 	if (type & NODE_REDIRECT_OUT)
-		free_set((void **)&str, ft_xstrjoin(str, " | NODE_REDIRECT_OUT"));
+		free_set(&str, ft_xstrjoin(str, " | NODE_REDIRECT_OUT"));
 	if (type & NODE_REDIRECT_IN2)
-		free_set((void **)&str, ft_xstrjoin(str, " | NODE_REDIRECT_IN2"));
+		free_set(&str, ft_xstrjoin(str, " | NODE_REDIRECT_IN2"));
 	if (type & NODE_REDIRECT_OUT2)
-		free_set((void **)&str, ft_xstrjoin(str, " | NODE_REDIRECT_OUT2"));
+		free_set(&str, ft_xstrjoin(str, " | NODE_REDIRECT_OUT2"));
 	if (type & NODE_CMDPATH)
-		free_set((void **)&str, ft_xstrjoin(str, " | NODE_CMDPATH"));
+		free_set(&str, ft_xstrjoin(str, " | NODE_CMDPATH"));
 	if (type & NODE_ARGUMENT)
-		free_set((void **)&str, ft_xstrjoin(str, " | NODE_ARGUMENT"));
+		free_set(&str, ft_xstrjoin(str, " | NODE_ARGUMENT"));
 	if (type & NODE_REDIRECT_LIST)
-		free_set((void **)&str, ft_xstrjoin(str, " | NODE_REDIRECT_LIST"));
+		free_set(&str, ft_xstrjoin(str, " | NODE_REDIRECT_LIST"));
 	if (type & NODE_REDIRECTION)
-		free_set((void **)&str, ft_xstrjoin(str, " | NODE_REDIRECTION"));
+		free_set(&str, ft_xstrjoin(str, " | NODE_REDIRECTION"));
 	if (type & NODE_AND)
-		free_set((void **)&str, ft_xstrjoin(str, " | NODE_AND"));
+		free_set(&str, ft_xstrjoin(str, " | NODE_AND"));
 	if (type & NODE_OR)
-		free_set((void **)&str, ft_xstrjoin(str, " | NODE_OR"));
+		free_set(&str, ft_xstrjoin(str, " | NODE_OR"));
 	if (type & NODE_DATA)
-		free_set((void **)&str, ft_xstrjoin(str, " | NODE_DATA"));
-	free_set((void **)&str, ft_strtrim(str, "| "));
+		free_set(&str, ft_xstrjoin(str, " | NODE_DATA"));
+	free_set(&str, ft_strtrim(str, "| "));
 	return (str);
 }
 

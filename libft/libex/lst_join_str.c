@@ -14,9 +14,9 @@ char	*lst_join_str(t_list *lst, char *sep)
 		str = ft_xstrdup("");
 	while (lst->next)
 	{
-		free_set((void **)&str, ft_xstrjoin(str, sep));
+		free_set(&str, ft_xstrjoin(str, sep));
 		if ((char *)lst->next->content != NULL)
-			free_set((void **)&str,
+			free_set(&str,
 				ft_xstrjoin(str, (char *)lst->next->content));
 		lst = lst->next;
 	}

@@ -41,13 +41,13 @@ int	main(void)
 		input = readline(PROMPT);
 		if (input == NULL || ft_strlen(input) == 0)
 		{
-			free_set((void **)&input, NULL);
+			free_set(&input, NULL);
 			break ;
 		}
 		add_history(input);
 		minishell_lexer(input, &lexer);
 		test(lexer);
-		free_set((void **)&input, NULL);
+		free_set(&input, NULL);
 	}
 	return (0);
 }

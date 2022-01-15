@@ -17,13 +17,13 @@ t_state_type	store_quote_token(t_list **lst, char **token, t_list **ret)
 	char	quote_type;
 
 	quote_type = *(char *)(*lst)->content;
-	free_set((void **)token, ft_xstrjoin(*token, (char *)(*lst)->content));
+	free_set(token, ft_xstrjoin(*token, (char *)(*lst)->content));
 	while (1)
 	{
 		*lst = (*lst)->next;
 		if (*lst == NULL)
 			ft_error_exit("this pattern is not supported");
-		free_set((void **)token, ft_xstrjoin(*token, (char *)(*lst)->content));
+		free_set(token, ft_xstrjoin(*token, (char *)(*lst)->content));
 		if (*(char *)(*lst)->content == quote_type)
 		{
 			*lst = (*lst)->next;
@@ -34,18 +34,18 @@ t_state_type	store_quote_token(t_list **lst, char **token, t_list **ret)
 	(*lst != NULL && ft_strchr(SEPARATOR, *(char *)(*lst)->content) != NULL))
 	{
 		ft_lstadd_back(ret, ft_lstnew(tok_new(*token, TOKEN)));
-		free_set((void **)token, ft_xstrdup(""));
+		free_set(token, ft_xstrdup(""));
 	}
 	return (STATE_GENERAL);
 }
 
 void	store_general_token(t_list **lst, char **token, t_list **ret)
 {
-	free_set((void **)token, ft_xstrjoin(*token, (char *)(*lst)->content));
+	free_set(token, ft_xstrjoin(*token, (char *)(*lst)->content));
 	if ((*lst)->next != NULL && ft_strcmp(\
 	(char *)(*lst)->next->content, "&") == 0)
 	{
-		free_set((void **)token, ft_xstrjoin(*token, "&"));
+		free_set(token, ft_xstrjoin(*token, "&"));
 		*lst = (*lst)->next;
 	}
 	*lst = (*lst)->next;
@@ -55,7 +55,7 @@ void	store_general_token(t_list **lst, char **token, t_list **ret)
 	(char *)(*lst)->content, "&&") == 0)))
 	{
 		ft_lstadd_back(ret, ft_lstnew(tok_new(*token, TOKEN)));
-		free_set((void **)token, ft_xstrdup(""));
+		free_set(token, ft_xstrdup(""));
 	}
 }
 
@@ -66,9 +66,9 @@ t_state_type	store_heredoc_token(t_list **lst, char **token, t_list **ret)
 	lst_chrset_skip(lst, TOKEN_WSPACE_QUOTES);
 	if (*lst == NULL)
 		return (STATE_ERROR);
-	free_set((void **)token, heredoc_readline((*lst)->content));
+	free_set(token, heredoc_readline((*lst)->content));
 	ft_lstadd_back(ret, ft_lstnew(tok_new(*token, TOKEN)));
-	free_set((void **)token, ft_xstrdup(""));
+	free_set(token, ft_xstrdup(""));
 	*lst = (*lst)->next;
 	return (STATE_GENERAL);
 }

@@ -52,7 +52,7 @@ void	merge_double_token(t_list **lst, char c)
 		token[0] = c;
 		token[1] = c;
 		token[2] = '\0';
-		free_set((void **)&(*lst)->content, ft_xstrdup(token));
+		free_set(&(*lst)->content, ft_xstrdup(token));
 		free((*lst)->next->content);
 		free((*lst)->next);
 		(*lst)->next = next;
