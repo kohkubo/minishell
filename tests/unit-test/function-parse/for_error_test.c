@@ -39,8 +39,8 @@ bool	test(t_tok **toks)
 	while (*toks)
 	{
 		ft_lstadd_back(&lex->listtok, ft_lstnew(new_token((*toks)->data, (*toks)->type)));
-		free_set(&str, ft_strjoin(str, (*toks)->data));
-		free_set(&str, ft_strjoin(str, " "));
+		free_set((void **)&str, ft_strjoin(str, (*toks)->data));
+		free_set((void **)&str, ft_strjoin(str, " "));
 		toks++;
 	}
 	isSuccess = parse(lex, &tree);

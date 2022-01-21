@@ -51,8 +51,8 @@ char	**get_fullpath(const char *path, char *cmd)
 	{
 		data = paths->content;
 		if (data[ft_strlen(data) - 1] != '/')
-			free_set(&data, ft_xstrjoin(data, "/"));
-		free_set(&data, ft_xstrjoin(data, cmd));
+			free_set((void **)&data, ft_xstrjoin(data, "/"));
+		free_set((void **)&data, ft_xstrjoin(data, cmd));
 		paths->content = data;
 		paths = paths->next;
 	}

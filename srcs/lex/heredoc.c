@@ -16,16 +16,16 @@ char	*heredoc_readline(char *heredoc)
 		read = readline(HEREDOC_PROMPT);
 		if (g_shell.heredoc_status != 0 || read == NULL)
 		{
-			free_set(&tok, ft_xstrdup(""));
+			free_set((void **)&tok, ft_xstrdup(""));
 			break ;
 		}
 		if (ft_strcmp(read, heredoc) == 0)
 			break ;
-		free_set(&tok, ft_xstrjoin(tok, read));
-		free_set(&tok, ft_xstrjoin(tok, "\n")), free(read);
+		free_set((void **)&tok, ft_xstrjoin(tok, read));
+		free_set((void **)&tok, ft_xstrjoin(tok, "\n")), free(read);
 		flg++;
 	}
-	free_set(&read, NULL);
+	free_set((void **)&read, NULL);
 	signal_init(signal_handler_prompt, SIG_IGN, NULL);
 	return (tok);
 }

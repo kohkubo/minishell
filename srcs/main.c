@@ -11,7 +11,7 @@ int	main(void)
 	minishell_init(&input, &lex, &tree);
 	while (1)
 	{
-		free_set(&input, NULL), input = readline(PROMPT);
+		free_set((void **)&input, NULL), input = readline(PROMPT);
 		if (input == NULL)
 			exit(g_shell.exit_status);
 		if (ft_strlen(input) == 0)

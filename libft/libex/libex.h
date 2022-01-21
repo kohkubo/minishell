@@ -33,7 +33,7 @@ t_list	*separate_to_lst(char *str, char *separator);
 void	*catch_null(void *ptr, char *title);
 void	*ft_xcalloc(size_t count, size_t size);
 void	*ft_xmalloc(size_t size);
-void	free_set(char **dst, char *src);
+void	free_set(void **dst, void *src);
 void	ft_error_exit(const char *emsg);
 void	ft_fatal(const char *emsg);
 void	pexit(char *message);

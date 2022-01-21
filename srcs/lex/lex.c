@@ -41,7 +41,7 @@ void	merge_double_token(t_list **lst, char c)
 		token[0] = c;
 		token[1] = c;
 		token[2] = '\0';
-		free_set(&(*lst)->content, ft_xstrdup(token));
+		free_set((void **)&(*lst)->content, ft_xstrdup(token));
 		free((*lst)->next->content);
 		free((*lst)->next);
 		(*lst)->next = next;
@@ -72,7 +72,7 @@ t_state_type	minishell_lexer(char *s, t_lexer **lexer)
 		*lexer = lexer_new(NULL);
 		return (STATE_SPACE);
 	}
-	separated = separate_to_lst(s, SPECIAL_CAHRS);
+	separated = separate_to_lst(s, "\'\"\t\n\v\f\r <>|");
 	merge_double_token_in_lst(separated);
 	state = lexer_handler(separated, lexer);
 	ft_lstclear(&separated, free);
